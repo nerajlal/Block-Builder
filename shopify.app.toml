@@ -1,0 +1,66 @@
+# This file stores configurations for your Shopify app.
+client_id = ""
+application_url = "https://blockbuilder.task19.com"
+embedded = true
+
+[auth]
+redirect_urls = ["https://blockbuilder.task19.com/auth/callback"]
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = ""
+
+[webhooks]
+api_version = "2026-10"
+
+  # Handled by: /app/routes/webhooks.app.uninstalled.tsx
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/app/uninstalled"
+  topics = ["app/uninstalled"]
+
+  # Handled by: /app/routes/webhooks.app.scopes_update.tsx
+  [[webhooks.subscriptions]]
+  topics = [ "app/scopes_update" ]
+  uri = "/webhooks/app/scopes_update"
+
+  # Mandatory compliance topic for public apps only
+  # See: https://shopify.dev/docs/apps/build/privacy-law-compliance
+  # [[webhooks.subscriptions]]
+  # uri = "/webhooks/customers/data_request"
+  # compliance_topics = ["customers/data_request"]
+
+  # [[webhooks.subscriptions]]
+  # uri = "/webhooks/customers/redact"
+  # compliance_topics = ["customers/redact"]
+
+  # [[webhooks.subscriptions]]
+  # uri = "/webhooks/shop/redact"
+  # compliance_topics = ["shop/redact"]
+
+# Only receive Events when a variant's price changes and the product status is active.
+# See: https://shopify.dev/docs/apps/build/events-webhooks
+# [events]
+# api_version = "2026-10"
+
+#   [[events.subscription]]
+#   handle = "product-price-change"
+#   topic = "Product"
+#   actions = ["update"]
+#   triggers = ["product.variants.price", "product.variants.compareAtPrice"]
+#   uri = "/webhooks/products/update"
+#   query = """
+#   query product_variant_price_change($productId: ID!, $variantsId: ID!) {
+#     product(id: $productId) {
+#       id
+#       title
+#       status
+#     }
+#     productVariant(id: $variantsId) {
+#       id
+#       title
+#       price
+#       compareAtPrice
+#     }
+#   }
+#   """
+#   query_filter = "product.status:'ACTIVE'"

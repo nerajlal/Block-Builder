@@ -1,0 +1,22 @@
+<div class="bb-block bb-promo"><strong>{{ block.settings.heading | escape }}</strong><div>{{ block.settings.message | escape }}</div></div>
+{% schema %}
+{
+  "name": "Promo Banner",
+  "target": "section",
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A little extra for your next order"
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Message",
+      "default": "Explore our latest offers"
+    }
+  ]
+}
+{% endschema %}

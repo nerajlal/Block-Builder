@@ -1,0 +1,22 @@
+<div class="bb-block bb-delivery"><strong>🚚 {{ block.settings.heading | escape }}</strong><div>{{ block.settings.message | escape }}</div><small>Delivery times are estimates and may vary by location.</small></div>
+{% schema %}
+{
+  "name": "Delivery Estimate",
+  "target": "section",
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Delivery information"
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Message",
+      "default": "Estimated delivery in 3\u20135 business days"
+    }
+  ]
+}
+{% endschema %}

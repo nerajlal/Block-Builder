@@ -1,0 +1,28 @@
+<div class="bb-block bb-highlights"><span>✦ {{ block.settings.first | escape }}</span><span>✦ {{ block.settings.second | escape }}</span><span>✦ {{ block.settings.third | escape }}</span></div>
+{% schema %}
+{
+  "name": "Product Highlights",
+  "target": "section",
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "first",
+      "label": "First",
+      "default": "Made for everyday use"
+    },
+    {
+      "type": "text",
+      "id": "second",
+      "label": "Second",
+      "default": "Built to last"
+    },
+    {
+      "type": "text",
+      "id": "third",
+      "label": "Third",
+      "default": "Easy to care for"
+    }
+  ]
+}
+{% endschema %}

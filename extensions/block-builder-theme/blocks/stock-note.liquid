@@ -1,0 +1,22 @@
+{% if product.selected_or_first_available_variant.available %}<div class="bb-block bb-stock">● {{ block.settings.available_text | escape }}</div>{% else %}<div class="bb-block bb-stock bb-stock--out">{{ block.settings.sold_out_text | escape }}</div>{% endif %}
+{% schema %}
+{
+  "name": "Stock Note",
+  "target": "section",
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "available_text",
+      "label": "Available Text",
+      "default": "Available and ready to ship"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_text",
+      "label": "Sold Out Text",
+      "default": "Currently unavailable"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+<div class="bb-block bb-trust"><span>✓ {{ block.settings.first | escape }}</span><span>✓ {{ block.settings.second | escape }}</span><span>✓ {{ block.settings.third | escape }}</span></div>
+{% schema %}
+{
+  "name": "Trust Strip",
+  "target": "section",
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "first",
+      "label": "First",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "text",
+      "id": "second",
+      "label": "Second",
+      "default": "Easy returns"
+    },
+    {
+      "type": "text",
+      "id": "third",
+      "label": "Third",
+      "default": "Friendly support"
+    }
+  ]
+}
+{% endschema %}
