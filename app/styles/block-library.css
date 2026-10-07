@@ -6,6 +6,7 @@
 .block-card__category{color:#55705d;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
 .block-card h3{margin:8px 0}
 .block-card p{flex:1;color:#5c5c5c;line-height:1.5}
+.block-card__actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px}
 .block-preview{display:flex;flex-direction:column;justify-content:center;min-height:225px;padding:18px;background:#f7f8f7}
 .block-preview__surface{display:flex;align-items:center;justify-content:center;flex:1;min-width:0}
 .block-preview__surface>.bb-block,.block-preview__surface>.bb-badge-wrap{width:100%;margin:0}

@@ -34,11 +34,11 @@ export default function BlockLibrary() {
   const [filter, setFilter] = useState("All");
   const categories = ["All", ...new Set(blocks.map((block) => block.category))];
   const visible = filter === "All" ? blocks : blocks.filter((block) => block.category === filter);
-  const editorUrl = (handle: string, embed: boolean) => {
+  const editorUrl = (handle: string, embed: boolean, target = "mainSection") => {
     const blockId = `${apiKey}/${handle}`;
     const query = embed
       ? `context=apps&template=index&activateAppId=${blockId}`
-      : `template=product&addAppBlockId=${blockId}&target=newAppsSection`;
+      : `template=product&addAppBlockId=${blockId}&target=${target}`;
     return `https://${shop}/admin/themes/current/editor?${query}`;
   };
   return <s-page heading="Block Builder" inlineSize="large">
@@ -59,7 +59,12 @@ export default function BlockLibrary() {
       <div className="block-grid">
         {visible.map((block) => <article className="block-card" key={block.handle}>
           <BlockPreview handle={block.handle} />
-          <div className="block-card__body"><span className="block-card__category">{block.category}</span><h3>{block.title}</h3><p>{block.description}</p><s-button href={editorUrl(block.handle, "embed" in block)} target="_blank" accessibilityLabel={`Install ${block.title} in theme`}>Install in theme</s-button></div>
+          <div className="block-card__body"><span className="block-card__category">{block.category}</span><h3>{block.title}</h3><p>{block.description}</p>
+            <div className="block-card__actions">
+              <s-button href={editorUrl(block.handle, "embed" in block)} target="_blank" accessibilityLabel={`Install ${block.title} in theme`}>Install in theme</s-button>
+              {!("embed" in block) && <s-link href={editorUrl(block.handle, false, "newAppsSection")} target="_blank">Add as separate section</s-link>}
+            </div>
+          </div>
         </article>)}
       </div>
     </s-section>
