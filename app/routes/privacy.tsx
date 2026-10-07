@@ -4,8 +4,8 @@ import { Footer } from "../components/Footer";
 import "../landing.css";
 
 export const meta: MetaFunction = () => [
-  { title: "Privacy Policy — Page Booster" },
-  { name: "description", content: "Privacy policy for the Page Booster app." },
+  { title: "Privacy Policy — Block Builder" },
+  { name: "description", content: "Privacy policy for the Block Builder app." },
 ];
 
 export default function Privacy() {

@@ -4,8 +4,8 @@ import { Footer } from "../components/Footer";
 import "../landing.css";
 
 export const meta: MetaFunction = () => [
-  { title: "Support — Page Booster" },
-  { name: "description", content: "Get help with Page Booster setup, product coupons, bundles, delivery dates, and Shopify app blocks." },
+  { title: "Support — Block Builder" },
+  { name: "description", content: "Get help with Block Builder setup, product coupons, bundles, delivery dates, and Shopify app blocks." },
 ];
 
 export default function Support() {
@@ -17,7 +17,7 @@ export default function Support() {
           <div className="wrap">
             <div className="tag">Support</div>
             <h1>Get unstuck and keep selling.</h1>
-            <p>Find setup answers, open the installation guide, or email the Page Booster team.</p>
+            <p>Find setup answers, open the installation guide, or email the Block Builder team.</p>
           </div>
         </section>
         <section className="section alt">
@@ -53,7 +53,7 @@ export default function Support() {
             <div className="faq-group">
               <h3>Getting started</h3>
               <details>
-                <summary>How do I install Page Booster?</summary>
+                <summary>How do I install Block Builder?</summary>
                 <p>
                   Open the <a href="https://apps.shopify.com/product-discount-3">Shopify App Store listing</a>, select Add app, then approve installation. Follow the <a href="/installation-guide">setup guide</a> to configure and place each block.
                 </p>

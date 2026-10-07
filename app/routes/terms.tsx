@@ -4,8 +4,8 @@ import { Footer } from "../components/Footer";
 import "../landing.css";
 
 export const meta: MetaFunction = () => [
-  { title: "Terms of Service — Page Booster" },
-  { name: "description", content: "Terms of service for the Page Booster app." },
+  { title: "Terms of Service — Block Builder" },
+  { name: "description", content: "Terms of service for the Block Builder app." },
 ];
 
 export default function Terms() {
@@ -17,7 +17,7 @@ export default function Terms() {
           <div className="wrap">
             <div className="tag">Terms of Service</div>
             <h1>Our terms and conditions.</h1>
-            <p>Please read these terms carefully before using Page Booster.</p>
+            <p>Please read these terms carefully before using Block Builder.</p>
           </div>
         </section>
         <section className="section">

@@ -8,9 +8,9 @@ import { Footer } from "../../components/Footer";
 import "../../landing.css";
 
 export const meta: MetaFunction = () => [
-  { title: "Page Booster — Product deals, discounts & delivery dates for Shopify" },
+  { title: "Block Builder — Product deals, discounts & delivery dates for Shopify" },
   { name: "description", content: "Turn your Shopify product pages into a clearer reason to buy with bundles, product-specific discounts, delivery estimates, and AI-assisted product copy." },
-  { property: "og:title", content: "Page Booster for Shopify" },
+  { property: "og:title", content: "Block Builder for Shopify" },
   { property: "og:description", content: "Turn your Shopify product pages into a clearer reason to buy with bundles, product-specific discounts, delivery estimates, and AI-assisted product copy." },
 ];
 
@@ -42,7 +42,7 @@ export default function Home() {
               </p>
               <div className="hero-actions">
                 <a className="btn" href="https://apps.shopify.com/product-discount-3">
-                  Add Page Booster to Shopify <span aria-hidden="true">↗</span>
+                  Add Block Builder to Shopify <span aria-hidden="true">↗</span>
                 </a>
                 <a className="btn btn-outline" href="#features">
                   Explore the features
@@ -50,7 +50,7 @@ export default function Home() {
               </div>
               <div className="tiny">No coding required · Plans from $4/month</div>
             </div>
-            <div className="preview" aria-label="Illustrative product page showing Page Booster widgets">
+            <div className="preview" aria-label="Illustrative product page showing Block Builder widgets">
               <div className="preview-head">
                 <b>NORTH</b>
                 <span>Shop &nbsp; Collections &nbsp; Cart (0)</span>
@@ -139,7 +139,7 @@ export default function Home() {
               <div className="step">
                 <b>01</b>
                 <h3>Install the app</h3>
-                <p>Add Page Booster to your Shopify store and open its dashboard.</p>
+                <p>Add Block Builder to your Shopify store and open its dashboard.</p>
               </div>
               <div className="step">
                 <b>02</b>
@@ -181,7 +181,7 @@ export default function Home() {
             <h2>Good to know before you install.</h2>
             <details>
               <summary>Do I need to edit my theme code?</summary>
-              <p>No. Page Booster is designed for setup without coding. Follow the app’s installation guide to enable the blocks in your theme.</p>
+              <p>No. Block Builder is designed for setup without coding. Follow the app’s installation guide to enable the blocks in your theme.</p>
             </details>
             <details>
               <summary>Can I use a fixed amount discount?</summary>
@@ -205,7 +205,7 @@ export default function Home() {
             <h2>Make every product page work a little harder.</h2>
             <p>Put offers, delivery information, and product benefits where shoppers can act on them.</p>
             <a className="btn" href="https://apps.shopify.com/product-discount-3">
-              Add Page Booster to Shopify <span aria-hidden="true">↗</span>
+              Add Block Builder to Shopify <span aria-hidden="true">↗</span>
             </a>
           </div>
         </section>

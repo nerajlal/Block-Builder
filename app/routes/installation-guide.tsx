@@ -4,8 +4,8 @@ import { Footer } from "../components/Footer";
 import "../landing.css";
 
 export const meta: MetaFunction = () => [
-  { title: "Installation Guide — Page Booster" },
-  { name: "description", content: "Install Page Booster and configure product coupons, bundles, delivery estimates, and AI features in Shopify." },
+  { title: "Installation Guide — Block Builder" },
+  { name: "description", content: "Install Block Builder and configure product coupons, bundles, delivery estimates, and AI features in Shopify." },
 ];
 
 export default function InstallationGuide() {
@@ -16,7 +16,7 @@ export default function InstallationGuide() {
         <section className="page-hero">
           <div className="wrap">
             <div className="tag">Installation guide</div>
-            <h1>Set up Page Booster, step by step.</h1>
+            <h1>Set up Block Builder, step by step.</h1>
             <p>Install the app, configure your offers and delivery settings, then place the blocks in your Shopify theme.</p>
           </div>
         </section>
@@ -40,13 +40,13 @@ export default function InstallationGuide() {
                 </h2>
                 <ol>
                   <li>
-                    Open <a href="https://apps.shopify.com/product-discount-3">Page Booster on the Shopify App Store</a>.
+                    Open <a href="https://apps.shopify.com/product-discount-3">Block Builder on the Shopify App Store</a>.
                   </li>
                   <li>
                     Click <strong>Add app</strong>, review the permissions, and select <strong>Install app</strong>.
                   </li>
                   <li>
-                    Open Page Booster from <strong>Apps</strong> in your Shopify admin.
+                    Open Block Builder from <strong>Apps</strong> in your Shopify admin.
                   </li>
                 </ol>
                 <div className="callout">
@@ -59,7 +59,7 @@ export default function InstallationGuide() {
                 </h2>
                 <ol>
                   <li>
-                    In Page Booster, open <strong>Delivery Settings</strong>.
+                    In Block Builder, open <strong>Delivery Settings</strong>.
                   </li>
                   <li>Set the delivery day range and destination shown to shoppers.</li>
                   <li>
@@ -121,7 +121,7 @@ export default function InstallationGuide() {
                     Open a product page template and locate <strong>Product information</strong>.
                   </li>
                   <li>
-                    Select <strong>Add block → Apps</strong>, then add each Page Booster block you want to show.
+                    Select <strong>Add block → Apps</strong>, then add each Block Builder block you want to show.
                   </li>
                   <li>Drag blocks into position and adjust their colors and titles. Save the theme.</li>
                 </ol>

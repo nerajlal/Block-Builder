@@ -4,8 +4,8 @@ export function Header() {
   return (
     <header className="top">
       <div className="wrap nav">
-        <Link className="logo" to="/" aria-label="Page Booster home">
-          <span className="logo-icon">✦</span>Page Booster
+        <Link className="logo" to="/" aria-label="Block Builder home">
+          <span className="logo-icon">✦</span>Block Builder
         </Link>
         <nav className="navlinks" aria-label="Main navigation">
           <Link to="/#features">Features</Link>

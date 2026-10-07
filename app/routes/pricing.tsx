@@ -4,8 +4,8 @@ import { Footer } from "../components/Footer";
 import "../landing.css";
 
 export const meta: MetaFunction = () => [
-  { title: "Pricing — Page Booster for Shopify" },
-  { name: "description", content: "Compare Page Booster plans for bundles, coupons, delivery dates, and AI product features." },
+  { title: "Pricing — Block Builder for Shopify" },
+  { name: "description", content: "Compare Block Builder plans for bundles, coupons, delivery dates, and AI product features." },
 ];
 
 export default function Pricing() {
@@ -82,7 +82,7 @@ export default function Pricing() {
               </article>
             </div>
             <p className="plan-note">
-              Prices and features reflect the current Page Booster pricing page. Confirm the applicable plan and billing terms in Shopify before subscribing.
+              Prices and features reflect the current Block Builder pricing page. Confirm the applicable plan and billing terms in Shopify before subscribing.
             </p>
           </div>
         </section>
@@ -106,7 +106,7 @@ export default function Pricing() {
             </details>
             <details>
               <summary>What is a voucher?</summary>
-              <p>A voucher is a unique discount code generated and claimed through a Page Booster widget.</p>
+              <p>A voucher is a unique discount code generated and claimed through a Block Builder widget.</p>
             </details>
           </div>
         </section>

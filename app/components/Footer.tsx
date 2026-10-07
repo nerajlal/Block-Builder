@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="foot">
       <div className="wrap foot-inner">
         <div>
-          © {new Date().getFullYear()} Page Booster · Built by <a href="https://task19.com/">Task19 Technologies</a>
+          © {new Date().getFullYear()} Block Builder · Built by <a href="https://task19.com/">Task19 Technologies</a>
         </div>
         <div className="foot-links">
           <Link to="/support">Support</Link>
