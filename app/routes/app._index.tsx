@@ -38,10 +38,14 @@ export default function BlockLibrary() {
       : `https://${shop}/admin/themes/current/editor?template=product&addAppBlockId=${encodeURIComponent(apiKey + "/" + handle)}&target=newAppsSection`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
-  return <s-page heading="Block Builder">
+  return <s-page heading="Block Builder" inlineSize="large">
     <s-section heading="Upgrade your product page">
       <s-paragraph>Choose a widget and click Install in theme. Shopify opens its theme editor so you can preview the widget, customize it, and save the theme.</s-paragraph>
       <s-banner tone="info">Works with Online Store 2.0 themes, including Dawn. Your existing theme files are not edited.</s-banner>
+    </s-section>
+    <s-section heading="How it works">
+      <s-paragraph>Choose a block, open it in Shopify’s theme editor, then place it on your product template and save. For the Scroll to top utility, enable the app embed in the editor instead.</s-paragraph>
+      <s-link href="/app/additional">View installation guide</s-link>
     </s-section>
     <s-section heading="Block library">
       <s-stack direction="inline" gap="small">
@@ -54,8 +58,7 @@ export default function BlockLibrary() {
         </article>)}
       </div>
     </s-section>
-    <s-section slot="aside" heading="How it works"><s-ordered-list><s-list-item>Choose a block.</s-list-item><s-list-item>Place it in your product template.</s-list-item><s-list-item>Adjust its settings and save your theme.</s-list-item></s-ordered-list><s-link href="/app/additional">View installation guide</s-link></s-section>
-    <style>{`.block-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px}.block-card{border:1px solid #dedede;border-radius:12px;background:#fff;overflow:hidden}.block-card__preview{min-height:120px;background:linear-gradient(140deg,#f4f7f4,#e8eee9);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:#193d2b;font-weight:600}.block-card__body{padding:20px}.block-card__category{color:#55705d;font-size:12px;text-transform:uppercase;letter-spacing:.06em}.block-card h3{margin:8px 0}.block-card p{min-height:48px;color:#5c5c5c;line-height:1.5}`}</style>
+    <style>{`.block-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}.block-card{display:flex;flex-direction:column;min-width:0;border:1px solid #dedede;border-radius:12px;background:#fff;overflow:hidden}.block-card__preview{min-height:132px;background:linear-gradient(140deg,#f4f7f4,#e8eee9);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:#193d2b;font-weight:600}.block-card__body{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:20px}.block-card__category{color:#55705d;font-size:12px;text-transform:uppercase;letter-spacing:.06em}.block-card h3{margin:8px 0}.block-card p{flex:1;color:#5c5c5c;line-height:1.5}@media(max-width:1050px){.block-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:680px){.block-grid{grid-template-columns:minmax(0,1fr)}}`}</style>
   </s-page>;
 }
 export const headers: HeadersFunction = (args) => boundary.headers(args);
