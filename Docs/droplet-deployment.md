@@ -1,0 +1,17 @@
+# Block Builder droplet deployment
+
+This guide assumes an Ubuntu droplet, a clone of this repository, and `blockbuilder.task19.com` pointing to the droplet. Replace the app path with the actual clone path. The Shopify client secret stays only on the server; never paste it into chat, Git, or a shell command that will be logged.
+
+1. Confirm the clone contains the current code with `git log -1 --oneline`. The reviewed local revision was `0110537` on 7 October 2026. If the droplet is behind, use `git pull --ff-only` after checking `git status --short`. Do not reset local changes.
+2. Install Node.js 22.12 or newer, Nginx, and Certbot. Confirm with `node --version`, `npm --version`, `nginx -v`, and `certbot --version`.
+3. In the app directory, run `npm ci` and `npm run build`. Production must retain `prisma` and `@prisma/client`, which are application dependencies.
+4. Create an ignored `.env` (mode `0600`) containing the matching `SHOPIFY_APP_URL=https://blockbuilder.task19.com`, `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`, and `DATABASE_URL=file:/var/lib/block-builder/sessions.db`. The ID is also in `shopify.app.toml`; the secret comes from the Shopify app's credentials page. Set `NODE_ENV=production`, `HOST=127.0.0.1`, and `PORT=3000` in the process manager. Never use the development database on the droplet.
+5. Create `/var/lib/block-builder` owned by the app service user and restricted to that user. Back it up regularly: it contains Shopify sessions and access tokens. Run `npm run setup` with the same `DATABASE_URL` used by the service. Confirm migration status with `npx prisma migrate status`.
+6. Start `npm run start` through systemd as an unprivileged user. Set `WorkingDirectory` to the clone path and `EnvironmentFile` to the private `.env`; bind only to `127.0.0.1:3000`. Confirm `curl -I http://127.0.0.1:3000/` responds before configuring the proxy.
+7. Configure Nginx for `blockbuilder.task19.com` to proxy requests to `http://127.0.0.1:3000`, preserving the `Host`, `X-Forwarded-Proto`, and client IP headers. Obtain a Let's Encrypt certificate with `certbot --nginx -d blockbuilder.task19.com`, then verify `curl -I https://blockbuilder.task19.com/` and the certificate hostname. The public `/` must serve the Block Builder landing page.
+8. From a Shopify CLI-authenticated development machine, run `npm run shopify -- app config validate --json` and `npm run deploy`. This publishes app configuration and the theme extension. Do this only after the web server is ready; the CLI deployment does not copy code to the droplet. Confirm Partner Dashboard URLs and webhook destinations match the production domain.
+9. Install on a development shop and test authentication, all 13 product blocks, the scroll-to-top app embed, theme-editor save, uninstall/reinstall, and privacy webhook delivery. A successful build does not prove the merchant installation flow works.
+
+For every update: pull only after checking `git status`, run `npm ci` if dependencies changed, run `npm run setup` if migrations changed, run `npm run build`, restart the service, and check its logs plus the public URL. Keep the previous release/commit available for rollback. Do not overwrite the session database during code deploys.
+
+The exact systemd and Nginx commands depend on the droplet's operating system, clone path, service user, and existing web-server configuration; inspect those before applying a template.

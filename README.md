@@ -23,7 +23,7 @@ npm run dev
 
 ## Before deployment
 
-The public domain currently awaits its new droplet and certificate. Host the web app there with Node.js 22+, run `npm ci`, `npm run setup`, and `npm run build`, and run the server with `npm run start` behind HTTPS. Set `SHOPIFY_APP_URL`, `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`, `DATABASE_URL`, and `NODE_ENV=production`. For a single droplet, `DATABASE_URL` can point to an SQLite file on a persistent, backed-up path. Keep that directory writable by the app process. `shopify app deploy` publishes Shopify configuration and extension code; it does not host this web server.
+The production droplet has been created; deployment and the domain certificate still need verification. Follow [Docs/droplet-deployment.md](Docs/droplet-deployment.md) for the server setup. `shopify app deploy` publishes Shopify configuration and extension code; it does not host this web server.
 
 The app has not been installed and exercised on a development store yet. Before release, verify the thirteen product blocks and one app embed in Dawn, theme-editor links, variant changes, installation/reinstallation, privacy webhooks, and mobile layouts. See [Docs/details.md](Docs/details.md) for the full product and release checklist.
 
