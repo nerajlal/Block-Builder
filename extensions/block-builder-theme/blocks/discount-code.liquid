@@ -1,0 +1,30 @@
+{% if block.settings.code != blank %}
+  <div class="bb-block bb-discount" {{ block.shopify_attributes }}>
+    <div class="bb-discount__copy">
+      <strong>{{ block.settings.heading | escape }}</strong>
+      {% if block.settings.message != blank %}<span>{{ block.settings.message | escape }}</span>{% endif %}
+    </div>
+    <div class="bb-discount__action">
+      <code id="bb-code-{{ block.id }}">{{ block.settings.code | escape }}</code>
+      <button type="button" class="bb-discount__button" data-bb-copy-target="bb-code-{{ block.id }}" data-bb-copy-label="{{ block.settings.button_label | escape }}">{{ block.settings.button_label | escape }}</button>
+    </div>
+  </div>
+{% elsif request.design_mode %}
+  <div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter a discount code that already exists in Shopify.</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Discount Code",
+  "target": "section",
+  "stylesheet": "block-builder.css",
+  "javascript": "discount-code.js",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "An offer for you" },
+    { "type": "text", "id": "message", "label": "Details", "default": "Enter this code at checkout" },
+    { "type": "text", "id": "code", "label": "Existing Shopify discount code", "info": "Create and test this code in Shopify Discounts before showing it to shoppers." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Copy code" }
+  ]
+}
+{% endschema %}

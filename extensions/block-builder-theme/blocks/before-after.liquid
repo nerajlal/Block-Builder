@@ -1,0 +1,45 @@
+{% if block.settings.before_image != blank and block.settings.after_image != blank %}
+<div class="bb-block bb-before-after" data-bb-before-after style="--bb-split:50%"><div class="bb-before-after__images">
+  {{ block.settings.before_image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'bb-before-after__before' }}
+  <div class="bb-before-after__after">{{ block.settings.after_image | image_url: width: 1200 | image_tag: loading: 'lazy' }}</div>
+  <span class="bb-before-after__line" aria-hidden="true"></span>
+  <span class="bb-before-after__label bb-before-after__label--before">{{ block.settings.before_label | escape }}</span><span class="bb-before-after__label bb-before-after__label--after">{{ block.settings.after_label | escape }}</span>
+</div><label class="bb-before-after__control">Move to compare images<input type="range" min="0" max="100" value="50" aria-label="Compare before and after images"></label></div>
+{% elsif request.design_mode %}<div class="bb-block bb-editor-note">Select both before and after images to show this comparison.</div>{% endif %}
+{% schema %}
+{
+  "name": "Before & After",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "before_image",
+      "label": "Before image"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image",
+      "label": "After image"
+    },
+    {
+      "type": "text",
+      "id": "before_label",
+      "label": "Before label",
+      "default": "Before"
+    },
+    {
+      "type": "text",
+      "id": "after_label",
+      "label": "After label",
+      "default": "After"
+    }
+  ],
+  "javascript": "before-after.js"
+}
+{% endschema %}

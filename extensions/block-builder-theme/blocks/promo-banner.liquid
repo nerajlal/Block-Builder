@@ -1,10 +1,11 @@
-<div class="bb-block bb-promo"><strong>{{ block.settings.heading | escape }}</strong><div>{{ block.settings.message | escape }}</div></div>
+<div class="bb-block bb-promo bb-promo--{{ block.settings.style | escape }}" {{ block.shopify_attributes }}><strong>{{ block.settings.heading | escape }}</strong><div>{{ block.settings.message | escape }}</div>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
 {% schema %}
 {
   "name": "Promo Banner",
   "target": "section",
   "stylesheet": "block-builder.css",
   "settings": [
+    { "type": "select", "id": "style", "label": "Design", "options": [{ "value": "dark", "label": "Dark" }, { "value": "cream", "label": "Cream" }, { "value": "outline", "label": "Outline" }], "default": "dark" },
     {
       "type": "text",
       "id": "heading",
@@ -16,7 +17,23 @@
       "id": "message",
       "label": "Message",
       "default": "Explore our latest offers"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Optional link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Learn more"
     }
-  ]
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  }
 }
 {% endschema %}

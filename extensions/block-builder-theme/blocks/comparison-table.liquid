@@ -1,0 +1,99 @@
+{% assign has_comparison = false %}
+{% if block.settings.row_1_label != blank or block.settings.row_2_label != blank or block.settings.row_3_label != blank or block.settings.row_4_label != blank %}{% assign has_comparison = true %}{% endif %}
+{% if has_comparison %}
+<div class="bb-block bb-comparison"><h3>{{ block.settings.heading | escape }}</h3><div class="bb-comparison__scroll"><table><thead><tr><th scope="col">Feature</th><th scope="col">{{ block.settings.your_heading | escape }}</th><th scope="col">{{ block.settings.other_heading | escape }}</th></tr></thead><tbody>
+{% for number in (1..4) %}{% assign label_key = 'row_' | append: number | append: '_label' %}{% assign your_key = 'row_' | append: number | append: '_yours' %}{% assign other_key = 'row_' | append: number | append: '_other' %}{% if block.settings[label_key] != blank %}<tr><th scope="row">{{ block.settings[label_key] | escape }}</th><td>{{ block.settings[your_key] | escape }}</td><td>{{ block.settings[other_key] | escape }}</td></tr>{% endif %}{% endfor %}
+</tbody></table></div></div>
+{% elsif request.design_mode %}<div class="bb-block bb-editor-note">Add factual comparison rows in this block's settings.</div>{% endif %}
+{% schema %}
+{
+  "name": "Comparison Table",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Compare the details"
+    },
+    {
+      "type": "text",
+      "id": "your_heading",
+      "label": "Your column heading",
+      "default": "This product"
+    },
+    {
+      "type": "text",
+      "id": "other_heading",
+      "label": "Other column heading",
+      "default": "Alternative"
+    },
+    {
+      "type": "text",
+      "id": "row_1_label",
+      "label": "Row 1 label"
+    },
+    {
+      "type": "text",
+      "id": "row_1_yours",
+      "label": "Row 1 - your product"
+    },
+    {
+      "type": "text",
+      "id": "row_1_other",
+      "label": "Row 1 - alternative"
+    },
+    {
+      "type": "text",
+      "id": "row_2_label",
+      "label": "Row 2 label"
+    },
+    {
+      "type": "text",
+      "id": "row_2_yours",
+      "label": "Row 2 - your product"
+    },
+    {
+      "type": "text",
+      "id": "row_2_other",
+      "label": "Row 2 - alternative"
+    },
+    {
+      "type": "text",
+      "id": "row_3_label",
+      "label": "Row 3 label"
+    },
+    {
+      "type": "text",
+      "id": "row_3_yours",
+      "label": "Row 3 - your product"
+    },
+    {
+      "type": "text",
+      "id": "row_3_other",
+      "label": "Row 3 - alternative"
+    },
+    {
+      "type": "text",
+      "id": "row_4_label",
+      "label": "Row 4 label"
+    },
+    {
+      "type": "text",
+      "id": "row_4_yours",
+      "label": "Row 4 - your product"
+    },
+    {
+      "type": "text",
+      "id": "row_4_other",
+      "label": "Row 4 - alternative"
+    }
+  ]
+}
+{% endschema %}

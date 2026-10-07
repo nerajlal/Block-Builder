@@ -1,15 +1,30 @@
 # Block Builder
 
-An embedded Shopify app for adding polished product-page blocks to Online Store 2.0 themes such as Dawn. Merchants browse the library in the app, choose **Add to theme**, place the block in the product template, customize its text, preview, and save. Blocks are delivered through a Shopify theme app extension; the app does not edit theme files.
+Block Builder is an embedded Shopify app with a public landing page and a library of thirteen product-page blocks plus one store-wide app embed. Merchants choose a widget, click **Install in theme**, customize it in Shopify's theme editor, and save the theme. The app uses a theme app extension and does not edit theme source files.
 
-The first release includes Trust strip, Delivery estimate, Product highlights, Promotion banner, and Stock note. The stock note reads the selected product variant's availability rather than inventing scarcity. The delivery block uses merchant-configured wording and labels the date as an estimate.
+The current blocks are Trust strip, Delivery estimate, Product highlights, Promotion banner, Stock note, Payment methods, Product badge, Product FAQ, Image story, Comparison table, Before & after, Information tabs, and Discount code. Scroll to top is a store-wide app embed. Payment logos come from the store's enabled payment types. The stock note reads real variant availability; the offer banner is presentation only and does not create discounts or change checkout prices.
 
-## Setup
+## Local setup
 
-Node 22.12+ is required. Install dependencies with `npm install`. The Shopify CLI is a local dev dependency, so `npm run config:link` works after installation. Copy `.env.example` to `.env` for local credential notes, but keep `.env` untracked; Shopify CLI may also supply dev values. The server loads `.env` when started directly; existing process environment variables take precedence. Production hosting can instead set the variables in its environment or secret manager. This repository is currently **not linked to a Partner app**. Create the new app in the Shopify Dev Dashboard, then run `npm run config:link` and select it. The intended production origin is `https://blockbuilder.task19.com`; set the App URL to that origin, keep embedded mode on, and use `https://blockbuilder.task19.com/auth/callback` if a redirect URL is requested. Review the linked `shopify.app.toml` before deploying its configuration. Set `SHOPIFY_APP_URL=https://blockbuilder.task19.com` on the production host. Use a development store to install the app and test every block in Dawn's product template.
+Node.js 22.12+ is required. The app is linked to the Block Builder Shopify app. Keep credentials in your ignored `.env` file or environment variables; `.env.example` lists the required names without secrets.
 
-The project uses Shopify's official React Router app template for embedded authentication and webhooks. It requires a persistent database for production session storage; the scaffold's SQLite configuration is suitable only for local development. Configure a production database and deployment URL before publishing.
+```bash
+npm ci
+npm run setup
+npm run typecheck
+npm run lint
+npm run build
+npm run shopify -- app build
+npm run shopify -- app config validate --json
+npm run dev
+```
 
-## Validation
+`npm run dev` uses Shopify CLI to start a tunnel and preview the extension on a development store. `npm run start` serves a built app directly, provided its environment variables and session database are configured. The production origin is `https://blockbuilder.task19.com`.
 
-Run `npm run typecheck`, `npm run lint`, and `npm run build`. After linking to an app, run `npm run dev` to preview the theme extension and test the editor links. Publish only after checking each block on desktop and mobile and completing Shopify's app privacy requirements.
+## Before deployment
+
+The public domain currently awaits its new droplet and certificate. Host the web app there with Node.js 22+, run `npm ci`, `npm run setup`, and `npm run build`, and run the server with `npm run start` behind HTTPS. Set `SHOPIFY_APP_URL`, `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`, `DATABASE_URL`, and `NODE_ENV=production`. For a single droplet, `DATABASE_URL` can point to an SQLite file on a persistent, backed-up path. Keep that directory writable by the app process. `shopify app deploy` publishes Shopify configuration and extension code; it does not host this web server.
+
+The app has not been installed and exercised on a development store yet. Before release, verify the thirteen product blocks and one app embed in Dawn, theme-editor links, variant changes, installation/reinstallation, privacy webhooks, and mobile layouts. See [Docs/details.md](Docs/details.md) for the full product and release checklist.
+
+The local `Launchgify-Prompts` archive is a design reference and is excluded from Git and app deployment. See [Docs/prompt-library-inventory.md](Docs/prompt-library-inventory.md) for all 108 examples, [Docs/prompt-library-audit.md](Docs/prompt-library-audit.md) for integration decisions, and [Docs/library-completion-plan.md](Docs/library-completion-plan.md) for the features still to build.

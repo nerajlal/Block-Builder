@@ -1,0 +1,22 @@
+<div class="bb-badge-wrap" {{ block.shopify_attributes }}><span class="bb-badge bb-badge--{{ block.settings.style | escape }}">{{ block.settings.label | escape }}</span></div>
+{% schema %}
+{
+  "name": "Product Badge",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    { "type": "select", "id": "style", "label": "Design", "options": [{ "value": "soft", "label": "Soft" }, { "value": "outline", "label": "Outline" }, { "value": "dark", "label": "Dark" }], "default": "soft" },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Badge label",
+      "default": "Featured product"
+    }
+  ]
+}
+{% endschema %}

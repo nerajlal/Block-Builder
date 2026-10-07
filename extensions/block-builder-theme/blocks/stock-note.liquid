@@ -1,9 +1,15 @@
-{% if product.selected_or_first_available_variant.available %}<div class="bb-block bb-stock">● {{ block.settings.available_text | escape }}</div>{% else %}<div class="bb-block bb-stock bb-stock--out">{{ block.settings.sold_out_text | escape }}</div>{% endif %}
+{% assign selected_variant = product.selected_or_first_available_variant %}
+<div class="bb-block bb-stock{% unless selected_variant.available %} bb-stock--out{% endunless %}" data-bb-stock role="status" aria-live="polite">
+  <span data-bb-stock-available{% unless selected_variant.available %} hidden{% endunless %}>● {{ block.settings.available_text | escape }}</span>
+  <span data-bb-stock-unavailable{% if selected_variant.available %} hidden{% endif %}>{{ block.settings.sold_out_text | escape }}</span>
+  <script type="application/json" data-bb-variants>[{% for variant in product.variants %}{"id":{{ variant.id | json }},"available":{{ variant.available | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
+</div>
 {% schema %}
 {
   "name": "Stock Note",
   "target": "section",
   "stylesheet": "block-builder.css",
+  "javascript": "stock-note.js",
   "settings": [
     {
       "type": "text",
@@ -17,6 +23,11 @@
       "label": "Sold Out Text",
       "default": "Currently unavailable"
     }
-  ]
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  }
 }
 {% endschema %}

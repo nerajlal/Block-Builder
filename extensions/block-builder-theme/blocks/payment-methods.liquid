@@ -1,0 +1,23 @@
+{% if shop.enabled_payment_types.size > 0 %}
+<div class="bb-block bb-payments"><strong>{{ block.settings.heading | escape }}</strong><div class="bb-payments__icons" aria-label="Available payment methods">{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div></div>
+{% endif %}
+{% schema %}
+{
+  "name": "Payment Methods",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Secure payment options"
+    }
+  ]
+}
+{% endschema %}

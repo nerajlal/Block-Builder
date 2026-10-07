@@ -1,86 +1,103 @@
-# Block Builder — project details
+# Block Builder — product and implementation details
 
-_Last updated: 7 October 2026. This document describes the local codebase, not a published Shopify app._
+_Last updated: 7 October 2026. The app is linked in Shopify, but the web host and live store checks are pending._
 
-## Product goal
+## Goal and merchant journey
 
-Block Builder helps merchants using Dawn or another Online Store 2.0 theme make product pages feel more polished without buying a premium theme. A merchant installs the app, browses a library of product-page components, opens the theme editor for a chosen component, adjusts its settings, previews it, and saves the theme. The initial product is intentionally small: reusable, merchant-controlled blocks that can be added or removed without changing theme source files.
+Block Builder helps merchants using Dawn or another Online Store 2.0 theme improve a product page with reusable, polished components. Merchants browse blocks inside the embedded Shopify app, choose **Install in theme**, place the block in Shopify's product-template editor, edit settings, preview desktop and mobile, and save. Blocks can later be reordered or removed in the editor. The app does not paste or modify Liquid in the merchant's theme. The earlier idea of handing merchants copyable prompts/code is not part of this implementation. The supplied `Launchgify-Prompts` collection is a local design reference; see [prompt-library-inventory.md](prompt-library-inventory.md) for every example and [prompt-library-audit.md](prompt-library-audit.md) for integration decisions.
 
-The original idea included a website where merchants copied prompts or Liquid snippets into a theme. The chosen app architecture uses **Shopify theme app extensions** for installation. This is easier to manage and remove, and keeps the merchant in Shopify's theme editor. A copyable-code library is a possible later feature, but it is not implemented now. We should not describe the current app as automatically redesigning a whole store or installing code into theme files.
+The public root page is a product overview and store-login entry point. The embedded `/app` area is the authenticated block library; `/app/additional` is its installation guide. The library has category filters, illustrative previews, descriptions, and theme-editor deep links. The previews are examples, not pixel-exact renderings of each merchant's theme.
 
-## Current implementation
+## Stack and key files
 
-The project lives at `/Users/mac/Projects/Task19 Apps/block-builder`. It uses Shopify's official React Router app template, React/TypeScript, App Bridge, Polaris web components, Prisma session storage, and a theme app extension. The earlier Laravel starter was replaced; an archive of that starter was saved to `/private/tmp/block-builder-laravel-backup.tar.gz` during the scaffold change. That temporary archive is not part of the product or a durable backup.
+- Official Shopify React Router template, React/TypeScript, App Bridge, Polaris web components, and Shopify-managed installation.
+- `app/shopify.server.ts`: Shopify authentication and API version (`2026-10`).
+- `app/routes/_index/route.tsx`: public landing page, with metadata for search engines.
+- `app/routes/app._index.tsx`: fourteen-widget catalog and theme-editor links.
+- `app/routes/app.additional.tsx`: merchant installation guide.
+- `extensions/block-builder-theme/blocks/*.liquid`: theme app blocks. Each is available on product templates.
+- `extensions/block-builder-theme/assets/`: shared CSS and stock-variant behavior.
+- `extensions/block-builder-theme/locales/`: default English locale files required by the extension build.
+- `app/routes/webhooks.compliance.tsx`: HMAC-verified mandatory App Store privacy webhooks.
+- `app/routes/webhooks.app.uninstalled.tsx`: idempotent shop session deletion.
+- `prisma/schema.prisma`: SQLite session storage, configured by `DATABASE_URL`.
+- `shopify.app.toml`: linked client ID, app URL, empty scopes, redirect URL, webhook subscriptions, embedded setting.
 
-The embedded app authenticates through the template's Shopify integration in `app/shopify.server.ts`. The block library is in `app/routes/app._index.tsx`; the installation guide is in `app/routes/app.additional.tsx`. `app/routes/app.tsx` provides the embedded app shell and navigation. The theme extension lives in `extensions/block-builder-theme`, with one Liquid file per block and shared styles in `assets/block-builder.css`. The extension blocks target theme sections and expose text settings in Shopify's theme editor. The app has no product-write scope in `shopify.app.toml` because this first release does not modify products.
+The previous Laravel starter was replaced. A temporary archive was written to `/private/tmp/block-builder-laravel-backup.tar.gz` during the scaffold transition; it is not a durable project backup.
 
-The library currently has five blocks:
+## Implemented block catalog
 
-| Block | Merchant value | Current behavior |
+| Block | What it does | Limits and merchant responsibility |
 | --- | --- | --- |
-| Trust strip | Shows three short reassurance messages | Text is editable in the theme editor; claims are merchant-provided and should be truthful. |
-| Delivery estimate | Shows a delivery message | The message is merchant-configured and explicitly says delivery times are estimates. It does not calculate dates or use shipping rates. |
-| Product highlights | Shows three concise product benefits | Text is editable; it does not pull product metafields yet. |
-| Promotion banner | Shows a headline and message | Display only; it does not create a discount or alter checkout prices. |
-| Stock note | Shows availability | Reads the product's selected-or-first-available variant on Liquid page render. It does not promise a live, after-selection JavaScript update or display a fabricated stock count. |
+| Trust strip | Three editable reassurance messages | Merchants must make only claims their store can honor. |
+| Delivery estimate | Merchant-set delivery heading and message | Clearly labels the date as an estimate; no carrier/rate calculation. |
+| Product highlights | Three editable benefits | Does not read product metafields yet. |
+| Promotion banner | Editable offer headline, text, and optional link | No automatic discount or checkout change. |
+| Stock note | Reads actual variant availability and updates when variant selection changes in supported product forms | No invented countdown or quantity claim; test each target theme's variant selector. |
+| Payment methods | Renders SVG logos for `shop.enabled_payment_types` | Reflects enabled methods for the current market; does not process payments. |
+| Product badge | Editable short label | Default is neutral; merchant should avoid untrue badges. |
+| Product FAQ | Three editable questions and answers in native `<details>` elements | Answers are merchant-owned content. |
+| Image story | Merchant-chosen image and short text | Image is resized through Shopify CDN filters. |
+| Comparison table | Merchant-entered side-by-side rows | Renders only configured rows; claims must be factual. |
+| Before & after | Compares two merchant-selected images with a slider | Both images are required; the merchant must use genuine photos. |
+| Information tabs | Organizes up to three product details | Keyboard arrow, Home, and End navigation supported. |
+| Discount code | Shows a merchant-entered copyable code | The code must already exist and work in Shopify Discounts. |
+| Scroll to top | Floating button across the storefront | Store-wide app embed; merchant activates it in the theme editor. |
 
-The app library has category filters, short previews, descriptions, an **Add to theme** action, and an installation guide. The Add to theme action opens the current theme's product-template editor with Shopify's `addAppBlockId` deep link. The merchant still decides placement and must save the theme. If the active theme or section does not support app blocks, Shopify's editor may require a different section or template. The in-app previews are illustrative rather than an exact rendering of every theme's fonts and spacing.
+All widgets load through one theme app extension, with separate Liquid files and shared responsive CSS. Product app blocks are limited to product templates to avoid placement in unrelated pages. Interactive widgets load small JavaScript assets. Scroll to top is a store-wide app embed. The **Install in theme** link uses Shopify's `addAppBlockId={client_id}/{block_handle}` format for product blocks or `activateAppId` for the app embed and opens the current theme's product editor in a new tab. The merchant must save the editor. Shopify may fall back to a different app-block area if the selected theme section does not support app blocks.
 
-## Merchant workflow
+## Credentials and local development
 
-1. Install and open Block Builder in Shopify Admin.
-2. Browse the library and choose a component.
-3. Select **Add to theme**. The product-template theme editor opens in a new tab.
-4. Place the app block in a suitable section, edit text, and preview desktop and mobile views.
-5. Save the theme. Remove or rearrange blocks later in the editor.
+The local `shopify.app.toml` is linked to the Block Builder app. It uses `https://blockbuilder.task19.com` as the intended production App URL, remains embedded, and allows `https://blockbuilder.task19.com/auth/callback`. The legacy install flow is off. The application does not require Admin API scopes for these fourteen widgets. The client secret belongs only in an ignored `.env` or host secret manager, never in committed files.
 
-There is no in-app billing, onboarding wizard, analytics dashboard, bundle engine, prompt generator, or automatic theme transformation in the current code. Those are possible roadmap items, not existing features.
-
-## Local development and checks
-
-Requires Node.js 22.12 or newer. From the project directory:
+Install Node.js 22.12+ and run:
 
 ```bash
-npm install
+npm ci
+npm run setup
 npm run typecheck
 npm run lint
 npm run build
+npm run shopify -- app build
+npm run shopify -- app config validate --json
+npm run dev
 ```
 
-These three code checks passed on 7 October 2026. The build may print React Router future-flag notices; those are framework notices, not failed checks. They do **not** prove that a block has been installed or rendered in a live Shopify theme.
+`.env.example` lists `SHOPIFY_APP_URL`, `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`, and `DATABASE_URL`. The server loads `.env` if present; host-provided environment variables take precedence. `npm run setup` generates Prisma Client and applies session migrations. `npm run dev` uses Shopify CLI and may use a temporary development tunnel URL. The public landing page can be smoke-tested from a direct local server after a build.
 
-The intended production domain is `https://blockbuilder.task19.com`. The Shopify CLI is installed as a project dev dependency; run `npm install` first. `.env.example` lists the expected variables, while a real `.env` is Git-ignored. The server loads `.env` if present, while host-provided environment variables take precedence. This project does not commit or embed the client secret. The Shopify App URL and production `SHOPIFY_APP_URL` environment variable must use that origin. Embedded mode is enabled, and `https://blockbuilder.task19.com/auth/callback` is configured as an allowed redirect URL. Keep the legacy install flow disabled. The code has not yet been linked to a Shopify Partner/Dev Dashboard app: `shopify.app.toml` still has `client_id = ""`. After creating the app in the correct organization, run `npm run config:link`, choose that app, confirm the resulting identity and URLs, then run `npm run dev`. Use a development store and a Dawn product template for the first end-to-end test. Do not insert an API key or secret into this document or commit environment secrets.
+Code checks passed on 7 October 2026: TypeScript, ESLint, React Router production build, Shopify extension build, CLI config validation, Prisma setup/migration, and a local HTTP 200 response from `/`. These checks do not verify Shopify install, block placement, or the deployed domain. The domain still points to infrastructure serving another app's certificate, as expected before the new droplet is created.
 
-The scaffold uses SQLite in `prisma/schema.prisma` for local session storage. Before hosting publicly, choose a durable production database, configure the production app URL and credentials, apply migrations, and verify session persistence and webhook delivery. The Partner app, hosting, theme extension deployment, pricing, and App Store listing are not set up yet. No publication-readiness claim should be made from local build checks alone.
+## Privacy and data
 
-## Release validation still required
+The app stores shop sessions and Shopify credentials in Prisma, but it does not request customer/order scopes or store customer records. Shopify's mandatory `customers/data_request` and `customers/redact` webhooks are HMAC-verified and acknowledged because there is no customer data to export or erase. `shop/redact` and `app/uninstalled` remove the shop's session records. A public App Store launch still needs a privacy policy, support contact, and live webhook delivery tests.
 
-- Create and link the Shopify app, choose its distribution model, and review requested scopes and webhook/API versions.
-- Install on a development store. Confirm first install, reopening, auth/session recovery, uninstall, and reinstall.
-- Add, configure, reorder, save, and remove all five blocks in Dawn. Check product pages on desktop and mobile, including products with multiple variants and unavailable inventory.
-- Confirm the theme-editor deep links open the intended product template and handle an unsupported theme gracefully.
-- Check accessibility: keyboard use, contrast, readable text, and responsive layouts. Check that merchant-entered claims are not misleading.
-- Set up production hosting, durable database, logs/monitoring, backups, privacy requirements, support contact, listing content, and a deployment process.
-- Decide pricing and entitlements before building any paid plan flow; no prices or plan handles have been provided for this app.
+## Deployment sequence after the droplet exists
 
-## Roadmap ideas, not implemented
+1. Point `blockbuilder.task19.com` to the new droplet and obtain a TLS certificate covering that hostname.
+2. Install Node.js 22+, clone the project, and run `npm ci`, `npm run setup`, and `npm run build`.
+3. Provide `SHOPIFY_APP_URL=https://blockbuilder.task19.com`, the matching `SHOPIFY_API_KEY` and `SHOPIFY_API_SECRET`, `NODE_ENV=production`, and a writable persistent `DATABASE_URL`. An SQLite file on the droplet can work for a single process if backed up; use a managed database before multi-instance deployment.
+4. Run `npm run start` under a process manager and reverse proxy HTTPS traffic to it. Verify `/` returns the public page and `/app` starts Shopify authentication when opened from Admin.
+5. Deploy the Shopify app configuration and theme extension with `npm run deploy`. This publishes Shopify-side configuration; it does not deploy the Node web server.
+6. Install on a development store, test every block in Dawn on desktop/mobile, then validate webhooks and merchant onboarding before public release.
 
-Potential follow-on components include richer product information blocks, payment/trust badges, product badges, offer cards, frequently-bought-together suggestions, bundle presentations, and more visual layouts. Each needs a clear data source and honest behavior. For example, a real bundle needs cart and pricing logic; an urgency indicator must reflect genuine inventory or offer timing. A future block marketplace could add search, favorites, saved presets, and theme-specific previews. Prioritize merchant demand and Shopify platform compatibility before expanding the library.
+## Live validation still required
 
-## Key files
+- Confirm the chosen distribution, app listing, support/privacy pages, and any pricing plan. No in-app billing or entitlements are coded because no Block Builder pricing has been decided.
+- Test first install, reopening, session expiry, uninstall/reinstall, and redirect behavior in Shopify Admin.
+- Test all thirteen product blocks and the app embed in Dawn and at least one other Online Store 2.0 theme, including editors where app blocks cannot be placed in the main product section.
+- Test stock note switching among available and unavailable variants, plus its initial state and section reloads in the editor.
+- Test payment logos against a store with different enabled methods/markets, and image loading with and without a selected image.
+- Check keyboard behavior, contrast, responsive layout, and honest customer-facing copy.
+- Send test privacy/uninstall webhooks, inspect delivery, and verify session deletion where applicable.
+- Set up backups, logs, restart policy, and a deployment rollback before inviting merchants.
 
-- `app/routes/app._index.tsx` — catalog, previews, filters, theme-editor links.
-- `app/routes/app.additional.tsx` — installation instructions.
-- `app/routes/app.tsx` and `app/shopify.server.ts` — embedded shell and Shopify authentication.
-- `extensions/block-builder-theme/blocks/*.liquid` — storefront blocks and editor settings.
-- `extensions/block-builder-theme/assets/block-builder.css` — shared block presentation.
-- `shopify.app.toml` — app identity placeholder, scopes, and webhooks.
-- `prisma/schema.prisma` — current local session database schema.
-- `README.md` — quick setup instructions.
+## Later ideas, not yet implemented
+
+Product bundles or frequently-bought-together blocks would need real product selection, cart and discount behavior, and dedicated testing. Other possibilities are review integrations, merchant presets, richer product-data bindings, search/favorites, and more visual styles. Avoid urgency or scarcity indicators unless backed by genuine Shopify data.
 
 ## References
 
 - [Shopify app scaffolding](https://shopify.dev/docs/apps/build/scaffold-app)
-- [Theme app extensions](https://shopify.dev/docs/apps/build/online-store/theme-app-extensions)
-- [Theme extension configuration and app-block deep links](https://shopify.dev/docs/apps/build/online-store/theme-app-extensions/configuration)
-- [Shopify app authentication](https://shopify.dev/docs/apps/build/authentication-authorization)
+- [Theme app extensions and deep links](https://shopify.dev/docs/apps/build/online-store/theme-app-extensions/configuration)
+- [Privacy webhook requirements](https://shopify.dev/docs/apps/build/compliance/privacy-law-compliance)
+- [React Router deployment](https://shopify.dev/docs/apps/launch/deployment/deploy-to-hosting-service)

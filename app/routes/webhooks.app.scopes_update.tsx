@@ -8,10 +8,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
     const current = payload.current as string[];
     if (session) {
-        await db.session.update({   
-            where: {
-                id: session.id
-            },
+        await db.session.updateMany({
+            where: { id: session.id },
             data: {
                 scope: current.toString(),
             },

@@ -1,0 +1,61 @@
+<div class="bb-block bb-faq"><h3>{{ block.settings.heading | escape }}</h3>
+  {% if block.settings.question_1 != blank %}<details><summary>{{ block.settings.question_1 | escape }}</summary><p>{{ block.settings.answer_1 | escape | newline_to_br }}</p></details>{% endif %}
+  {% if block.settings.question_2 != blank %}<details><summary>{{ block.settings.question_2 | escape }}</summary><p>{{ block.settings.answer_2 | escape | newline_to_br }}</p></details>{% endif %}
+  {% if block.settings.question_3 != blank %}<details><summary>{{ block.settings.question_3 | escape }}</summary><p>{{ block.settings.answer_3 | escape | newline_to_br }}</p></details>{% endif %}
+</div>
+{% schema %}
+{
+  "name": "Product FAQ",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Good to know"
+    },
+    {
+      "type": "text",
+      "id": "question_1",
+      "label": "Question 1",
+      "default": "How do I care for this?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_1",
+      "label": "Answer 1",
+      "default": "Add your care instructions here."
+    },
+    {
+      "type": "text",
+      "id": "question_2",
+      "label": "Question 2",
+      "default": "When will it arrive?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_2",
+      "label": "Answer 2",
+      "default": "Add your delivery information here."
+    },
+    {
+      "type": "text",
+      "id": "question_3",
+      "label": "Question 3",
+      "default": "Can I return it?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_3",
+      "label": "Answer 3",
+      "default": "Add your return policy summary here."
+    }
+  ]
+}
+{% endschema %}
