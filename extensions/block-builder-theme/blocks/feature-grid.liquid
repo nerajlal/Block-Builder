@@ -1,4 +1,4 @@
-{% if block.settings.body_1 != blank and block.settings.body_2 != blank and block.settings.body_3 != blank %}<div class="bb-block bb-feature-grid" {{ block.shopify_attributes }}><h3>{{ block.settings.heading | escape }}</h3><div class="bb-feature-grid__items"><div><span aria-hidden="true">✦</span><strong>{{ block.settings.title_1 | escape }}</strong><p>{{ block.settings.body_1 | escape }}</p></div><div><span aria-hidden="true">✦</span><strong>{{ block.settings.title_2 | escape }}</strong><p>{{ block.settings.body_2 | escape }}</p></div><div><span aria-hidden="true">✦</span><strong>{{ block.settings.title_3 | escape }}</strong><p>{{ block.settings.body_3 | escape }}</p></div></div></div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter three factual product features to show this block.</div>{% endif %}
+{% if block.settings.body_1 != blank and block.settings.body_2 != blank and block.settings.body_3 != blank %}<div class="bb-block bb-feature-grid" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}><h3>{{ block.settings.heading | escape }}</h3><div class="bb-feature-grid__items"><div><span aria-hidden="true">✦</span><strong>{{ block.settings.title_1 | escape }}</strong><p>{{ block.settings.body_1 | escape }}</p></div><div><span aria-hidden="true">✦</span><strong>{{ block.settings.title_2 | escape }}</strong><p>{{ block.settings.body_2 | escape }}</p></div><div><span aria-hidden="true">✦</span><strong>{{ block.settings.title_3 | escape }}</strong><p>{{ block.settings.body_3 | escape }}</p></div></div></div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter three factual product features to show this block.</div>{% endif %}
 {% schema %}
 {
   "name": "Feature grid",
@@ -51,6 +51,30 @@
       "id": "body_3",
       "label": "Feature 3 detail",
       "info": "Use a factual benefit of this product."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

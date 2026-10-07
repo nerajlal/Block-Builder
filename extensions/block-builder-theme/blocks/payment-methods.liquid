@@ -1,5 +1,5 @@
 {% if shop.enabled_payment_types.size > 0 %}
-<div class="bb-block bb-payments"><strong>{{ block.settings.heading | escape }}</strong><div class="bb-payments__icons" aria-label="Available payment methods">{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div></div>
+<div class="bb-block bb-payments" {% render 'block-color-attributes', block: block %}><strong>{{ block.settings.heading | escape }}</strong><div class="bb-payments__icons" aria-label="Available payment methods">{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div></div>
 {% endif %}
 {% schema %}
 {
@@ -17,6 +17,30 @@
       "id": "heading",
       "label": "Heading",
       "default": "Secure payment options"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

@@ -1,5 +1,5 @@
 {% if block.settings.collections != blank %}
-<div class="bb-block bb-collection-circles" {{ block.shopify_attributes }}>
+<div class="bb-block bb-collection-circles" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}>
   {% if block.settings.heading != blank %}<h3>{{ block.settings.heading | escape }}</h3>{% endif %}
   <div class="bb-collection-circles__grid">
     {% for chosen in block.settings.collections limit: 3 %}
@@ -36,6 +36,30 @@
       "id": "collections",
       "label": "Collections",
       "limit": 3
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

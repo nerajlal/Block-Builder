@@ -1,4 +1,4 @@
-<div class="bb-block bb-delivery"><strong>🚚 {{ block.settings.heading | escape }}</strong><div>{{ block.settings.message | escape }}</div><small>Delivery times are estimates and may vary by location.</small></div>
+<div class="bb-block bb-delivery" {% render 'block-color-attributes', block: block %}><strong>🚚 {{ block.settings.heading | escape }}</strong><div>{{ block.settings.message | escape }}</div><small>Delivery times are estimates and may vary by location.</small></div>
 {% schema %}
 {
   "name": "Delivery Estimate",
@@ -16,6 +16,30 @@
       "id": "message",
       "label": "Message",
       "default": "Estimated delivery in 3–5 business days"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ],
   "enabled_on": {

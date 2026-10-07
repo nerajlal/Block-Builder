@@ -1,4 +1,4 @@
-{% if block.settings.item_1 != blank and block.settings.item_2 != blank and block.settings.item_3 != blank %}<div class="bb-block bb-checklist" {{ block.shopify_attributes }}><h3>{{ block.settings.heading | escape }}</h3><ul><li>{{ block.settings.item_1 | escape }}</li><li>{{ block.settings.item_2 | escape }}</li><li>{{ block.settings.item_3 | escape }}</li></ul></div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter three factual product points to show this block.</div>{% endif %}
+{% if block.settings.item_1 != blank and block.settings.item_2 != blank and block.settings.item_3 != blank %}<div class="bb-block bb-checklist" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}><h3>{{ block.settings.heading | escape }}</h3><ul><li>{{ block.settings.item_1 | escape }}</li><li>{{ block.settings.item_2 | escape }}</li><li>{{ block.settings.item_3 | escape }}</li></ul></div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter three factual product points to show this block.</div>{% endif %}
 {% schema %}
 {
   "name": "Product checklist",
@@ -33,6 +33,30 @@
       "id": "item_3",
       "label": "Item 3",
       "info": "Use a factual point about this product."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

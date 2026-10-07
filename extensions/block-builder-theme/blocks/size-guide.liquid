@@ -4,7 +4,7 @@
 <details class="bb-block bb-size-guide" {{ block.shopify_attributes }}><summary>{{ block.settings.heading | escape }}</summary><div class="bb-size-guide__content"><table><thead><tr><th scope="col">{{ block.settings.label_heading | escape }}</th><th scope="col">{{ block.settings.measurement_heading | escape }}</th></tr></thead><tbody>
 {% for number in (1..3) %}{% assign size_key = 'size_' | append: number %}{% assign measurement_key = 'measurement_' | append: number %}{% if block.settings[size_key] != blank %}<tr><th scope="row">{{ block.settings[size_key] | escape }}</th><td>{{ block.settings[measurement_key] | escape }}</td></tr>{% endif %}{% endfor %}
 </tbody></table>{% if block.settings.note != blank %}<p>{{ block.settings.note | escape }}</p>{% endif %}</div></details>
-{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Add at least one real size and measurement.</div>{% endif %}
+{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}>Add at least one real size and measurement.</div>{% endif %}
 {% schema %}
 {
   "name": "Size guide",
@@ -68,6 +68,30 @@
       "type": "textarea",
       "id": "note",
       "label": "Optional sizing note"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

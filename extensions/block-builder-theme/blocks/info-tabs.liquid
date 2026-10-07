@@ -1,5 +1,5 @@
 {% assign has_tab_content = false %}{% if block.settings.tab_1_body != blank or block.settings.tab_2_body != blank or block.settings.tab_3_body != blank %}{% assign has_tab_content = true %}{% endif %}
-{% if has_tab_content %}<div class="bb-block bb-info-tabs" data-bb-info-tabs><div class="bb-info-tabs__list" role="tablist" aria-label="Product information">
+{% if has_tab_content %}<div class="bb-block bb-info-tabs" {% render 'block-color-attributes', block: block %} data-bb-info-tabs><div class="bb-info-tabs__list" role="tablist" aria-label="Product information">
 {% for number in (1..3) %}{% assign body_key = 'tab_' | append: number | append: '_body' %}{% assign title_key = 'tab_' | append: number | append: '_title' %}{% if block.settings[body_key] != blank %}<button type="button" role="tab" id="bb-tab-{{ block.id }}-{{ number }}" aria-controls="bb-panel-{{ block.id }}-{{ number }}" aria-selected="false" tabindex="-1">{{ block.settings[title_key] | escape }}</button>{% endif %}{% endfor %}</div>
 {% for number in (1..3) %}{% assign body_key = 'tab_' | append: number | append: '_body' %}{% if block.settings[body_key] != blank %}<div role="tabpanel" id="bb-panel-{{ block.id }}-{{ number }}" aria-labelledby="bb-tab-{{ block.id }}-{{ number }}" hidden>{{ block.settings[body_key] | escape | newline_to_br }}</div>{% endif %}{% endfor %}
 </div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note">Add product information to at least one tab.</div>{% endif %}
@@ -46,6 +46,30 @@
       "type": "textarea",
       "id": "tab_3_body",
       "label": "Tab 3 content"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ],
   "javascript": "info-tabs.js"

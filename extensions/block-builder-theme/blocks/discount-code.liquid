@@ -1,5 +1,5 @@
 {% if block.settings.code != blank %}
-  <div class="bb-block bb-discount" {{ block.shopify_attributes }}>
+  <div class="bb-block bb-discount" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}>
     <div class="bb-discount__copy">
       <strong>{{ block.settings.heading | escape }}</strong>
       {% if block.settings.message != blank %}<span>{{ block.settings.message | escape }}</span>{% endif %}
@@ -19,12 +19,60 @@
   "target": "section",
   "stylesheet": "block-builder.css",
   "javascript": "discount-code.js",
-  "enabled_on": { "templates": ["product"] },
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "An offer for you" },
-    { "type": "text", "id": "message", "label": "Details", "default": "Enter this code at checkout" },
-    { "type": "text", "id": "code", "label": "Existing Shopify discount code", "info": "Create and test this code in Shopify Discounts before showing it to shoppers." },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Copy code" }
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "An offer for you"
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Details",
+      "default": "Enter this code at checkout"
+    },
+    {
+      "type": "text",
+      "id": "code",
+      "label": "Existing Shopify discount code",
+      "info": "Create and test this code in Shopify Discounts before showing it to shoppers."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Copy code"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
+    }
   ]
 }
 {% endschema %}

@@ -1,0 +1,1 @@
+{% render 'block-color-data', block: block %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank or block.settings.link_color != blank %} style="{% render 'block-color-style', block: block %}"{% endif %}

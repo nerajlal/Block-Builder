@@ -1,5 +1,5 @@
 {% if block.settings.before_image != blank and block.settings.after_image != blank %}
-<div class="bb-block bb-before-after" data-bb-before-after style="--bb-split:50%"><div class="bb-before-after__images">
+<div class="bb-block bb-before-after" data-bb-before-after style="--bb-split:50%;{% render 'block-color-style', block: block %}" {% render 'block-color-data', block: block %}><div class="bb-before-after__images">
   {{ block.settings.before_image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'bb-before-after__before' }}
   <div class="bb-before-after__after">{{ block.settings.after_image | image_url: width: 1200 | image_tag: loading: 'lazy' }}</div>
   <span class="bb-before-after__line" aria-hidden="true"></span>
@@ -38,6 +38,30 @@
       "id": "after_label",
       "label": "After label",
       "default": "After"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ],
   "javascript": "before-after.js"

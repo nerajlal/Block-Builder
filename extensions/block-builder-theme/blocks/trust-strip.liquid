@@ -1,11 +1,30 @@
-<div class="bb-block bb-trust bb-trust--{{ block.settings.style | escape }}" {{ block.shopify_attributes }}><span>✓ {{ block.settings.first | escape }}</span><span>✓ {{ block.settings.second | escape }}</span><span>✓ {{ block.settings.third | escape }}</span></div>
+<div class="bb-block bb-trust bb-trust--{{ block.settings.style | escape }}" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}><span>✓ {{ block.settings.first | escape }}</span><span>✓ {{ block.settings.second | escape }}</span><span>✓ {{ block.settings.third | escape }}</span></div>
 {% schema %}
 {
   "name": "Trust Strip",
   "target": "section",
   "stylesheet": "block-builder.css",
   "settings": [
-    { "type": "select", "id": "style", "label": "Design", "options": [{ "value": "soft", "label": "Soft" }, { "value": "outline", "label": "Outline" }, { "value": "dark", "label": "Dark" }], "default": "soft" },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Design",
+      "options": [
+        {
+          "value": "soft",
+          "label": "Soft"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "soft"
+    },
     {
       "type": "text",
       "id": "first",
@@ -23,6 +42,30 @@
       "id": "third",
       "label": "Third",
       "default": "Friendly support"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ],
   "enabled_on": {

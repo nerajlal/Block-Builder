@@ -1,5 +1,5 @@
 {% if block.settings.body != blank %}
-<div class="bb-block bb-guarantee bb-guarantee--{{ block.settings.style | escape }}" {{ block.shopify_attributes }}>
+<div class="bb-block bb-guarantee bb-guarantee--{{ block.settings.style | escape }}" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}>
   <span class="bb-guarantee__icon" aria-hidden="true">✓</span>
   <div><strong>{{ block.settings.heading | escape }}</strong><p>{{ block.settings.body | escape | newline_to_br }}</p>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
 </div>
@@ -15,7 +15,26 @@
   },
   "stylesheet": "block-builder.css",
   "settings": [
-    {"type": "select", "id": "style", "label": "Design", "options": [{"value": "standard", "label": "Standard"}, {"value": "outline", "label": "Outline"}, {"value": "warm", "label": "Warm"}], "default": "standard"},
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Design",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "warm",
+          "label": "Warm"
+        }
+      ],
+      "default": "standard"
+    },
     {
       "type": "text",
       "id": "heading",
@@ -38,6 +57,30 @@
       "id": "link_label",
       "label": "Link label",
       "default": "Read the policy"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

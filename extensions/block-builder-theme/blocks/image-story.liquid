@@ -1,4 +1,4 @@
-<div class="bb-block bb-story{% if block.settings.image == blank %} bb-story--no-image{% endif %}">
+<div class="bb-block bb-story{% if block.settings.image == blank %} bb-story--no-image{% endif %}" {% render 'block-color-attributes', block: block %}>
   {% if block.settings.image != blank %}<div class="bb-story__image">{{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy' }}</div>{% endif %}
   <div class="bb-story__copy"><span>{{ block.settings.eyebrow | escape }}</span><h3>{{ block.settings.heading | escape }}</h3><p>{{ block.settings.body | escape | newline_to_br }}</p></div>
 </div>
@@ -35,6 +35,30 @@
       "id": "body",
       "label": "Body",
       "default": "Tell shoppers what makes this product special."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

@@ -1,11 +1,30 @@
-<div class="bb-block bb-highlights bb-highlights--{{ block.settings.style | escape }}"><span>✦ {{ block.settings.first | escape }}</span><span>✦ {{ block.settings.second | escape }}</span><span>✦ {{ block.settings.third | escape }}</span></div>
+<div class="bb-block bb-highlights bb-highlights--{{ block.settings.style | escape }}" {% render 'block-color-attributes', block: block %}><span>✦ {{ block.settings.first | escape }}</span><span>✦ {{ block.settings.second | escape }}</span><span>✦ {{ block.settings.third | escape }}</span></div>
 {% schema %}
 {
   "name": "Product Highlights",
   "target": "section",
   "stylesheet": "block-builder.css",
   "settings": [
-    {"type": "select", "id": "style", "label": "Design", "options": [{"value": "standard", "label": "Standard"}, {"value": "outline", "label": "Outline"}, {"value": "warm", "label": "Warm"}], "default": "standard"},
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Design",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "warm",
+          "label": "Warm"
+        }
+      ],
+      "default": "standard"
+    },
     {
       "type": "text",
       "id": "first",
@@ -23,6 +42,30 @@
       "id": "third",
       "label": "Third",
       "default": "Easy to care for"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ],
   "enabled_on": {

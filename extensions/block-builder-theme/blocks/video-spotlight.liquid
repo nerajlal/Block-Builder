@@ -1,5 +1,5 @@
 {% if block.settings.video != blank %}
-<div class="bb-block bb-video" {{ block.shopify_attributes }}>
+<div class="bb-block bb-video" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}>
   {% if block.settings.heading != blank %}<h3>{{ block.settings.heading | escape }}</h3>{% endif %}
   {{ block.settings.video | video_tag: controls: true, autoplay: false, loop: false }}
   {% if block.settings.caption != blank %}<p>{{ block.settings.caption | escape }}</p>{% endif %}
@@ -31,6 +31,30 @@
       "type": "textarea",
       "id": "caption",
       "label": "Caption"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

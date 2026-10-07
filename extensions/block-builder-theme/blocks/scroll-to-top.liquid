@@ -1,4 +1,4 @@
-<button class="bb-scroll-top" type="button" aria-label="{{ block.settings.label | escape }}" data-bb-scroll-top {{ block.shopify_attributes }}>
+<button class="bb-scroll-top" {% render 'block-color-attributes', block: block %} type="button" aria-label="{{ block.settings.label | escape }}" data-bb-scroll-top {{ block.shopify_attributes }}>
   <span aria-hidden="true">↑</span>
 </button>
 
@@ -9,7 +9,36 @@
   "stylesheet": "block-builder.css",
   "javascript": "scroll-to-top.js",
   "settings": [
-    { "type": "text", "id": "label", "label": "Accessible button label", "default": "Back to top" }
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Accessible button label",
+      "default": "Back to top"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
+    }
   ]
 }
 {% endschema %}

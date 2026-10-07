@@ -1,4 +1,4 @@
-{% if block.settings.message != blank %}<div class="bb-block bb-brand-note" {{ block.shopify_attributes }}><span>{{ block.settings.eyebrow | escape }}</span><blockquote>{{ block.settings.message | escape | newline_to_br }}</blockquote>{% if block.settings.attribution != blank %}<p>— {{ block.settings.attribution | escape }}</p>{% endif %}</div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Add your own brand note to show this block.</div>{% endif %}
+{% if block.settings.message != blank %}<div class="bb-block bb-brand-note" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}><span>{{ block.settings.eyebrow | escape }}</span><blockquote>{{ block.settings.message | escape | newline_to_br }}</blockquote>{% if block.settings.attribution != blank %}<p>— {{ block.settings.attribution | escape }}</p>{% endif %}</div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Add your own brand note to show this block.</div>{% endif %}
 {% schema %}
 {
   "name": "Brand note",
@@ -26,6 +26,30 @@
       "type": "text",
       "id": "attribution",
       "label": "Optional attribution"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

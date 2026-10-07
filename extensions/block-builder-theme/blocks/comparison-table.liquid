@@ -1,7 +1,7 @@
 {% assign has_comparison = false %}
 {% if block.settings.row_1_label != blank or block.settings.row_2_label != blank or block.settings.row_3_label != blank or block.settings.row_4_label != blank %}{% assign has_comparison = true %}{% endif %}
 {% if has_comparison %}
-<div class="bb-block bb-comparison"><h3>{{ block.settings.heading | escape }}</h3><div class="bb-comparison__scroll"><table><thead><tr><th scope="col">Feature</th><th scope="col">{{ block.settings.your_heading | escape }}</th><th scope="col">{{ block.settings.other_heading | escape }}</th></tr></thead><tbody>
+<div class="bb-block bb-comparison" {% render 'block-color-attributes', block: block %}><h3>{{ block.settings.heading | escape }}</h3><div class="bb-comparison__scroll"><table><thead><tr><th scope="col">Feature</th><th scope="col">{{ block.settings.your_heading | escape }}</th><th scope="col">{{ block.settings.other_heading | escape }}</th></tr></thead><tbody>
 {% for number in (1..4) %}{% assign label_key = 'row_' | append: number | append: '_label' %}{% assign your_key = 'row_' | append: number | append: '_yours' %}{% assign other_key = 'row_' | append: number | append: '_other' %}{% if block.settings[label_key] != blank %}<tr><th scope="row">{{ block.settings[label_key] | escape }}</th><td>{{ block.settings[your_key] | escape }}</td><td>{{ block.settings[other_key] | escape }}</td></tr>{% endif %}{% endfor %}
 </tbody></table></div></div>
 {% elsif request.design_mode %}<div class="bb-block bb-editor-note">Add factual comparison rows in this block's settings.</div>{% endif %}
@@ -93,6 +93,30 @@
       "type": "text",
       "id": "row_4_other",
       "label": "Row 4 - alternative"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

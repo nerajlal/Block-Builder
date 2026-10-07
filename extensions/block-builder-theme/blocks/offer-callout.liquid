@@ -1,4 +1,4 @@
-{% if block.settings.message != blank %}<div class="bb-block bb-offer-callout" {{ block.shopify_attributes }}><div><span>{{ block.settings.eyebrow | escape }}</span><h3>{{ block.settings.heading | escape }}</h3><p>{{ block.settings.message | escape }}</p></div>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter a real offer and verify its terms in Shopify before publishing.</div>{% endif %}
+{% if block.settings.message != blank %}<div class="bb-block bb-offer-callout" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}><div><span>{{ block.settings.eyebrow | escape }}</span><h3>{{ block.settings.heading | escape }}</h3><p>{{ block.settings.message | escape }}</p></div>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter a real offer and verify its terms in Shopify before publishing.</div>{% endif %}
 {% schema %}
 {
   "name": "Offer callout",
@@ -38,6 +38,30 @@
       "id": "link_label",
       "label": "Link label",
       "default": "Explore offer"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

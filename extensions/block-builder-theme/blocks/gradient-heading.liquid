@@ -1,4 +1,4 @@
-<div class="bb-block bb-gradient-heading" style="--bb-gradient-start:{{ block.settings.color_start | escape }};--bb-gradient-end:{{ block.settings.color_end | escape }}" {{ block.shopify_attributes }}>
+<div class="bb-block bb-gradient-heading" style="--bb-gradient-start:{{ block.settings.color_start | escape }};--bb-gradient-end:{{ block.settings.color_end | escape }};{% render 'block-color-style', block: block %}" {% render 'block-color-data', block: block %} {{ block.shopify_attributes }}>
   {% if block.settings.eyebrow != blank %}<span>{{ block.settings.eyebrow | escape }}</span>{% endif %}
   <h2>{{ block.settings.heading | escape }}</h2>
 </div>
@@ -36,6 +36,30 @@
       "id": "color_end",
       "label": "End color",
       "default": "#7da88a"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

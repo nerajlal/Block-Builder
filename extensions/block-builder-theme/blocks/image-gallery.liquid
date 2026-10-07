@@ -1,7 +1,7 @@
 {% assign has_image = false %}
 {% if block.settings.image_1 != blank or block.settings.image_2 != blank or block.settings.image_3 != blank %}{% assign has_image = true %}{% endif %}
 {% if has_image %}
-<div class="bb-block bb-gallery" {{ block.shopify_attributes }}>
+<div class="bb-block bb-gallery" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}>
   {% if block.settings.heading != blank %}<h3>{{ block.settings.heading | escape }}</h3>{% endif %}
   <div class="bb-gallery__track" role="region" aria-label="Product image gallery" tabindex="0">
     {% for number in (1..3) %}
@@ -43,6 +43,30 @@
       "type": "image_picker",
       "id": "image_3",
       "label": "Image 3"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

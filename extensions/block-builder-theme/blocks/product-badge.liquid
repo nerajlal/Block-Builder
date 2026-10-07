@@ -1,4 +1,4 @@
-<div class="bb-badge-wrap" {{ block.shopify_attributes }}><span class="bb-badge bb-badge--{{ block.settings.style | escape }}">{{ block.settings.label | escape }}</span></div>
+<div class="bb-badge-wrap" {{ block.shopify_attributes }}><span class="bb-badge bb-badge--{{ block.settings.style | escape }}" {% render 'block-color-attributes', block: block %}>{{ block.settings.label | escape }}</span></div>
 {% schema %}
 {
   "name": "Product Badge",
@@ -10,12 +10,55 @@
   },
   "stylesheet": "block-builder.css",
   "settings": [
-    { "type": "select", "id": "style", "label": "Design", "options": [{ "value": "soft", "label": "Soft" }, { "value": "outline", "label": "Outline" }, { "value": "dark", "label": "Dark" }], "default": "soft" },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Design",
+      "options": [
+        {
+          "value": "soft",
+          "label": "Soft"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "soft"
+    },
     {
       "type": "text",
       "id": "label",
       "label": "Badge label",
       "default": "Featured product"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }

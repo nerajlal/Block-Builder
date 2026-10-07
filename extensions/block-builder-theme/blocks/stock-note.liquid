@@ -1,5 +1,5 @@
 {% assign selected_variant = product.selected_or_first_available_variant %}
-<div class="bb-block bb-stock{% unless selected_variant.available %} bb-stock--out{% endunless %}" data-bb-stock role="status" aria-live="polite">
+<div class="bb-block bb-stock{% unless selected_variant.available %} bb-stock--out{% endunless %}" {% render 'block-color-attributes', block: block %} data-bb-stock role="status" aria-live="polite">
   <span data-bb-stock-available{% unless selected_variant.available %} hidden{% endunless %}>● {{ block.settings.available_text | escape }}</span>
   <span data-bb-stock-unavailable{% if selected_variant.available %} hidden{% endif %}>{{ block.settings.sold_out_text | escape }}</span>
   <script type="application/json" data-bb-variants>[{% for variant in product.variants %}{"id":{{ variant.id | json }},"available":{{ variant.available | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
@@ -22,6 +22,30 @@
       "id": "sold_out_text",
       "label": "Sold Out Text",
       "default": "Currently unavailable"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ],
   "enabled_on": {

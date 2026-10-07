@@ -1,11 +1,30 @@
-<div class="bb-block bb-promo bb-promo--{{ block.settings.style | escape }}" {{ block.shopify_attributes }}><strong>{{ block.settings.heading | escape }}</strong><div>{{ block.settings.message | escape }}</div>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
+<div class="bb-block bb-promo bb-promo--{{ block.settings.style | escape }}" {% render 'block-color-attributes', block: block %} {{ block.shopify_attributes }}><strong>{{ block.settings.heading | escape }}</strong><div>{{ block.settings.message | escape }}</div>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
 {% schema %}
 {
   "name": "Promo Banner",
   "target": "section",
   "stylesheet": "block-builder.css",
   "settings": [
-    { "type": "select", "id": "style", "label": "Design", "options": [{ "value": "dark", "label": "Dark" }, { "value": "cream", "label": "Cream" }, { "value": "outline", "label": "Outline" }], "default": "dark" },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Design",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "cream",
+          "label": "Cream"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        }
+      ],
+      "default": "dark"
+    },
     {
       "type": "text",
       "id": "heading",
@@ -28,6 +47,30 @@
       "id": "link_label",
       "label": "Link label",
       "default": "Learn more"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ],
   "enabled_on": {

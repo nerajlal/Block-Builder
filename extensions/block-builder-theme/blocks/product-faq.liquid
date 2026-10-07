@@ -1,4 +1,4 @@
-<div class="bb-block bb-faq"><h3>{{ block.settings.heading | escape }}</h3>
+<div class="bb-block bb-faq" {% render 'block-color-attributes', block: block %}><h3>{{ block.settings.heading | escape }}</h3>
   {% if block.settings.question_1 != blank %}<details><summary>{{ block.settings.question_1 | escape }}</summary><p>{{ block.settings.answer_1 | escape | newline_to_br }}</p></details>{% endif %}
   {% if block.settings.question_2 != blank %}<details><summary>{{ block.settings.question_2 | escape }}</summary><p>{{ block.settings.answer_2 | escape | newline_to_br }}</p></details>{% endif %}
   {% if block.settings.question_3 != blank %}<details><summary>{{ block.settings.question_3 | escape }}</summary><p>{{ block.settings.answer_3 | escape | newline_to_br }}</p></details>{% endif %}
@@ -55,6 +55,30 @@
       "id": "answer_3",
       "label": "Answer 3",
       "default": "Add your return policy summary here."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "info": "Leave empty to use the widget design."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Leave empty to use the widget design."
     }
   ]
 }
