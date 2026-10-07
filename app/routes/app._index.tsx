@@ -39,21 +39,17 @@ const blocks = [
   { handle: "brand-note", title: "Brand note", category: "Product details", description: "Share a short message written by your brand, with optional attribution." },
   { handle: "offer-callout", title: "Offer callout", category: "Offers", description: "Highlight a real offer and its terms with an optional link." },
   { handle: "product-checklist", title: "Product checklist", category: "Product details", description: "List three factual product points at a glance." },
-  { handle: "trust-strip", style: "outline", title: "Outlined trust strip", category: "Trust", description: "A light outlined design for merchant-provided reassurance text." },
-  { handle: "trust-strip", style: "dark", title: "Dark trust strip", category: "Trust", description: "A high-contrast dark design for merchant-provided reassurance text." },
-  { handle: "promo-banner", style: "cream", title: "Cream promotion", category: "Offers", description: "A warm promotion design; choose Cream under Design in the theme editor." },
-  { handle: "promo-banner", style: "outline", title: "Outlined promotion", category: "Offers", description: "A minimal promotion design; choose Outline under Design in the theme editor." },
-  { handle: "product-badge", style: "outline", title: "Outlined badge", category: "Product details", description: "A simple outlined product badge; choose Outline under Design." },
-  { handle: "product-badge", style: "dark", title: "Dark badge", category: "Product details", description: "A strong dark product badge; choose Dark under Design." },
-  { handle: "announcement-bar", style: "cream", title: "Cream announcement", category: "Offers", description: "A warm product announcement; choose Cream under Style." },
-  { handle: "announcement-bar", style: "outline", title: "Outlined announcement", category: "Offers", description: "A minimal product announcement; choose Outline under Style." },
-  { handle: "product-highlights", style: "outline", title: "Outlined highlights", category: "Product details", description: "Three outlined product benefits; choose Outline under Design." },
-  { handle: "product-highlights", style: "warm", title: "Warm highlights", category: "Product details", description: "Three benefits on a warm background; choose Warm under Design." },
-  { handle: "guarantee-card", style: "outline", title: "Outlined guarantee", category: "Trust", description: "An outlined policy card; enter your actual guarantee and choose Outline." },
-  { handle: "guarantee-card", style: "warm", title: "Warm guarantee", category: "Trust", description: "A warm policy card; enter your actual guarantee and choose Warm." },
-  { handle: "shipping-details", style: "outline", title: "Outlined shipping details", category: "Shipping", description: "Outlined shipping terms; enter your actual policy and choose Outline." },
-  { handle: "shipping-details", style: "warm", title: "Warm shipping details", category: "Shipping", description: "Warm shipping terms; enter your actual policy and choose Warm." },
 ] as const;
+
+const designs: Record<string, { value: string; label: string }[]> = {
+  "trust-strip": [{ value: "soft", label: "Soft" }, { value: "outline", label: "Outline" }, { value: "dark", label: "Dark" }],
+  "promo-banner": [{ value: "dark", label: "Dark" }, { value: "cream", label: "Cream" }, { value: "outline", label: "Outline" }],
+  "product-badge": [{ value: "soft", label: "Soft" }, { value: "outline", label: "Outline" }, { value: "dark", label: "Dark" }],
+  "announcement-bar": [{ value: "dark", label: "Dark" }, { value: "cream", label: "Cream" }, { value: "outline", label: "Outline" }],
+  "product-highlights": [{ value: "standard", label: "Standard" }, { value: "outline", label: "Outline" }, { value: "warm", label: "Warm" }],
+  "guarantee-card": [{ value: "standard", label: "Standard" }, { value: "outline", label: "Outline" }, { value: "warm", label: "Warm" }],
+  "shipping-details": [{ value: "standard", label: "Standard" }, { value: "outline", label: "Outline" }, { value: "warm", label: "Warm" }],
+};
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { session } = await authenticate.admin(request);
@@ -64,6 +60,7 @@ export default function BlockLibrary() {
   const { shop, apiKey } = useLoaderData<typeof loader>();
   const shopify = useAppBridge();
   const [filter, setFilter] = useState("All");
+  const [selectedDesign, setSelectedDesign] = useState<Record<string, string>>({});
   const [installed, setInstalled] = useState<Set<string> | null>(null);
   const [statusError, setStatusError] = useState(false);
   const refreshStatus = useCallback(async () => {
@@ -116,16 +113,23 @@ export default function BlockLibrary() {
       </s-section>
     </div>
     <s-section heading="Block library">
-      <s-paragraph>Installed status reflects block types saved on your published theme. Design choices share their underlying block type; select the pictured Design or Style setting in the theme editor. Return here or refresh after saving.</s-paragraph>
+      <s-paragraph>Each widget appears once. You can preview available designs here, then select the same Design or Style in Shopify’s theme editor and save. Installed status reflects blocks on your published theme.</s-paragraph>
       <s-stack direction="inline" gap="small">
         {categories.map((category) => <s-button key={category} variant={filter === category ? "primary" : "secondary"} onClick={() => setFilter(category)}>{category}</s-button>)}
         <s-button variant="tertiary" onClick={() => { void refreshStatus(); }}>Refresh status</s-button>
       </s-stack>
       {statusError && <s-paragraph>Installation status is temporarily unavailable. Check your published theme in Shopify&apos;s theme editor.</s-paragraph>}
       <div className="block-grid">
-        {visible.map((block) => <article className="block-card" key={`${block.handle}-${"style" in block ? block.style : "default"}`}>
-          <BlockPreview handle={block.handle} style={"style" in block ? block.style : undefined} />
-          <div className="block-card__body"><span className="block-card__category">{block.category}</span><h3>{block.title}</h3>{installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}<p>{block.description}</p>{"style" in block && <p className="block-card__style-note">After opening the editor, set Design or Style to <strong>{block.style}</strong>, then save.</p>}
+        {visible.map((block) => <article className="block-card" key={block.handle}>
+          <BlockPreview handle={block.handle} style={selectedDesign[block.handle]} />
+          <div className="block-card__body"><span className="block-card__category">{block.category}</span><h3>{block.title}</h3>{installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}<p>{block.description}</p>
+            {designs[block.handle] && <div className="block-card__design">
+              <label htmlFor={`design-${block.handle}`}>Preview design</label>
+              <select id={`design-${block.handle}`} value={selectedDesign[block.handle] ?? designs[block.handle][0].value} onChange={(event) => setSelectedDesign((current) => ({ ...current, [block.handle]: event.target.value }))}>
+                {designs[block.handle].map((design) => <option key={design.value} value={design.value}>{design.label}</option>)}
+              </select>
+              <small>Choose this design in Shopify’s theme editor before saving.</small>
+            </div>}
             <div className="block-card__actions">
               {installed?.has(block.handle)
                 ? <s-button href={openThemeUrl("embed" in block)} target="_blank" accessibilityLabel={`Edit ${block.title} in theme`}>Edit in theme</s-button>

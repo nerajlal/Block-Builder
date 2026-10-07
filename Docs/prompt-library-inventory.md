@@ -119,11 +119,11 @@ The source pack is a local reference, excluded from Git. Its license is not docu
 
 The implementation plan and current block coverage are in [prompt-library-audit.md](prompt-library-audit.md).
 
-## Additional catalog choices added 7 October 2026
+## Six more blocks and fourteen reusable designs added 7 October 2026
 
-The latest batch adds six functional blocks and fourteen selectable design examples. A design example reuses its named block; Shopify's deep link opens the block, and the merchant must select the pictured Design or Style setting before saving. These ✓ marks refer to the Block Builder catalog, not to a pixel-identical copy of any source prompt or to a live release.
+The latest batch adds six functional blocks and fourteen alternate designs inside seven existing widget cards. The app selector previews a design; Shopify's deep link opens the underlying block, and the merchant must select the same Design or Style in the theme editor before saving. These ✓ marks refer to implemented options, not separate duplicate cards, pixel-identical source copies, or a live release.
 
-| Added? | Catalog choice | Theme block | Editor step |
+| Added? | Block or design option | Theme block | Editor step |
 | :---: | --- | --- | --- |
 | ✓ | Specification list | `specification-list` | Enter factual labels and values |
 | ✓ | Care instructions | `care-instructions` | Enter product care text |

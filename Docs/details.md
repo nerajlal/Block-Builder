@@ -1,6 +1,6 @@
 # Block Builder — product and implementation details
 
-_Last updated: 7 October 2026. Twenty more catalog choices are in local code: six new block types and fourteen design variants. They still need deployment and live theme testing._
+_Last updated: 7 October 2026. Six new block types and fourteen reusable design options are in local code. They still need deployment and live theme testing._
 
 ## Goal and merchant journey
 
@@ -13,7 +13,7 @@ The public root page is a product overview and store-login entry point. The embe
 - Official Shopify React Router template, React/TypeScript, App Bridge, Polaris web components, and Shopify-managed installation.
 - `app/shopify.server.ts`: Shopify authentication and API version (`2026-10`).
 - `app/routes/_index/route.tsx`: public landing page, with metadata for search engines.
-- `app/routes/app._index.tsx`: forty-four-choice catalog and theme-editor links.
+- `app/routes/app._index.tsx`: thirty-widget catalog with in-card design previews and theme-editor links.
 - `app/routes/app.additional.tsx`: merchant installation guide.
 - `extensions/block-builder-theme/blocks/*.liquid`: theme app blocks. Each is available on product templates.
 - `extensions/block-builder-theme/assets/`: shared CSS and stock-variant behavior.
@@ -60,7 +60,7 @@ The previous Laravel starter was replaced. A temporary archive was written to `/
 | Offer callout | Merchant-authored offer terms and optional link | Hidden until text is entered; does not create a discount. |
 | Product checklist | Three concise points | Hidden until merchant supplies all three factual points. |
 
-The catalog also has fourteen style cards that use the existing trust strip, promotion banner, product badge, product announcement, highlights, guarantee, and shipping blocks. Their previews show the intended style, but Shopify deep links cannot prefill design settings: the merchant must choose Design or Style in the editor and save. Installed status for these cards is shared with the underlying block type. All widgets load through one theme app extension, with separate Liquid files and shared responsive CSS. Product app blocks are limited to product templates to avoid placement in unrelated pages. Interactive widgets load small JavaScript assets. Scroll to top is a store-wide app embed. The **Install in theme** link uses Shopify's `addAppBlockId={client_id}/{block_handle}` format for product blocks or `activateAppId` for the app embed and opens the current theme's product editor in a new tab. The merchant must save the editor. Shopify may fall back to a different app-block area if the selected theme section does not support app blocks.
+Seven widget cards provide a design selector in the embedded app, covering fourteen alternate styles across trust strip, promotion banner, product badge, product announcement, highlights, guarantee, and shipping blocks. Changing this selector previews the design in the app; it does not alter the storefront. Shopify deep links do not prefill block settings, so the merchant must choose the same Design or Style in the theme editor and save. Each block has one Installed status. All widgets load through one theme app extension, with separate Liquid files and shared responsive CSS. Product app blocks are limited to product templates to avoid placement in unrelated pages. Interactive widgets load small JavaScript assets. Scroll to top is a store-wide app embed. The **Install in theme** link uses Shopify's `addAppBlockId={client_id}/{block_handle}` format for product blocks or `activateAppId` for the app embed and opens the current theme's product editor in a new tab. The merchant must save the editor. Shopify may fall back to a different app-block area if the selected theme section does not support app blocks.
 
 ## Credentials and local development
 
@@ -81,7 +81,7 @@ npm run dev
 
 `.env.example` lists `SHOPIFY_APP_URL`, `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`, and `DATABASE_URL`. The server loads `.env` if present; host-provided environment variables take precedence. `npm run setup` generates Prisma Client and applies session migrations. `npm run dev` uses Shopify CLI and may use a temporary development tunnel URL. The public landing page can be smoke-tested from a direct local server after a build.
 
-For the latest twenty choices, TypeScript and Shopify extension build passed locally on 7 October 2026. The React Router build was blocked by sandbox permission while clearing an existing build directory; live theme testing remains required.
+For the latest six widgets and fourteen style options, TypeScript and Shopify extension build passed locally on 7 October 2026. The React Router build was blocked by sandbox permission while clearing an existing build directory; live theme testing remains required.
 
 ## Privacy and data
 

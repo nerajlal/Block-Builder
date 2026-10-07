@@ -5,11 +5,11 @@ type PreviewProps = {
   style?: string;
 };
 
-const sample = (content: ReactNode, needsSetup = false) => (
+const sample = (content: ReactNode, needsSetup = false, designPreview = false) => (
   <div className="block-preview">
     <div className="block-preview__surface">{content}</div>
     <span className="block-preview__caption">
-      {needsSetup ? "Example · add your content in the theme editor" : "Example · matches the block's default style"}
+      {designPreview ? "Design preview · select this style in the theme editor" : needsSetup ? "Example · add your content in the theme editor" : "Example · matches the block's default style"}
     </span>
   </div>
 );
@@ -17,19 +17,19 @@ const sample = (content: ReactNode, needsSetup = false) => (
 export function BlockPreview({ handle, style }: PreviewProps) {
   switch (handle) {
     case "trust-strip":
-      return sample(<div className={`bb-block bb-trust bb-trust--${style || "soft"}`}><span>✓ Secure checkout</span><span>✓ Easy returns</span><span>✓ Friendly support</span></div>);
+      return sample(<div className={`bb-block bb-trust bb-trust--${style || "soft"}`}><span>✓ Secure checkout</span><span>✓ Easy returns</span><span>✓ Friendly support</span></div>, false, true);
     case "delivery-estimate":
       return sample(<div className="bb-block bb-delivery"><strong>🚚 Delivery information</strong><div>Estimated delivery in 3–5 business days</div><small>Delivery times are estimates and may vary by location.</small></div>);
     case "product-highlights":
-      return sample(<div className={`bb-block bb-highlights bb-highlights--${style || "standard"}`}><span>✦ Made for everyday use</span><span>✦ Built to last</span><span>✦ Easy to care for</span></div>);
+      return sample(<div className={`bb-block bb-highlights bb-highlights--${style || "standard"}`}><span>✦ Made for everyday use</span><span>✦ Built to last</span><span>✦ Easy to care for</span></div>, false, true);
     case "promo-banner":
-      return sample(<div className={`bb-block bb-promo bb-promo--${style || "dark"}`}><strong>A little extra for your next order</strong><div>Explore our latest offers</div></div>);
+      return sample(<div className={`bb-block bb-promo bb-promo--${style || "dark"}`}><strong>A little extra for your next order</strong><div>Explore our latest offers</div></div>, false, true);
     case "stock-note":
       return sample(<div className="bb-block bb-stock" role="status">● Available and ready to ship</div>);
     case "payment-methods":
       return sample(<div className="bb-block bb-payments"><strong>Secure payment options</strong><div className="block-preview__muted">Your store&apos;s enabled payment icons appear here</div></div>, true);
     case "product-badge":
-      return sample(<div className="bb-badge-wrap"><span className={`bb-badge bb-badge--${style || "soft"}`}>Featured product</span></div>);
+      return sample(<div className="bb-badge-wrap"><span className={`bb-badge bb-badge--${style || "soft"}`}>Featured product</span></div>, false, true);
     case "product-faq":
       return sample(<div className="bb-block bb-faq"><h3>Good to know</h3><details open><summary>How do I care for this?</summary><p>Add your care instructions here.</p></details><details><summary>When will it arrive?</summary></details></div>);
     case "image-story":
@@ -45,7 +45,7 @@ export function BlockPreview({ handle, style }: PreviewProps) {
     case "scroll-to-top":
       return sample(<div className="block-preview__scroll"><span className="bb-scroll-top" aria-hidden="true">↑</span><span>Floating button on the storefront</span></div>);
     case "announcement-bar":
-      return sample(<div className={`bb-block bb-announcement bb-announcement--${style || "dark"}`}><strong>Store update</strong><span>Something good is here</span></div>);
+      return sample(<div className={`bb-block bb-announcement bb-announcement--${style || "dark"}`}><strong>Store update</strong><span>Something good is here</span></div>, false, true);
     case "collection-circles":
       return sample(<div className="bb-block bb-collection-circles"><h3>Explore collections</h3><div className="bb-collection-circles__grid">{["Everyday", "Essentials", "New arrivals"].map((name) => <span className="bb-collection-circles__item" key={name}><span className="bb-collection-circles__image">{name.charAt(0)}</span><span>{name}</span></span>)}</div></div>, true);
     case "image-gallery":
@@ -55,9 +55,9 @@ export function BlockPreview({ handle, style }: PreviewProps) {
     case "how-to-steps":
       return sample(<div className="bb-block bb-steps"><h3>How to use it</h3><div className="bb-steps__grid">{[1, 2, 3].map((number) => <span className="bb-steps__item" key={number}><span className="bb-steps__number">{number}</span><strong>Step {number}</strong></span>)}</div></div>);
     case "guarantee-card":
-      return sample(<div className={`bb-block bb-guarantee bb-guarantee--${style || "standard"}`}><span className="bb-guarantee__icon">✓</span><div><strong>Our promise</strong><p>Your store&apos;s actual policy appears here.</p></div></div>, true);
+      return sample(<div className={`bb-block bb-guarantee bb-guarantee--${style || "standard"}`}><span className="bb-guarantee__icon">✓</span><div><strong>Our promise</strong><p>Your store&apos;s actual policy appears here.</p></div></div>, true, true);
     case "shipping-details":
-      return sample(<div className={`bb-block bb-shipping-details bb-shipping-details--${style || "standard"}`}><span className="bb-shipping-details__icon">↗</span><div><strong>Shipping details</strong><p>Your store&apos;s shipping terms appear here.</p></div></div>, true);
+      return sample(<div className={`bb-block bb-shipping-details bb-shipping-details--${style || "standard"}`}><span className="bb-shipping-details__icon">↗</span><div><strong>Shipping details</strong><p>Your store&apos;s shipping terms appear here.</p></div></div>, true, true);
     case "size-guide":
       return sample(<div className="bb-block bb-size-guide"><strong>Size guide</strong><table><thead><tr><th>Size</th><th>Measurement</th></tr></thead><tbody><tr><td>S</td><td>Example</td></tr><tr><td>M</td><td>Example</td></tr></tbody></table></div>, true);
     case "video-spotlight":

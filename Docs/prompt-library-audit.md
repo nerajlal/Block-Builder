@@ -24,15 +24,15 @@ These snippets are **reference material**, not production extension code. The Bl
 | Copyable discount bar/code variants | Discount code; merchant supplies an existing Shopify discount code |
 | Scroll to top button | Scroll to top store-wide app embed |
 
-The existing Trust strip also covers several simple reassurance layouts in the reference collection. The new blocks are intentionally fresh implementations; no reference snippet HTML or CSS was copied into the theme extension.
+The catalog now has 30 cards: 29 product-page blocks and one store-wide app embed. Seven cards offer a design selector for fourteen alternate styles. This changes the preview in the app; the merchant selects the same style in Shopify’s theme editor to apply it. The Trust strip covers several simple reassurance layouts in the reference collection. The blocks are fresh implementations; no reference snippet HTML or CSS was copied into the theme extension.
 
 ## Candidate additions after merchant testing
 
-- **Announcement bar:** Could be a separate app embed for site-wide display. It needs position controls, close behavior, and conflict checks with theme announcement bars. The current Promotion banner is product-page-only.
+- **Announcement bar:** Could be a separate app embed for site-wide display. It needs position controls, close behavior, and conflict checks with theme announcement bars. The current Promotion banner and Product announcement are product-page-only.
 - **Discount-code verification:** The current copyable code block tells merchants to create and test a matching Shopify discount. A later version could verify the code via a narrowly scoped Admin API integration.
-- **Design presets:** The prompt pack contains many visual variants of the same feature. These need settings/presets in each functional block, not one Liquid file per screenshot. Shopify currently limits one theme app extension to 30 app blocks.
-- **Collection circles / image sliders / video tabs:** Need image/video pickers, mobile handling, keyboard controls, and media performance checks.
-- **Scroll-to-top button:** Best as an optional app embed rather than a product section.
+- **Design presets:** Fourteen alternate styles are already previewable within seven cards and selectable in the theme editor. Further source variants should extend those controls where appropriate, not create duplicate install cards. Shopify currently limits one theme app extension to 30 app blocks.
+- **Richer collection circles / image sliders / video tabs:** Basic versions exist; richer media interactions need mobile, keyboard, and performance testing.
+- **Scroll-to-top button:** Implemented as an optional app embed; verify live-theme placement and behavior.
 - **How-to-use and product information variations:** Could be variants of Image story, Product FAQ, and Information tabs rather than many near-duplicate blocks.
 
 ## Requires a real data source or separate product logic

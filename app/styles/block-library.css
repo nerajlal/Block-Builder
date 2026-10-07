@@ -40,4 +40,4 @@
 @media(max-width:780px){.block-intro{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:680px){.block-grid{grid-template-columns:minmax(0,1fr)}}
 
-.block-card__style-note{font-size:12px;color:#435c4a!important;flex:none!important;margin-top:0}.block-preview .bb-feature-grid__items{gap:4px}.block-preview .bb-feature-grid__items>div{padding:6px;font-size:10px}
+.block-card__design{display:grid;gap:6px;width:100%;margin:0 0 16px}.block-card__design label{font-size:12px;font-weight:650;color:#334b3b}.block-card__design select{min-height:36px;padding:6px 10px;border:1px solid #b9c2ba;border-radius:7px;background:#fff;color:#26362b;font:inherit}.block-card__design select:focus-visible{outline:2px solid #245139;outline-offset:2px}.block-card__design small{color:#617064;line-height:1.4}.block-preview .bb-feature-grid__items{gap:4px}.block-preview .bb-feature-grid__items>div{padding:6px;font-size:10px}
