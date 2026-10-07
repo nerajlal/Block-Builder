@@ -1,0 +1,28 @@
+.block-intro{display:grid;grid-template-columns:minmax(0,2fr) minmax(280px,1fr);gap:16px}
+.block-intro s-section{min-width:0}
+.block-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+.block-card{display:flex;flex-direction:column;min-width:0;border:1px solid #dedede;border-radius:12px;background:#fff;overflow:hidden}
+.block-card__body{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:20px}
+.block-card__category{color:#55705d;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.block-card h3{margin:8px 0}
+.block-card p{flex:1;color:#5c5c5c;line-height:1.5}
+.block-preview{display:flex;flex-direction:column;justify-content:center;min-height:225px;padding:18px;background:#f7f8f7}
+.block-preview__surface{display:flex;align-items:center;justify-content:center;flex:1;min-width:0}
+.block-preview__surface>.bb-block,.block-preview__surface>.bb-badge-wrap{width:100%;margin:0}
+.block-preview__caption{padding-top:10px;color:#68756d;font-size:11px;text-align:center}
+.block-preview__muted{margin-top:10px;color:#5c685d;font-size:12px;text-align:center}
+.block-preview .bb-discount{flex-wrap:wrap}
+.block-preview .bb-discount__action{flex-wrap:wrap}
+.block-preview .bb-comparison{overflow:hidden}
+.block-preview .bb-comparison table{min-width:0;font-size:11px}
+.block-preview .bb-comparison th,.block-preview .bb-comparison td{padding:8px}
+.block-preview__compare{display:grid;grid-template-columns:1fr 3px 1fr;align-items:center;min-height:90px;border-radius:8px;background:linear-gradient(90deg,#e5ece6 50%,#eee8dc 50%);color:#334b3b;text-align:center;font-weight:700}
+.block-preview__divider{align-self:stretch;background:#fff;box-shadow:0 0 0 1px #839084}
+.block-preview__tab{padding:8px 10px;border-radius:7px 7px 0 0;background:#edf3ec;color:#345b3d;font-size:12px;font-weight:600}
+.block-preview__tab--active{background:#26523a;color:#fff}
+.block-preview__tab-content{padding:14px 4px 0;color:#5c685d;font-size:12px}
+.block-preview__scroll{display:flex;align-items:center;gap:16px;color:#5c685d;font-size:13px}
+.block-preview__scroll .bb-scroll-top{position:static;display:grid;place-items:center;flex:0 0 44px;cursor:default}
+@media(max-width:1050px){.block-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:780px){.block-intro{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:680px){.block-grid{grid-template-columns:minmax(0,1fr)}}
