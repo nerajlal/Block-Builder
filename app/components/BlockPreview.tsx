@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 type PreviewProps = {
   handle: string;
+  style?: string;
 };
 
 const sample = (content: ReactNode, needsSetup = false) => (
@@ -13,22 +14,22 @@ const sample = (content: ReactNode, needsSetup = false) => (
   </div>
 );
 
-export function BlockPreview({ handle }: PreviewProps) {
+export function BlockPreview({ handle, style }: PreviewProps) {
   switch (handle) {
     case "trust-strip":
-      return sample(<div className="bb-block bb-trust bb-trust--soft"><span>✓ Secure checkout</span><span>✓ Easy returns</span><span>✓ Friendly support</span></div>);
+      return sample(<div className={`bb-block bb-trust bb-trust--${style || "soft"}`}><span>✓ Secure checkout</span><span>✓ Easy returns</span><span>✓ Friendly support</span></div>);
     case "delivery-estimate":
       return sample(<div className="bb-block bb-delivery"><strong>🚚 Delivery information</strong><div>Estimated delivery in 3–5 business days</div><small>Delivery times are estimates and may vary by location.</small></div>);
     case "product-highlights":
-      return sample(<div className="bb-block bb-highlights"><span>✦ Made for everyday use</span><span>✦ Built to last</span><span>✦ Easy to care for</span></div>);
+      return sample(<div className={`bb-block bb-highlights bb-highlights--${style || "standard"}`}><span>✦ Made for everyday use</span><span>✦ Built to last</span><span>✦ Easy to care for</span></div>);
     case "promo-banner":
-      return sample(<div className="bb-block bb-promo bb-promo--dark"><strong>A little extra for your next order</strong><div>Explore our latest offers</div></div>);
+      return sample(<div className={`bb-block bb-promo bb-promo--${style || "dark"}`}><strong>A little extra for your next order</strong><div>Explore our latest offers</div></div>);
     case "stock-note":
       return sample(<div className="bb-block bb-stock" role="status">● Available and ready to ship</div>);
     case "payment-methods":
       return sample(<div className="bb-block bb-payments"><strong>Secure payment options</strong><div className="block-preview__muted">Your store&apos;s enabled payment icons appear here</div></div>, true);
     case "product-badge":
-      return sample(<div className="bb-badge-wrap"><span className="bb-badge bb-badge--soft">Featured product</span></div>);
+      return sample(<div className="bb-badge-wrap"><span className={`bb-badge bb-badge--${style || "soft"}`}>Featured product</span></div>);
     case "product-faq":
       return sample(<div className="bb-block bb-faq"><h3>Good to know</h3><details open><summary>How do I care for this?</summary><p>Add your care instructions here.</p></details><details><summary>When will it arrive?</summary></details></div>);
     case "image-story":
@@ -44,7 +45,7 @@ export function BlockPreview({ handle }: PreviewProps) {
     case "scroll-to-top":
       return sample(<div className="block-preview__scroll"><span className="bb-scroll-top" aria-hidden="true">↑</span><span>Floating button on the storefront</span></div>);
     case "announcement-bar":
-      return sample(<div className="bb-block bb-announcement bb-announcement--dark"><strong>Store update</strong><span>Something good is here</span></div>);
+      return sample(<div className={`bb-block bb-announcement bb-announcement--${style || "dark"}`}><strong>Store update</strong><span>Something good is here</span></div>);
     case "collection-circles":
       return sample(<div className="bb-block bb-collection-circles"><h3>Explore collections</h3><div className="bb-collection-circles__grid">{["Everyday", "Essentials", "New arrivals"].map((name) => <span className="bb-collection-circles__item" key={name}><span className="bb-collection-circles__image">{name.charAt(0)}</span><span>{name}</span></span>)}</div></div>, true);
     case "image-gallery":
@@ -54,15 +55,27 @@ export function BlockPreview({ handle }: PreviewProps) {
     case "how-to-steps":
       return sample(<div className="bb-block bb-steps"><h3>How to use it</h3><div className="bb-steps__grid">{[1, 2, 3].map((number) => <span className="bb-steps__item" key={number}><span className="bb-steps__number">{number}</span><strong>Step {number}</strong></span>)}</div></div>);
     case "guarantee-card":
-      return sample(<div className="bb-block bb-guarantee"><span className="bb-guarantee__icon">✓</span><div><strong>Our promise</strong><p>Your store&apos;s actual policy appears here.</p></div></div>, true);
+      return sample(<div className={`bb-block bb-guarantee bb-guarantee--${style || "standard"}`}><span className="bb-guarantee__icon">✓</span><div><strong>Our promise</strong><p>Your store&apos;s actual policy appears here.</p></div></div>, true);
     case "shipping-details":
-      return sample(<div className="bb-block bb-shipping-details"><span className="bb-shipping-details__icon">↗</span><div><strong>Shipping details</strong><p>Your store&apos;s shipping terms appear here.</p></div></div>, true);
+      return sample(<div className={`bb-block bb-shipping-details bb-shipping-details--${style || "standard"}`}><span className="bb-shipping-details__icon">↗</span><div><strong>Shipping details</strong><p>Your store&apos;s shipping terms appear here.</p></div></div>, true);
     case "size-guide":
       return sample(<div className="bb-block bb-size-guide"><strong>Size guide</strong><table><thead><tr><th>Size</th><th>Measurement</th></tr></thead><tbody><tr><td>S</td><td>Example</td></tr><tr><td>M</td><td>Example</td></tr></tbody></table></div>, true);
     case "video-spotlight":
       return sample(<div className="bb-block bb-video"><h3>See it in action</h3><div className="block-preview__video-placeholder"><span aria-hidden="true">▶</span><small>Choose a video in Shopify</small></div></div>, true);
     case "gradient-heading":
       return sample(<div className="bb-block bb-gradient-heading"><span>The little details</span><h2>Made for everyday</h2></div>);
+    case "specification-list":
+      return sample(<div className="bb-block bb-specs"><h3>Product details</h3><dl><div><dt>Material</dt><dd>Product material</dd></div><div><dt>Dimensions</dt><dd>Product size</dd></div></dl></div>, true);
+    case "care-instructions":
+      return sample(<div className="bb-block bb-care"><span className="bb-care__icon">✦</span><div><h3>Care instructions</h3><p>Add care guidance for this product.</p></div></div>, true);
+    case "feature-grid":
+      return sample(<div className="bb-block bb-feature-grid"><h3>Why choose this product</h3><div className="bb-feature-grid__items">{[1,2,3].map(i => <div key={i}><span>✦</span><strong>Feature {i}</strong><p>Product detail</p></div>)}</div></div>, true);
+    case "brand-note":
+      return sample(<div className="bb-block bb-brand-note"><span>From our team</span><blockquote>Share the story behind this product.</blockquote></div>, true);
+    case "offer-callout":
+      return sample(<div className="bb-block bb-offer-callout"><div><span>Special offer</span><h3>Explore this offer</h3><p>Add your actual terms.</p></div></div>, true);
+    case "product-checklist":
+      return sample(<div className="bb-block bb-checklist"><h3>At a glance</h3><ul><li>Product fact 1</li><li>Product fact 2</li><li>Product fact 3</li></ul></div>, true);
     default:
       return null;
   }

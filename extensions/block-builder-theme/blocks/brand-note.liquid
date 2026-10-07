@@ -1,0 +1,32 @@
+{% if block.settings.message != blank %}<div class="bb-block bb-brand-note" {{ block.shopify_attributes }}><span>{{ block.settings.eyebrow | escape }}</span><blockquote>{{ block.settings.message | escape | newline_to_br }}</blockquote>{% if block.settings.attribution != blank %}<p>— {{ block.settings.attribution | escape }}</p>{% endif %}</div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Add your own brand note to show this block.</div>{% endif %}
+{% schema %}
+{
+  "name": "Brand note",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "From our team"
+    },
+    {
+      "type": "textarea",
+      "id": "message",
+      "label": "Your brand note",
+      "info": "Write your own text; do not imply a customer testimonial."
+    },
+    {
+      "type": "text",
+      "id": "attribution",
+      "label": "Optional attribution"
+    }
+  ]
+}
+{% endschema %}

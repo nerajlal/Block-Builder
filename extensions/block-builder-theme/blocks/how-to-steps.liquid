@@ -1,13 +1,15 @@
+{% if block.settings.body_1 != blank or block.settings.body_2 != blank or block.settings.body_3 != blank %}
 <div class="bb-block bb-steps" {{ block.shopify_attributes }}>
   <h3>{{ block.settings.heading | escape }}</h3>
   <div class="bb-steps__grid">
     {% for number in (1..3) %}
       {% assign title_key = 'title_' | append: number %}
       {% assign body_key = 'body_' | append: number %}
-      <div class="bb-steps__item"><span class="bb-steps__number">{{ number }}</span><strong>{{ block.settings[title_key] | escape }}</strong><p>{{ block.settings[body_key] | escape }}</p></div>
+      {% if block.settings[body_key] != blank %}<div class="bb-steps__item"><span class="bb-steps__number">{{ number }}</span><strong>{{ block.settings[title_key] | escape }}</strong><p>{{ block.settings[body_key] | escape }}</p></div>{% endif %}
     {% endfor %}
   </div>
 </div>
+{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Describe at least one step to show this block.</div>{% endif %}
 {% schema %}
 {
   "name": "How-to steps",
@@ -34,8 +36,7 @@
     {
       "type": "textarea",
       "id": "body_1",
-      "label": "Step 1 details",
-      "default": "Explain step 1."
+      "label": "Step 1 details"
     },
     {
       "type": "text",
@@ -46,8 +47,7 @@
     {
       "type": "textarea",
       "id": "body_2",
-      "label": "Step 2 details",
-      "default": "Explain step 2."
+      "label": "Step 2 details"
     },
     {
       "type": "text",
@@ -58,8 +58,7 @@
     {
       "type": "textarea",
       "id": "body_3",
-      "label": "Step 3 details",
-      "default": "Explain step 3."
+      "label": "Step 3 details"
     }
   ]
 }

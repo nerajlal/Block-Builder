@@ -1,6 +1,6 @@
 # Block Builder — product and implementation details
 
-_Last updated: 7 October 2026. The app is linked in Shopify, but the web host and live store checks are pending._
+_Last updated: 7 October 2026. Twenty more catalog choices are in local code: six new block types and fourteen design variants. They still need deployment and live theme testing._
 
 ## Goal and merchant journey
 
@@ -13,7 +13,7 @@ The public root page is a product overview and store-login entry point. The embe
 - Official Shopify React Router template, React/TypeScript, App Bridge, Polaris web components, and Shopify-managed installation.
 - `app/shopify.server.ts`: Shopify authentication and API version (`2026-10`).
 - `app/routes/_index/route.tsx`: public landing page, with metadata for search engines.
-- `app/routes/app._index.tsx`: fourteen-widget catalog and theme-editor links.
+- `app/routes/app._index.tsx`: forty-four-choice catalog and theme-editor links.
 - `app/routes/app.additional.tsx`: merchant installation guide.
 - `extensions/block-builder-theme/blocks/*.liquid`: theme app blocks. Each is available on product templates.
 - `extensions/block-builder-theme/assets/`: shared CSS and stock-variant behavior.
@@ -43,12 +43,28 @@ The previous Laravel starter was replaced. A temporary archive was written to `/
 | Information tabs | Organizes up to three product details | Keyboard arrow, Home, and End navigation supported. |
 | Discount code | Shows a merchant-entered copyable code | The code must already exist and work in Shopify Discounts. |
 | Scroll to top | Floating button across the storefront | Store-wide app embed; merchant activates it in the theme editor. |
+| Product announcement | Editable announcement and optional link | Product template only; not a site-wide header bar. |
+| Collection circles | Links up to three merchant-selected collections | Uses Shopify collection picker and collection imagery. |
+| Product image gallery | Horizontally scrollable merchant-selected images | Up to three images; no automatic product-media sync. |
+| Media tabs | Up to three image-and-caption tabs | Images must be selected; keyboard navigation uses the existing tab script. |
+| How-to steps | Three editable usage steps | Merchants supply accurate instructions. |
+| Guarantee card | Displays a merchant-authored guarantee and optional policy link | Hidden until the merchant supplies policy text. |
+| Shipping details | Displays merchant-authored shipping terms and optional policy link | Hidden until the merchant supplies terms; no rate calculation. |
+| Size guide | Expandable size and measurement table | Hidden until measurements are entered. |
+| Product video | Shopify-hosted video with controls | Hidden until a video is selected; no autoplay. |
+| Gradient heading | Editable heading with two theme-editor colors | Decorative text only. |
+| Specification list | Three label/value pairs | Values must describe the product accurately. |
+| Care instructions | Merchant-authored care guidance | Hidden until text is entered. |
+| Feature grid | Three benefit cards | Hidden until merchant supplies all three factual details. |
+| Brand note | Merchant-authored editorial copy | Hidden until text is entered; does not imply a customer review. |
+| Offer callout | Merchant-authored offer terms and optional link | Hidden until text is entered; does not create a discount. |
+| Product checklist | Three concise points | Hidden until merchant supplies all three factual points. |
 
-All widgets load through one theme app extension, with separate Liquid files and shared responsive CSS. Product app blocks are limited to product templates to avoid placement in unrelated pages. Interactive widgets load small JavaScript assets. Scroll to top is a store-wide app embed. The **Install in theme** link uses Shopify's `addAppBlockId={client_id}/{block_handle}` format for product blocks or `activateAppId` for the app embed and opens the current theme's product editor in a new tab. The merchant must save the editor. Shopify may fall back to a different app-block area if the selected theme section does not support app blocks.
+The catalog also has fourteen style cards that use the existing trust strip, promotion banner, product badge, product announcement, highlights, guarantee, and shipping blocks. Their previews show the intended style, but Shopify deep links cannot prefill design settings: the merchant must choose Design or Style in the editor and save. Installed status for these cards is shared with the underlying block type. All widgets load through one theme app extension, with separate Liquid files and shared responsive CSS. Product app blocks are limited to product templates to avoid placement in unrelated pages. Interactive widgets load small JavaScript assets. Scroll to top is a store-wide app embed. The **Install in theme** link uses Shopify's `addAppBlockId={client_id}/{block_handle}` format for product blocks or `activateAppId` for the app embed and opens the current theme's product editor in a new tab. The merchant must save the editor. Shopify may fall back to a different app-block area if the selected theme section does not support app blocks.
 
 ## Credentials and local development
 
-The local `shopify.app.toml` is linked to the Block Builder app. It uses `https://blockbuilder.task19.com` as the intended production App URL, remains embedded, and allows `https://blockbuilder.task19.com/auth/callback`. The legacy install flow is off. The application does not require Admin API scopes for these fourteen widgets. The client secret belongs only in an ignored `.env` or host secret manager, never in committed files.
+The local `shopify.app.toml` is linked to the Block Builder app. It uses `https://blockbuilder.task19.com` as the intended production App URL, remains embedded, and allows `https://blockbuilder.task19.com/auth/callback`. The legacy install flow is off. The application does not require Admin API scopes for these thirty block types. The client secret belongs only in an ignored `.env` or host secret manager, never in committed files.
 
 Install Node.js 22.12+ and run:
 
@@ -65,26 +81,24 @@ npm run dev
 
 `.env.example` lists `SHOPIFY_APP_URL`, `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`, and `DATABASE_URL`. The server loads `.env` if present; host-provided environment variables take precedence. `npm run setup` generates Prisma Client and applies session migrations. `npm run dev` uses Shopify CLI and may use a temporary development tunnel URL. The public landing page can be smoke-tested from a direct local server after a build.
 
-Code checks passed on 7 October 2026: TypeScript, ESLint, React Router production build, Shopify extension build, CLI config validation, Prisma setup/migration, and a local HTTP 200 response from `/`. These checks do not verify Shopify install, block placement, or the deployed domain. The domain still points to infrastructure serving another app's certificate, as expected before the new droplet is created.
+For the latest twenty choices, TypeScript and Shopify extension build passed locally on 7 October 2026. The React Router build was blocked by sandbox permission while clearing an existing build directory; live theme testing remains required.
 
 ## Privacy and data
 
 The app stores shop sessions and Shopify credentials in Prisma, but it does not request customer/order scopes or store customer records. Shopify's mandatory `customers/data_request` and `customers/redact` webhooks are HMAC-verified and acknowledged because there is no customer data to export or erase. `shop/redact` and `app/uninstalled` remove the shop's session records. A public App Store launch still needs a privacy policy, support contact, and live webhook delivery tests.
 
-## Deployment sequence after the droplet exists
+## Deployment and release sequence
 
-1. Point `blockbuilder.task19.com` to the new droplet and obtain a TLS certificate covering that hostname.
-2. Install Node.js 22+, clone the project, and run `npm ci`, `npm run setup`, and `npm run build`.
-3. Provide `SHOPIFY_APP_URL=https://blockbuilder.task19.com`, the matching `SHOPIFY_API_KEY` and `SHOPIFY_API_SECRET`, `NODE_ENV=production`, and a writable persistent `DATABASE_URL`. An SQLite file on the droplet can work for a single process if backed up; use a managed database before multi-instance deployment.
-4. Run `npm run start` under a process manager and reverse proxy HTTPS traffic to it. Verify `/` returns the public page and `/app` starts Shopify authentication when opened from Admin.
-5. Deploy the Shopify app configuration and theme extension with `npm run deploy`. This publishes Shopify-side configuration; it does not deploy the Node web server.
-6. Install on a development store, test every block in Dawn on desktop/mobile, then validate webhooks and merchant onboarding before public release.
+1. Update the droplet from the intended reviewed code revision, build the Node app, and restart its service. This updates the embedded block library and previews.
+2. Release a new Shopify app version containing the updated theme extension. Updating the droplet alone does not make new Liquid blocks available in the theme editor.
+3. Install each new block in a development store, test it in Dawn on desktop and mobile, then test another compatible Online Store 2.0 theme before wider use.
+4. Verify app onboarding, webhooks, backups, and rollback steps separately before public release.
 
 ## Live validation still required
 
 - Confirm the chosen distribution, app listing, support/privacy pages, and any pricing plan. No in-app billing or entitlements are coded because no Block Builder pricing has been decided.
 - Test first install, reopening, session expiry, uninstall/reinstall, and redirect behavior in Shopify Admin.
-- Test all thirteen product blocks and the app embed in Dawn and at least one other Online Store 2.0 theme, including editors where app blocks cannot be placed in the main product section.
+- Test all twenty-nine product blocks and the app embed in Dawn and at least one other Online Store 2.0 theme, including editors where app blocks cannot be placed in the main product section.
 - Test stock note switching among available and unavailable variants, plus its initial state and section reloads in the editor.
 - Test payment logos against a store with different enabled methods/markets, and image loading with and without a selected image.
 - Check keyboard behavior, contrast, responsive layout, and honest customer-facing copy.

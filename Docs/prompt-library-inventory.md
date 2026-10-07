@@ -118,3 +118,30 @@ The source pack is a local reference, excluded from Git. Its license is not docu
 | 108 | ✗ | ÿnstagram Views | Reviews and social proof | Requires verified reviews or real activity data; no invented counts or testimonials | full-page HTML, page-level styling | png |
 
 The implementation plan and current block coverage are in [prompt-library-audit.md](prompt-library-audit.md).
+
+## Additional catalog choices added 7 October 2026
+
+The latest batch adds six functional blocks and fourteen selectable design examples. A design example reuses its named block; Shopify's deep link opens the block, and the merchant must select the pictured Design or Style setting before saving. These ✓ marks refer to the Block Builder catalog, not to a pixel-identical copy of any source prompt or to a live release.
+
+| Added? | Catalog choice | Theme block | Editor step |
+| :---: | --- | --- | --- |
+| ✓ | Specification list | `specification-list` | Enter factual labels and values |
+| ✓ | Care instructions | `care-instructions` | Enter product care text |
+| ✓ | Feature grid | `feature-grid` | Enter three factual benefits |
+| ✓ | Brand note | `brand-note` | Enter original brand copy |
+| ✓ | Offer callout | `offer-callout` | Enter verified offer terms |
+| ✓ | Product checklist | `product-checklist` | Enter three factual points |
+| ✓ | Outlined trust strip | `trust-strip` | Design: Outline |
+| ✓ | Dark trust strip | `trust-strip` | Design: Dark |
+| ✓ | Cream promotion | `promo-banner` | Design: Cream |
+| ✓ | Outlined promotion | `promo-banner` | Design: Outline |
+| ✓ | Outlined badge | `product-badge` | Design: Outline |
+| ✓ | Dark badge | `product-badge` | Design: Dark |
+| ✓ | Cream announcement | `announcement-bar` | Style: Cream |
+| ✓ | Outlined announcement | `announcement-bar` | Style: Outline |
+| ✓ | Outlined highlights | `product-highlights` | Design: Outline |
+| ✓ | Warm highlights | `product-highlights` | Design: Warm |
+| ✓ | Outlined guarantee | `guarantee-card` | Add actual policy; Design: Outline |
+| ✓ | Warm guarantee | `guarantee-card` | Add actual policy; Design: Warm |
+| ✓ | Outlined shipping details | `shipping-details` | Add actual terms; Design: Outline |
+| ✓ | Warm shipping details | `shipping-details` | Add actual terms; Design: Warm |

@@ -1,0 +1,57 @@
+{% if block.settings.body_1 != blank and block.settings.body_2 != blank and block.settings.body_3 != blank %}<div class="bb-block bb-feature-grid" {{ block.shopify_attributes }}><h3>{{ block.settings.heading | escape }}</h3><div class="bb-feature-grid__items"><div><span aria-hidden="true">✦</span><strong>{{ block.settings.title_1 | escape }}</strong><p>{{ block.settings.body_1 | escape }}</p></div><div><span aria-hidden="true">✦</span><strong>{{ block.settings.title_2 | escape }}</strong><p>{{ block.settings.body_2 | escape }}</p></div><div><span aria-hidden="true">✦</span><strong>{{ block.settings.title_3 | escape }}</strong><p>{{ block.settings.body_3 | escape }}</p></div></div></div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter three factual product features to show this block.</div>{% endif %}
+{% schema %}
+{
+  "name": "Feature grid",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why choose this product"
+    },
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Feature 1 title",
+      "default": "Feature 1"
+    },
+    {
+      "type": "text",
+      "id": "body_1",
+      "label": "Feature 1 detail",
+      "info": "Use a factual benefit of this product."
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Feature 2 title",
+      "default": "Feature 2"
+    },
+    {
+      "type": "text",
+      "id": "body_2",
+      "label": "Feature 2 detail",
+      "info": "Use a factual benefit of this product."
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Feature 3 title",
+      "default": "Feature 3"
+    },
+    {
+      "type": "text",
+      "id": "body_3",
+      "label": "Feature 3 detail",
+      "info": "Use a factual benefit of this product."
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,44 @@
+{% if block.settings.message != blank %}<div class="bb-block bb-offer-callout" {{ block.shopify_attributes }}><div><span>{{ block.settings.eyebrow | escape }}</span><h3>{{ block.settings.heading | escape }}</h3><p>{{ block.settings.message | escape }}</p></div>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter a real offer and verify its terms in Shopify before publishing.</div>{% endif %}
+{% schema %}
+{
+  "name": "Offer callout",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Special offer"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Explore this offer"
+    },
+    {
+      "type": "textarea",
+      "id": "message",
+      "label": "Actual offer terms",
+      "info": "Set up any discount separately in Shopify."
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Optional offer link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Explore offer"
+    }
+  ]
+}
+{% endschema %}

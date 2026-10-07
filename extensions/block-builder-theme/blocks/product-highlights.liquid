@@ -1,10 +1,11 @@
-<div class="bb-block bb-highlights"><span>✦ {{ block.settings.first | escape }}</span><span>✦ {{ block.settings.second | escape }}</span><span>✦ {{ block.settings.third | escape }}</span></div>
+<div class="bb-block bb-highlights bb-highlights--{{ block.settings.style | escape }}"><span>✦ {{ block.settings.first | escape }}</span><span>✦ {{ block.settings.second | escape }}</span><span>✦ {{ block.settings.third | escape }}</span></div>
 {% schema %}
 {
   "name": "Product Highlights",
   "target": "section",
   "stylesheet": "block-builder.css",
   "settings": [
+    {"type": "select", "id": "style", "label": "Design", "options": [{"value": "standard", "label": "Standard"}, {"value": "outline", "label": "Outline"}, {"value": "warm", "label": "Warm"}], "default": "standard"},
     {
       "type": "text",
       "id": "first",

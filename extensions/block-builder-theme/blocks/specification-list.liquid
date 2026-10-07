@@ -1,0 +1,56 @@
+{% if block.settings.value_1 != blank or block.settings.value_2 != blank or block.settings.value_3 != blank %}
+<div class="bb-block bb-specs" {{ block.shopify_attributes }}><h3>{{ block.settings.heading | escape }}</h3><dl>{% if block.settings.value_1 != blank %}<div><dt>{{ block.settings.label_1 | escape }}</dt><dd>{{ block.settings.value_1 | escape }}</dd></div>{% endif %}{% if block.settings.value_2 != blank %}<div><dt>{{ block.settings.label_2 | escape }}</dt><dd>{{ block.settings.value_2 | escape }}</dd></div>{% endif %}{% if block.settings.value_3 != blank %}<div><dt>{{ block.settings.label_3 | escape }}</dt><dd>{{ block.settings.value_3 | escape }}</dd></div>{% endif %}</dl></div>
+{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Add factual specifications to show this block.</div>{% endif %}
+{% schema %}
+{
+  "name": "Specification list",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Product details"
+    },
+    {
+      "type": "text",
+      "id": "label_1",
+      "label": "Label 1",
+      "default": "Material"
+    },
+    {
+      "type": "text",
+      "id": "value_1",
+      "label": "Value 1"
+    },
+    {
+      "type": "text",
+      "id": "label_2",
+      "label": "Label 2",
+      "default": "Dimensions"
+    },
+    {
+      "type": "text",
+      "id": "value_2",
+      "label": "Value 2"
+    },
+    {
+      "type": "text",
+      "id": "label_3",
+      "label": "Label 3",
+      "default": "Care"
+    },
+    {
+      "type": "text",
+      "id": "value_3",
+      "label": "Value 3"
+    }
+  ]
+}
+{% endschema %}

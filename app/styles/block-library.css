@@ -39,3 +39,5 @@
 @media(max-width:1050px){.block-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:780px){.block-intro{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:680px){.block-grid{grid-template-columns:minmax(0,1fr)}}
+
+.block-card__style-note{font-size:12px;color:#435c4a!important;flex:none!important;margin-top:0}.block-preview .bb-feature-grid__items{gap:4px}.block-preview .bb-feature-grid__items>div{padding:6px;font-size:10px}

@@ -33,6 +33,26 @@ const blocks = [
   { handle: "size-guide", title: "Size guide", category: "Product details", description: "Add a compact measurement table shoppers can expand." },
   { handle: "video-spotlight", title: "Product video", category: "Product details", description: "Feature a video selected from your Shopify files." },
   { handle: "gradient-heading", title: "Gradient heading", category: "Product details", description: "Add a colorful, editable heading to the product page." },
+  { handle: "specification-list", title: "Specification list", category: "Product details", description: "Display three factual product specifications in a clean list." },
+  { handle: "care-instructions", title: "Care instructions", category: "Product details", description: "Show care guidance you provide for this product." },
+  { handle: "feature-grid", title: "Feature grid", category: "Product details", description: "Present three product benefits with short supporting details." },
+  { handle: "brand-note", title: "Brand note", category: "Product details", description: "Share a short message written by your brand, with optional attribution." },
+  { handle: "offer-callout", title: "Offer callout", category: "Offers", description: "Highlight a real offer and its terms with an optional link." },
+  { handle: "product-checklist", title: "Product checklist", category: "Product details", description: "List three factual product points at a glance." },
+  { handle: "trust-strip", style: "outline", title: "Outlined trust strip", category: "Trust", description: "A light outlined design for merchant-provided reassurance text." },
+  { handle: "trust-strip", style: "dark", title: "Dark trust strip", category: "Trust", description: "A high-contrast dark design for merchant-provided reassurance text." },
+  { handle: "promo-banner", style: "cream", title: "Cream promotion", category: "Offers", description: "A warm promotion design; choose Cream under Design in the theme editor." },
+  { handle: "promo-banner", style: "outline", title: "Outlined promotion", category: "Offers", description: "A minimal promotion design; choose Outline under Design in the theme editor." },
+  { handle: "product-badge", style: "outline", title: "Outlined badge", category: "Product details", description: "A simple outlined product badge; choose Outline under Design." },
+  { handle: "product-badge", style: "dark", title: "Dark badge", category: "Product details", description: "A strong dark product badge; choose Dark under Design." },
+  { handle: "announcement-bar", style: "cream", title: "Cream announcement", category: "Offers", description: "A warm product announcement; choose Cream under Style." },
+  { handle: "announcement-bar", style: "outline", title: "Outlined announcement", category: "Offers", description: "A minimal product announcement; choose Outline under Style." },
+  { handle: "product-highlights", style: "outline", title: "Outlined highlights", category: "Product details", description: "Three outlined product benefits; choose Outline under Design." },
+  { handle: "product-highlights", style: "warm", title: "Warm highlights", category: "Product details", description: "Three benefits on a warm background; choose Warm under Design." },
+  { handle: "guarantee-card", style: "outline", title: "Outlined guarantee", category: "Trust", description: "An outlined policy card; enter your actual guarantee and choose Outline." },
+  { handle: "guarantee-card", style: "warm", title: "Warm guarantee", category: "Trust", description: "A warm policy card; enter your actual guarantee and choose Warm." },
+  { handle: "shipping-details", style: "outline", title: "Outlined shipping details", category: "Shipping", description: "Outlined shipping terms; enter your actual policy and choose Outline." },
+  { handle: "shipping-details", style: "warm", title: "Warm shipping details", category: "Shipping", description: "Warm shipping terms; enter your actual policy and choose Warm." },
 ] as const;
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -96,16 +116,16 @@ export default function BlockLibrary() {
       </s-section>
     </div>
     <s-section heading="Block library">
-      <s-paragraph>Installed status reflects blocks saved on your published theme. Return from the theme editor or refresh status after saving.</s-paragraph>
+      <s-paragraph>Installed status reflects block types saved on your published theme. Design choices share their underlying block type; select the pictured Design or Style setting in the theme editor. Return here or refresh after saving.</s-paragraph>
       <s-stack direction="inline" gap="small">
         {categories.map((category) => <s-button key={category} variant={filter === category ? "primary" : "secondary"} onClick={() => setFilter(category)}>{category}</s-button>)}
         <s-button variant="tertiary" onClick={() => { void refreshStatus(); }}>Refresh status</s-button>
       </s-stack>
       {statusError && <s-paragraph>Installation status is temporarily unavailable. Check your published theme in Shopify&apos;s theme editor.</s-paragraph>}
       <div className="block-grid">
-        {visible.map((block) => <article className="block-card" key={block.handle}>
-          <BlockPreview handle={block.handle} />
-          <div className="block-card__body"><span className="block-card__category">{block.category}</span><h3>{block.title}</h3>{installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}<p>{block.description}</p>
+        {visible.map((block) => <article className="block-card" key={`${block.handle}-${"style" in block ? block.style : "default"}`}>
+          <BlockPreview handle={block.handle} style={"style" in block ? block.style : undefined} />
+          <div className="block-card__body"><span className="block-card__category">{block.category}</span><h3>{block.title}</h3>{installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}<p>{block.description}</p>{"style" in block && <p className="block-card__style-note">After opening the editor, set Design or Style to <strong>{block.style}</strong>, then save.</p>}
             <div className="block-card__actions">
               {installed?.has(block.handle)
                 ? <s-button href={openThemeUrl("embed" in block)} target="_blank" accessibilityLabel={`Edit ${block.title} in theme`}>Edit in theme</s-button>

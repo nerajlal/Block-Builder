@@ -1,5 +1,5 @@
 {% if block.settings.body != blank %}
-<div class="bb-block bb-guarantee" {{ block.shopify_attributes }}>
+<div class="bb-block bb-guarantee bb-guarantee--{{ block.settings.style | escape }}" {{ block.shopify_attributes }}>
   <span class="bb-guarantee__icon" aria-hidden="true">✓</span>
   <div><strong>{{ block.settings.heading | escape }}</strong><p>{{ block.settings.body | escape | newline_to_br }}</p>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
 </div>
@@ -15,6 +15,7 @@
   },
   "stylesheet": "block-builder.css",
   "settings": [
+    {"type": "select", "id": "style", "label": "Design", "options": [{"value": "standard", "label": "Standard"}, {"value": "outline", "label": "Outline"}, {"value": "warm", "label": "Warm"}], "default": "standard"},
     {
       "type": "text",
       "id": "heading",

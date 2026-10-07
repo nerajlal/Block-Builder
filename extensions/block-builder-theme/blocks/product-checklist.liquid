@@ -1,0 +1,39 @@
+{% if block.settings.item_1 != blank and block.settings.item_2 != blank and block.settings.item_3 != blank %}<div class="bb-block bb-checklist" {{ block.shopify_attributes }}><h3>{{ block.settings.heading | escape }}</h3><ul><li>{{ block.settings.item_1 | escape }}</li><li>{{ block.settings.item_2 | escape }}</li><li>{{ block.settings.item_3 | escape }}</li></ul></div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter three factual product points to show this block.</div>{% endif %}
+{% schema %}
+{
+  "name": "Product checklist",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "At a glance"
+    },
+    {
+      "type": "text",
+      "id": "item_1",
+      "label": "Item 1",
+      "info": "Use a factual point about this product."
+    },
+    {
+      "type": "text",
+      "id": "item_2",
+      "label": "Item 2",
+      "info": "Use a factual point about this product."
+    },
+    {
+      "type": "text",
+      "id": "item_3",
+      "label": "Item 3",
+      "info": "Use a factual point about this product."
+    }
+  ]
+}
+{% endschema %}

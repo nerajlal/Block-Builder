@@ -1,0 +1,27 @@
+{% if block.settings.instructions != blank %}<div class="bb-block bb-care" {{ block.shopify_attributes }}><span class="bb-care__icon" aria-hidden="true">✦</span><div><h3>{{ block.settings.heading | escape }}</h3><p>{{ block.settings.instructions | escape | newline_to_br }}</p></div></div>{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter care instructions to show this block.</div>{% endif %}
+{% schema %}
+{
+  "name": "Care instructions",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Care instructions"
+    },
+    {
+      "type": "textarea",
+      "id": "instructions",
+      "label": "Product care instructions",
+      "info": "Use care advice that applies to this product."
+    }
+  ]
+}
+{% endschema %}
