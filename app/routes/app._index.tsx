@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { HeadersFunction, LoaderFunctionArgs } from "react-router";
 import { useLoaderData } from "react-router";
+import { useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
 import { boundary } from "@shopify/shopify-app-react-router/server";
 import { BlockPreview } from "../components/BlockPreview";
@@ -31,7 +32,37 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function BlockLibrary() {
   const { shop, apiKey } = useLoaderData<typeof loader>();
+  const shopify = useAppBridge();
   const [filter, setFilter] = useState("All");
+  const [installed, setInstalled] = useState<Set<string> | null>(null);
+  const [statusError, setStatusError] = useState(false);
+  const refreshStatus = useCallback(async () => {
+    try {
+      const extensions = await shopify.app.extensions();
+      const activeHandles = extensions
+        .filter((extension) => extension.type === "theme_app_extension")
+        .flatMap((extension) => extension.activations as Array<{ handle: string; status: string; activations: unknown[] }>)
+        .filter((activation) => activation.status === "active" && activation.activations.length > 0)
+        .map((activation) => activation.handle);
+      setInstalled(new Set(activeHandles));
+      setStatusError(false);
+    } catch {
+      setInstalled(null);
+      setStatusError(true);
+    }
+  }, [shopify]);
+  useEffect(() => {
+    const initialCheck = window.setTimeout(() => { void refreshStatus(); }, 0);
+    const onFocus = () => { void refreshStatus(); };
+    const onVisible = () => { if (document.visibilityState === "visible") void refreshStatus(); };
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      window.clearTimeout(initialCheck);
+      window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, [refreshStatus]);
   const categories = ["All", ...new Set(blocks.map((block) => block.category))];
   const visible = filter === "All" ? blocks : blocks.filter((block) => block.category === filter);
   const editorUrl = (handle: string, embed: boolean, target = "mainSection") => {
@@ -41,6 +72,8 @@ export default function BlockLibrary() {
       : `template=product&addAppBlockId=${blockId}&target=${target}`;
     return `https://${shop}/admin/themes/current/editor?${query}`;
   };
+  const openThemeUrl = (embed: boolean) =>
+    `https://${shop}/admin/themes/current/editor?${embed ? "context=apps&template=index" : "template=product"}`;
   return <s-page heading="Block Builder" inlineSize="large">
     <div className="block-intro">
       <s-section heading="Upgrade your product page">
@@ -53,16 +86,23 @@ export default function BlockLibrary() {
       </s-section>
     </div>
     <s-section heading="Block library">
+      <s-paragraph>Installed status reflects blocks saved on your published theme. Return from the theme editor or refresh status after saving.</s-paragraph>
       <s-stack direction="inline" gap="small">
         {categories.map((category) => <s-button key={category} variant={filter === category ? "primary" : "secondary"} onClick={() => setFilter(category)}>{category}</s-button>)}
+        <s-button variant="tertiary" onClick={() => { void refreshStatus(); }}>Refresh status</s-button>
       </s-stack>
+      {statusError && <s-paragraph>Installation status is temporarily unavailable. Check your published theme in Shopify&apos;s theme editor.</s-paragraph>}
       <div className="block-grid">
         {visible.map((block) => <article className="block-card" key={block.handle}>
           <BlockPreview handle={block.handle} />
-          <div className="block-card__body"><span className="block-card__category">{block.category}</span><h3>{block.title}</h3><p>{block.description}</p>
+          <div className="block-card__body"><span className="block-card__category">{block.category}</span><h3>{block.title}</h3>{installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}<p>{block.description}</p>
             <div className="block-card__actions">
-              <s-button href={editorUrl(block.handle, "embed" in block)} target="_blank" accessibilityLabel={`Install ${block.title} in theme`}>Install in theme</s-button>
-              {!("embed" in block) && <s-link href={editorUrl(block.handle, false, "newAppsSection")} target="_blank">Add as separate section</s-link>}
+              {installed?.has(block.handle)
+                ? <s-button href={openThemeUrl("embed" in block)} target="_blank" accessibilityLabel={`Edit ${block.title} in theme`}>Edit in theme</s-button>
+                : installed === null && !statusError
+                  ? <s-button disabled>Checking status…</s-button>
+                  : <s-button href={editorUrl(block.handle, "embed" in block)} target="_blank" accessibilityLabel={`Install ${block.title} in theme`}>Install in theme</s-button>}
+              {!("embed" in block) && installed !== null && !installed.has(block.handle) && <s-link href={editorUrl(block.handle, false, "newAppsSection")} target="_blank">Add as separate section</s-link>}
             </div>
           </div>
         </article>)}
