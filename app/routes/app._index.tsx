@@ -23,6 +23,16 @@ const blocks = [
   { handle: "info-tabs", title: "Information tabs", category: "Product details", description: "Organize product details into accessible, keyboard-friendly tabs." },
   { handle: "discount-code", title: "Discount code", category: "Offers", description: "Show a copyable code that you have already created and tested in Shopify Discounts." },
   { handle: "scroll-to-top", title: "Scroll to top", category: "Utilities", description: "Add a floating back-to-top button across your storefront.", embed: true },
+  { handle: "announcement-bar", title: "Product announcement", category: "Offers", description: "Add a concise announcement to your product template with an optional link." },
+  { handle: "collection-circles", title: "Collection circles", category: "Product details", description: "Show up to three Shopify collections with circular images and links." },
+  { handle: "image-gallery", title: "Product image gallery", category: "Product details", description: "Create a horizontal gallery from three images you choose in the theme editor." },
+  { handle: "media-tabs", title: "Media tabs", category: "Product details", description: "Organize up to three product images and descriptions in accessible tabs." },
+  { handle: "how-to-steps", title: "How-to steps", category: "Product details", description: "Explain how to use your product in three clear steps." },
+  { handle: "guarantee-card", title: "Guarantee card", category: "Trust", description: "Show a store policy you provide, with an optional link to its details." },
+  { handle: "shipping-details", title: "Shipping details", category: "Shipping", description: "Present your actual shipping terms and link to your policy." },
+  { handle: "size-guide", title: "Size guide", category: "Product details", description: "Add a compact measurement table shoppers can expand." },
+  { handle: "video-spotlight", title: "Product video", category: "Product details", description: "Feature a video selected from your Shopify files." },
+  { handle: "gradient-heading", title: "Gradient heading", category: "Product details", description: "Add a colorful, editable heading to the product page." },
 ] as const;
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {

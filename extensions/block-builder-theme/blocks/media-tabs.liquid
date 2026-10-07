@@ -1,0 +1,90 @@
+{% assign has_media = false %}
+{% if block.settings.image_1 != blank or block.settings.image_2 != blank or block.settings.image_3 != blank %}{% assign has_media = true %}{% endif %}
+{% if has_media %}
+<div class="bb-block bb-media-tabs" data-bb-info-tabs {{ block.shopify_attributes }}>
+  <div class="bb-media-tabs__tabs" role="tablist" aria-label="Product media">
+    {% for number in (1..3) %}
+      {% assign image_key = 'image_' | append: number %}
+      {% assign image = block.settings[image_key] %}
+      {% if image != blank %}
+        {% assign title_key = 'title_' | append: number %}
+        <button type="button" role="tab" id="bb-media-tab-{{ block.id }}-{{ number }}" aria-controls="bb-media-panel-{{ block.id }}-{{ number }}" aria-selected="false" tabindex="-1">{{ block.settings[title_key] | escape }}</button>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% for number in (1..3) %}
+    {% assign image_key = 'image_' | append: number %}
+    {% assign image = block.settings[image_key] %}
+    {% if image != blank %}
+      {% assign body_key = 'body_' | append: number %}
+      <div class="bb-media-tabs__panel" role="tabpanel" id="bb-media-panel-{{ block.id }}-{{ number }}" aria-labelledby="bb-media-tab-{{ block.id }}-{{ number }}" hidden>
+        {{ image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+        {% if block.settings[body_key] != blank %}<p>{{ block.settings[body_key] | escape }}</p>{% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Choose at least one image to create media tabs.</div>{% endif %}
+{% schema %}
+{
+  "name": "Media tabs",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Tab 1 title",
+      "default": "Detail 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Tab 1 image"
+    },
+    {
+      "type": "textarea",
+      "id": "body_1",
+      "label": "Tab 1 description"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Tab 2 title",
+      "default": "Detail 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Tab 2 image"
+    },
+    {
+      "type": "textarea",
+      "id": "body_2",
+      "label": "Tab 2 description"
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Tab 3 title",
+      "default": "Detail 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Tab 3 image"
+    },
+    {
+      "type": "textarea",
+      "id": "body_3",
+      "label": "Tab 3 description"
+    }
+  ],
+  "javascript": "info-tabs.js"
+}
+{% endschema %}

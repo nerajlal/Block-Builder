@@ -1,0 +1,42 @@
+<div class="bb-block bb-gradient-heading" style="--bb-gradient-start:{{ block.settings.color_start | escape }};--bb-gradient-end:{{ block.settings.color_end | escape }}" {{ block.shopify_attributes }}>
+  {% if block.settings.eyebrow != blank %}<span>{{ block.settings.eyebrow | escape }}</span>{% endif %}
+  <h2>{{ block.settings.heading | escape }}</h2>
+</div>
+{% schema %}
+{
+  "name": "Gradient heading",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small label",
+      "default": "The little details"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Made for everyday"
+    },
+    {
+      "type": "color",
+      "id": "color_start",
+      "label": "Start color",
+      "default": "#244d35"
+    },
+    {
+      "type": "color",
+      "id": "color_end",
+      "label": "End color",
+      "default": "#7da88a"
+    }
+  ]
+}
+{% endschema %}

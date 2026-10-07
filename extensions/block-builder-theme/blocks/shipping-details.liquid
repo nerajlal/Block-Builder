@@ -1,0 +1,43 @@
+{% if block.settings.body != blank %}
+<div class="bb-block bb-shipping-details" {{ block.shopify_attributes }}>
+  <span class="bb-shipping-details__icon" aria-hidden="true">↗</span>
+  <div><strong>{{ block.settings.heading | escape }}</strong><p>{{ block.settings.body | escape | newline_to_br }}</p>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
+</div>
+{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter your store's shipping details to show this block.</div>{% endif %}
+{% schema %}
+{
+  "name": "Shipping details",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shipping details"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Your shipping terms",
+      "info": "Use terms that match your store policies."
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Shipping policy link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Read shipping policy"
+    }
+  ]
+}
+{% endschema %}

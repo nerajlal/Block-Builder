@@ -1,0 +1,62 @@
+<div class="bb-block bb-announcement bb-announcement--{{ block.settings.style | escape }}" {{ block.shopify_attributes }}>
+  <strong>{{ block.settings.heading | escape }}</strong>
+  <span>{{ block.settings.message | escape }}</span>
+  {% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}
+</div>
+{% schema %}
+{
+  "name": "Product announcement",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Store update"
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Message",
+      "default": "Something good is here"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Optional link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Explore"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "default": "dark",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "cream",
+          "label": "Cream"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

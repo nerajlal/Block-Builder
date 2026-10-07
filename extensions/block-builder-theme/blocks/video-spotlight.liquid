@@ -1,0 +1,37 @@
+{% if block.settings.video != blank %}
+<div class="bb-block bb-video" {{ block.shopify_attributes }}>
+  {% if block.settings.heading != blank %}<h3>{{ block.settings.heading | escape }}</h3>{% endif %}
+  {{ block.settings.video | video_tag: controls: true, autoplay: false, loop: false }}
+  {% if block.settings.caption != blank %}<p>{{ block.settings.caption | escape }}</p>{% endif %}
+</div>
+{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Choose a video from Shopify files to show it here.</div>{% endif %}
+{% schema %}
+{
+  "name": "Product video",
+  "target": "section",
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  },
+  "stylesheet": "block-builder.css",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "See it in action"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Product video"
+    },
+    {
+      "type": "textarea",
+      "id": "caption",
+      "label": "Caption"
+    }
+  ]
+}
+{% endschema %}
