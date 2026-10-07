@@ -1,12 +1,14 @@
 {% assign has_media = false %}
-{% if block.settings.image_1 != blank or block.settings.image_2 != blank or block.settings.image_3 != blank %}{% assign has_media = true %}{% endif %}
+{% if block.settings.image_1 != blank or block.settings.image_2 != blank or block.settings.image_3 != blank or block.settings.video_1 != blank or block.settings.video_2 != blank or block.settings.video_3 != blank %}{% assign has_media = true %}{% endif %}
 {% if has_media %}
 <div class="bb-block bb-media-tabs" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank or block.settings.link_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}{% if block.settings.link_color != blank %}--bb-shipping-link:{{ block.settings.link_color | escape }};{% endif %}"{% endif %} data-bb-info-tabs {{ block.shopify_attributes }}>
   <div class="bb-media-tabs__tabs" role="tablist" aria-label="Product media">
     {% for number in (1..3) %}
       {% assign image_key = 'image_' | append: number %}
       {% assign image = block.settings[image_key] %}
-      {% if image != blank %}
+      {% assign video_key = 'video_' | append: number %}
+      {% assign video = block.settings[video_key] %}
+      {% if image != blank or video != blank %}
         {% assign title_key = 'title_' | append: number %}
         <button type="button" role="tab" id="bb-media-tab-{{ block.id }}-{{ number }}" aria-controls="bb-media-panel-{{ block.id }}-{{ number }}" aria-selected="false" tabindex="-1">{{ block.settings[title_key] | escape }}</button>
       {% endif %}
@@ -15,16 +17,18 @@
   {% for number in (1..3) %}
     {% assign image_key = 'image_' | append: number %}
     {% assign image = block.settings[image_key] %}
-    {% if image != blank %}
+    {% assign video_key = 'video_' | append: number %}
+    {% assign video = block.settings[video_key] %}
+    {% if image != blank or video != blank %}
       {% assign body_key = 'body_' | append: number %}
       <div class="bb-media-tabs__panel" role="tabpanel" id="bb-media-panel-{{ block.id }}-{{ number }}" aria-labelledby="bb-media-tab-{{ block.id }}-{{ number }}" hidden>
-        {{ image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+        {% if video != blank %}{{ video | video_tag: controls: true, image_size: '1000x' }}{% else %}{{ image | image_url: width: 1000 | image_tag: loading: 'lazy' }}{% endif %}
         {% if block.settings[body_key] != blank %}<p>{{ block.settings[body_key] | escape }}</p>{% endif %}
       </div>
     {% endif %}
   {% endfor %}
 </div>
-{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Choose at least one image to create media tabs.</div>{% endif %}
+{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Choose an image or video to create media tabs.</div>{% endif %}
 {% schema %}
 {
   "name": "Media tabs",
@@ -47,6 +51,7 @@
       "id": "image_1",
       "label": "Tab 1 image"
     },
+    { "type": "video", "id": "video_1", "label": "Tab 1 video", "info": "Video takes priority over the image." },
     {
       "type": "textarea",
       "id": "body_1",
@@ -63,6 +68,7 @@
       "id": "image_2",
       "label": "Tab 2 image"
     },
+    { "type": "video", "id": "video_2", "label": "Tab 2 video", "info": "Video takes priority over the image." },
     {
       "type": "textarea",
       "id": "body_2",
@@ -79,6 +85,7 @@
       "id": "image_3",
       "label": "Tab 3 image"
     },
+    { "type": "video", "id": "video_3", "label": "Tab 3 video", "info": "Video takes priority over the image." },
     {
       "type": "textarea",
       "id": "body_3",

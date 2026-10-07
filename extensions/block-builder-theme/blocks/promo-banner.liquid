@@ -1,9 +1,10 @@
-<div class="bb-block bb-promo bb-promo--{{ block.settings.style | escape }}" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank or block.settings.link_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}{% if block.settings.link_color != blank %}--bb-shipping-link:{{ block.settings.link_color | escape }};{% endif %}"{% endif %} {{ block.shopify_attributes }}><strong>{{ block.settings.heading | escape }}</strong><div>{{ block.settings.message | escape }}</div>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
+<div class="bb-block bb-promo bb-promo--{{ block.settings.style | escape }}" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank or block.settings.link_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}{% if block.settings.link_color != blank %}--bb-shipping-link:{{ block.settings.link_color | escape }};{% endif %}"{% endif %} data-bb-promo-end="{{ block.settings.ends_at | escape }}" {{ block.shopify_attributes }}><strong>{{ block.settings.heading | escape }}</strong><div>{{ block.settings.message | escape }}</div>{% if block.settings.ends_at != blank %}<span class="bb-promo__countdown" data-bb-promo-countdown hidden></span>{% endif %}{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
 {% schema %}
 {
   "name": "Promo Banner",
   "target": "section",
   "stylesheet": "block-builder.css",
+  "javascript": "promo-banner.js",
   "settings": [
     {
       "type": "select",
@@ -37,6 +38,7 @@
       "label": "Message",
       "default": "Explore our latest offers"
     },
+    { "type": "text", "id": "ends_at", "label": "Campaign end date and time", "info": "Optional ISO 8601 date with timezone, for example 2026-12-01T23:59:00+05:30. The banner hides after this time." },
     {
       "type": "url",
       "id": "link",

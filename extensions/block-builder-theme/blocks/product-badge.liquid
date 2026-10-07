@@ -1,4 +1,8 @@
-<div class="bb-badge-wrap" {{ block.shopify_attributes }}><span class="bb-badge bb-badge--{{ block.settings.style | escape }}" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank or block.settings.link_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}{% if block.settings.link_color != blank %}--bb-shipping-link:{{ block.settings.link_color | escape }};{% endif %}"{% endif %}>{{ block.settings.label | escape }}</span></div>
+{% assign rating = product.metafields.reviews.rating.value %}
+{% assign rating_count = product.metafields.reviews.rating_count.value %}
+{% if block.settings.content == 'label' or rating != blank and rating_count > 0 %}
+<div class="bb-badge-wrap" {{ block.shopify_attributes }}><span class="bb-badge bb-badge--{{ block.settings.style | escape }}" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank or block.settings.link_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}{% if block.settings.link_color != blank %}--bb-shipping-link:{{ block.settings.link_color | escape }};{% endif %}"{% endif %}>{% if block.settings.content == 'rating' %}★ {{ rating.rating | escape }}/{{ rating.scale_max | escape }} ({{ rating_count }}){% else %}{{ block.settings.label | escape }}{% endif %}</span></div>
+{% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>This product has no standard review rating and count metafields yet.</div>{% endif %}
 {% schema %}
 {
   "name": "Product Badge",
@@ -10,6 +14,7 @@
   },
   "stylesheet": "block-builder.css",
   "settings": [
+    { "type": "select", "id": "content", "label": "Content", "options": [{ "value": "label", "label": "Custom label" }, { "value": "rating", "label": "Real product rating" }], "default": "label", "info": "Rating uses the product's standard review metafields when available." },
     {
       "type": "select",
       "id": "style",
