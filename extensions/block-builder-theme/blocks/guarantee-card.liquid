@@ -1,7 +1,9 @@
+{% assign policy_link = block.settings.link %}
+{% if policy_link == blank and block.settings.auto_policy_link and shop.refund_policy.url != blank %}{% assign policy_link = shop.refund_policy.url %}{% endif %}
 {% if block.settings.body != blank %}
 <div class="bb-block bb-guarantee bb-guarantee--{{ block.settings.style | escape }}" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank or block.settings.link_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}{% if block.settings.link_color != blank %}--bb-shipping-link:{{ block.settings.link_color | escape }};{% endif %}"{% endif %} {{ block.shopify_attributes }}>
   <span class="bb-guarantee__icon" aria-hidden="true">✓</span>
-  <div><strong>{{ block.settings.heading | escape }}</strong><p>{{ block.settings.body | escape | newline_to_br }}</p>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
+  <div><strong>{{ block.settings.heading | escape }}</strong><p>{{ block.settings.body | escape | newline_to_br }}</p>{% if policy_link != blank %}<a href="{{ policy_link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
 </div>
 {% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Describe a guarantee your store actually offers.</div>{% endif %}
 {% schema %}
@@ -50,8 +52,10 @@
     {
       "type": "url",
       "id": "link",
-      "label": "Policy link"
+      "label": "Custom policy link",
+      "info": "Overrides the store refund policy link."
     },
+    { "type": "checkbox", "id": "auto_policy_link", "label": "Link to store refund policy", "default": true, "info": "Used when no custom policy link is set and the store has this policy." },
     {
       "type": "text",
       "id": "link_label",
