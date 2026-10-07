@@ -1,5 +1,5 @@
 {% if block.settings.body != blank %}
-<div class="bb-block bb-shipping-details bb-shipping-details--{{ block.settings.style | escape }}" {{ block.shopify_attributes }}>
+<div class="bb-block bb-shipping-details bb-shipping-details--{{ block.settings.style | escape }}"{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.link_color != blank %} style="{% if block.settings.background_color != blank %}--bb-shipping-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-shipping-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-shipping-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.link_color != blank %}--bb-shipping-link:{{ block.settings.link_color | escape }};{% endif %}"{% endif %} {{ block.shopify_attributes }}>
   <span class="bb-shipping-details__icon" aria-hidden="true">↗</span>
   <div><strong>{{ block.settings.heading | escape }}</strong><p>{{ block.settings.body | escape | newline_to_br }}</p>{% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
 </div>
@@ -16,6 +16,10 @@
   "stylesheet": "block-builder.css",
   "settings": [
     {"type": "select", "id": "style", "label": "Design", "options": [{"value": "standard", "label": "Standard"}, {"value": "outline", "label": "Outline"}, {"value": "warm", "label": "Warm"}], "default": "standard"},
+    {"type": "color", "id": "background_color", "label": "Background color", "info": "Leave empty to use the selected design."},
+    {"type": "color", "id": "text_color", "label": "Text color", "info": "Leave empty to use the selected design."},
+    {"type": "color", "id": "border_color", "label": "Border color", "info": "Leave empty to use the selected design."},
+    {"type": "color", "id": "link_color", "label": "Link color", "info": "Leave empty to use the selected design."},
     {
       "type": "text",
       "id": "heading",

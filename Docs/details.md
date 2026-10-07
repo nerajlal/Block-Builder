@@ -49,7 +49,7 @@ The previous Laravel starter was replaced. A temporary archive was written to `/
 | Media tabs | Up to three image-and-caption tabs | Images must be selected; keyboard navigation uses the existing tab script. |
 | How-to steps | Three editable usage steps | Merchants supply accurate instructions. |
 | Guarantee card | Displays a merchant-authored guarantee and optional policy link | Hidden until the merchant supplies policy text. |
-| Shipping details | Displays merchant-authored shipping terms and optional policy link | Hidden until the merchant supplies terms; no rate calculation. |
+| Shipping details | Displays merchant-authored shipping terms and optional policy link | Hidden until the merchant supplies terms; no rate calculation. Standard, Outline, and Warm designs support optional background, text, border, and link color overrides in the theme editor. |
 | Size guide | Expandable size and measurement table | Hidden until measurements are entered. |
 | Product video | Shopify-hosted video with controls | Hidden until a video is selected; no autoplay. |
 | Gradient heading | Editable heading with two theme-editor colors | Decorative text only. |
