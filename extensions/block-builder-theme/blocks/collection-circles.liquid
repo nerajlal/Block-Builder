@@ -1,13 +1,8 @@
-{% assign has_collection = false %}
-{% if block.settings.collection_1 != blank or block.settings.collection_2 != blank or block.settings.collection_3 != blank %}{% assign has_collection = true %}{% endif %}
-{% if has_collection %}
+{% if block.settings.collections != blank %}
 <div class="bb-block bb-collection-circles" {{ block.shopify_attributes }}>
   {% if block.settings.heading != blank %}<h3>{{ block.settings.heading | escape }}</h3>{% endif %}
   <div class="bb-collection-circles__grid">
-    {% for number in (1..3) %}
-      {% assign key = 'collection_' | append: number %}
-      {% assign chosen = block.settings[key] %}
-      {% if chosen != blank %}
+    {% for chosen in block.settings.collections limit: 3 %}
         <a href="{{ chosen.url | escape }}" class="bb-collection-circles__item">
           <span class="bb-collection-circles__image">
             {% assign image = chosen.image | default: chosen.products.first.featured_image %}
@@ -15,7 +10,6 @@
           </span>
           <span>{{ chosen.title | escape }}</span>
         </a>
-      {% endif %}
     {% endfor %}
   </div>
 </div>
@@ -38,19 +32,10 @@
       "default": "Explore collections"
     },
     {
-      "type": "collection",
-      "id": "collection_1",
-      "label": "Collection 1"
-    },
-    {
-      "type": "collection",
-      "id": "collection_2",
-      "label": "Collection 2"
-    },
-    {
-      "type": "collection",
-      "id": "collection_3",
-      "label": "Collection 3"
+      "type": "collection_list",
+      "id": "collections",
+      "label": "Collections",
+      "limit": 3
     }
   ]
 }
