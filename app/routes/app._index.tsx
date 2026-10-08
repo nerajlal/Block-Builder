@@ -122,10 +122,10 @@ export default function BlockLibrary() {
       <div className="block-library__summary"><span>32 choices</span><span>Product blocks and storefront utilities</span></div>
       <div className="block-library__toolbar">
         <label className="block-library__search"><span className="visually-hidden">Search widgets</span><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.6"/><path d="m13 13 4 4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg><input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search widgets" /></label>
+        <div className="block-library__filters" aria-label="Widget categories">
+          {categories.map((category) => <s-button key={category} variant={filter === category ? "primary" : "secondary"} onClick={() => setFilter(category)}>{category}</s-button>)}
+        </div>
         <s-button variant="tertiary" onClick={() => { void refreshStatus(); }}>Refresh status</s-button>
-      </div>
-      <div className="block-library__filters" aria-label="Widget categories">
-        {categories.map((category) => <s-button key={category} variant={filter === category ? "primary" : "secondary"} onClick={() => setFilter(category)}>{category}</s-button>)}
       </div>
       {statusError && <s-paragraph>Installation status is temporarily unavailable. Check your published theme in Shopify&apos;s theme editor.</s-paragraph>}
       <p className="block-library__result-count">Showing {visible.length} {visible.length === 1 ? "widget" : "widgets"}</p>
