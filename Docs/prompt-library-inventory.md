@@ -5,12 +5,13 @@
 | Measure | Count |
 | --- | ---: |
 | Source examples in this inventory | 108 |
-| Source examples marked ✓ as represented | 66 |
-| Source examples marked ✗ as not yet represented | 42 |
+| Source examples marked ✓ as represented | 70 |
+| Source examples marked ✗ as not yet represented | 38 |
 | Functional Block Builder widgets in the code | 30 (29 product blocks and 1 app embed) |
 | Additional design options within existing widget cards | 14 |
+| New theme-editor layout options (media slider, scrolling message, coupon) | 3 |
 
-The **42 remaining** are source examples to evaluate, not 92 separate widgets to build. Some are visual variations that can share a widget; others require real Shopify data or should not be offered as shown because they imply invented reviews, sales, stock, or urgency. The ✓/✗ counts below track the **108 source folders**. The widget and design counts track the current code, independently of Shopify release status.
+The **38 remaining** are source examples to evaluate, not 92 separate widgets to build. Some are visual variations that can share a widget; others require real Shopify data or should not be offered as shown because they imply invented reviews, sales, stock, or urgency. The ✓/✗ counts below track the **108 source folders**. The widget and design counts track the current code, independently of Shopify release status.
 
 This indexes **all 108 named folders** in the supplied local pack. The inspection reads every text snippet and records source characteristics; it does not certify third-party code or media for redistribution. Each row maps the idea to a Shopify-native destination. Similar designs may eventually be grouped into editable presets instead of copied as separate full-page snippets.
 
@@ -23,13 +24,13 @@ The source pack is a local reference, excluded from Git. Its license is not docu
 | 1 | ✓ | 14 days moneyback | Trust and assurances | Guarantee card; merchant enters the real 14-day policy | full-page HTML, page-level styling, external URL | png |
 | 2 | ✗ | 15 people have | Reviews and social proof | Requires verified reviews or real activity data; no invented counts or testimonials | JavaScript, timed/random behavior | png |
 | 3 | ✗ | 2000+ people voted | Reviews and social proof | Requires verified reviews or real activity data; no invented counts or testimonials | full-page HTML, page-level styling, JavaScript | png |
-| 4 | ✗ | 3 info sliders with images | Product information | Highlights / FAQ / Image story / Information tabs; media tabs are a future enhancement | full-page HTML, page-level styling, JavaScript, timed/random behavior | png |
+| 4 | ✓ | 3 info sliders with images | Product information | Media tabs: three merchant-selected images or videos with tabs or previous/next slider controls | full-page HTML, page-level styling, JavaScript, timed/random behavior | png |
 | 5 | ✓ | 8 item left & limited stock | Availability | Stock note: opt-in low stock from actual selected-variant tracked inventory; no fixed count | full-page HTML, page-level styling, external URL | png |
 | 6 | ✓ | 8 items left | Availability | Stock note: opt-in low stock from actual selected-variant tracked inventory; no fixed count | markup/CSS | png |
 | 7 | ✓ | Animated countdown | Other utilities | Promotion banner with merchant-set campaign end time; visual animation differs from the source | full-page HTML, page-level styling | png |
 | 8 | ✓ | Announcement Bar | Promotion and announcements | Product announcement block on product templates; site-wide version is still pending | full-page HTML, page-level styling, JavaScript, timed/random behavior | mp4 |
-| 9 | ✗ | Announcement Bar 2 Mobil | Promotion and announcements | Promotion banner; site-wide announcement requires an app embed | full-page HTML, page-level styling, JavaScript, external URL | png |
-| 10 | ✗ | Announcement Bar 2 Web | Promotion and announcements | Promotion banner; site-wide announcement requires an app embed | full-page HTML, page-level styling, JavaScript, external URL, timed/random behavior | png |
+| 9 | ✓ | Announcement Bar 2 Mobil | Promotion and announcements | Product announcement: responsive coupon layout with a merchant-supplied existing code; product template only | full-page HTML, page-level styling, JavaScript, external URL | png |
+| 10 | ✓ | Announcement Bar 2 Web | Promotion and announcements | Product announcement: responsive coupon layout with a merchant-supplied existing code; product template only | full-page HTML, page-level styling, JavaScript, external URL, timed/random behavior | png |
 | 11 | ✓ | Before and after image slider | Comparison and imagery | Comparison table / Before & after / Image story; collection/video gallery needs its own block | JavaScript, external URL | png |
 | 12 | ✓ | Best Seller | Product badges | Product badge; merchant verifies a best-seller claim | full-page HTML, page-level styling, external URL | mp4 |
 | 13 | ✗ | Black Friday | Promotion and announcements | Promotion banner; site-wide announcement requires an app embed | full-page HTML, page-level styling, JavaScript, external URL, timed/random behavior | mp4 |
@@ -76,7 +77,7 @@ The source pack is a local reference, excluded from Git. Its license is not docu
 | 54 | ✗ | Hurry up & items sold | Reviews and social proof | Requires verified reviews or real activity data; no invented counts or testimonials | full-page HTML, page-level styling, JavaScript, external URL, timed/random behavior | mp4 |
 | 55 | ✗ | Hurry up & items sold 2 | Reviews and social proof | Requires verified reviews or real activity data; no invented counts or testimonials | full-page HTML, page-level styling, JavaScript, external URL, timed/random behavior | mp4 |
 | 56 | ✓ | In Stock | Availability | Stock note; actual selected-variant inventory only | markup/CSS | png |
-| 57 | ✗ | Infinite scrolling information | Promotion and announcements | Promotion banner; site-wide announcement requires an app embed | full-page HTML, page-level styling | png |
+| 57 | ✓ | Infinite scrolling information | Promotion and announcements | Product announcement: scrolling merchant-written message; product template only | full-page HTML, page-level styling | png |
 | 58 | ✓ | Info section of your product v2 | Product information | Image story; merchant chooses imagery and copy | JavaScript, external URL | png |
 | 59 | ✓ | Info Section with images v2 | Product information | Highlights / FAQ / Image story / Information tabs; media tabs are a future enhancement | full-page HTML, page-level styling, external URL | png |
 | 60 | ✓ | Info Tabs | Product information | Highlights / FAQ / Image story / Information tabs; media tabs are a future enhancement | full-page HTML, page-level styling, JavaScript | png |
@@ -160,15 +161,15 @@ The latest batch adds six functional blocks and fourteen alternate designs insid
 
 ## Remaining work, sorted by what it needs
 
-The entries below remain ✗ until their specific behavior is implemented and verified. A visual match alone does not establish a real discount, review, live sale, financing offer, or inventory claim. Product review rating from standard metafields, selected-variant inventory, and image/video tabs are already grouped into reusable widgets above.
+The entries below remain ✗ until their specific behavior is implemented and verified. A visual match alone does not establish a real discount, review, live sale, financing offer, or inventory claim. Product review rating from standard metafields, selected-variant inventory, image/video sliders, and product-page announcement layouts are already grouped into reusable widgets above. A store-wide announcement still needs a separate app embed.
 
 ### Real reviews or live social activity (24)
 
 **2** 15 people have, **3** 2000+ people voted, **28** Customer  Review, **29** Customer Live Sale, **30** Customer Review 2, **38** Facebook Views, **39** Facebook Viral, **40** Fake FB Comment, **48** Google Reviews, **53** Hurry up, **54** Hurry up & items sold, **55** Hurry up & items sold 2, **61** Instagram Viral, **62** Items Sold, **79** One Million Happy Customers, **86** Reviews Slider v3, **90** Scrolling Reviews, **97** TikTok Views, **98** TikTok Viral, **100** Trustpilot, **101** Trustpilot Comment, **105** Verified Purchases, **106** Viral Facebook, **108** ÿnstagram Views.
 
-### Promotion and announcement behavior (4)
+### Promotion and announcement behavior (1)
 
-**9** Announcement Bar 2 Mobil, **10** Announcement Bar 2 Web, **13** Black Friday, **57** Infinite scrolling information.
+**13** Black Friday.
 
 ### Trust claims and assurances (2)
 
@@ -182,10 +183,6 @@ The entries below remain ✗ until their specific behavior is implemented and ve
 
 **51** Happy Customer, **67** Loved by 10000, **68** Loved Product.
 
-### Product information and media (1)
-
-**4** 3 info sliders with images.
-
 ### Other utilities (2)
 
 **63** Klarna, **91** Special Code (Spacing).
@@ -194,4 +191,4 @@ The entries below remain ✗ until their specific behavior is implemented and ve
 
 **96** Tiktok videos.
 
-**Next implementation priorities:** sitewide announcements; real Shopify discount application; product media gallery. Review sliders and social activity need a trusted review/activity source. Financing and wholesale examples need their actual provider or pricing integration.
+**Next implementation priorities:** store-wide announcements; real Shopify discount application; product media gallery. Review sliders and social activity need a trusted review/activity source. Financing and wholesale examples need their actual provider or pricing integration.

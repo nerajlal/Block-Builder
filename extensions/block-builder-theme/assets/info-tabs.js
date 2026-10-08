@@ -29,6 +29,15 @@
           activate(group, tabs[next], true);
         });
       });
+      if (group.hasAttribute("data-bb-media-slider")) {
+        group.querySelectorAll("[data-bb-slide]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const current = Math.max(0, tabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true"));
+            const step = button.dataset.bbSlide === "next" ? 1 : -1;
+            activate(group, tabs[(current + step + tabs.length) % tabs.length]);
+          });
+        });
+      }
     });
   }
   document.addEventListener("shopify:section:load", init);

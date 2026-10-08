@@ -1,8 +1,13 @@
 {% if block.settings.message != blank %}
-<div class="bb-block bb-announcement bb-announcement--{{ block.settings.style | escape }}" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank or block.settings.link_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}{% if block.settings.link_color != blank %}--bb-shipping-link:{{ block.settings.link_color | escape }};{% endif %}"{% endif %} {{ block.shopify_attributes }}>
-  <strong>{{ block.settings.heading | escape }}</strong>
-  <span>{{ block.settings.message | escape }}</span>
-  {% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}
+<div class="bb-block bb-announcement bb-announcement--{{ block.settings.style | escape }} bb-announcement--{{ block.settings.layout | escape }}" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}"{% endif %} {{ block.shopify_attributes }}>
+  {% if block.settings.layout == 'ticker' %}
+    <div class="bb-announcement__ticker"><span>{{ block.settings.heading | escape }} · {{ block.settings.message | escape }}</span><span aria-hidden="true">{{ block.settings.heading | escape }} · {{ block.settings.message | escape }}</span></div>
+  {% else %}
+    <strong>{{ block.settings.heading | escape }}</strong>
+    <span>{{ block.settings.message | escape }}</span>
+    {% if block.settings.layout == 'coupon' and block.settings.code != blank %}<span class="bb-announcement__coupon"><code id="bb-announcement-code-{{ block.id }}">{{ block.settings.code | escape }}</code><button type="button" data-bb-announcement-copy="bb-announcement-code-{{ block.id }}">Copy code</button></span>{% endif %}
+    {% if block.settings.link != blank %}<a href="{{ block.settings.link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}
+  {% endif %}
 </div>
 {% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter your announcement message to show this block.</div>{% endif %}
 {% schema %}
@@ -15,6 +20,7 @@
     ]
   },
   "stylesheet": "block-builder.css",
+  "javascript": "announcement-bar.js",
   "settings": [
     {
       "type": "text",
@@ -38,6 +44,8 @@
       "label": "Link label",
       "default": "Explore"
     },
+    { "type": "select", "id": "layout", "label": "Layout", "options": [{ "value": "standard", "label": "Standard" }, { "value": "ticker", "label": "Scrolling message" }, { "value": "coupon", "label": "Responsive coupon" }], "default": "standard" },
+    { "type": "text", "id": "code", "label": "Existing Shopify discount code", "info": "Only shown in Responsive coupon. Create and test the code in Shopify Discounts first." },
     {
       "type": "select",
       "id": "style",

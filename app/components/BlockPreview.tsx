@@ -51,7 +51,7 @@ export function BlockPreview({ handle, style }: PreviewProps) {
     case "image-gallery":
       return sample(<div className="bb-block bb-gallery"><h3>A closer look</h3><div className="bb-gallery__track">{[1, 2, 3].map((number) => <span className="bb-gallery__item block-preview__media-placeholder" key={number}>Image {number}</span>)}</div></div>, true);
     case "media-tabs":
-      return sample(<div className="bb-block bb-media-tabs"><div className="bb-media-tabs__tabs" role="tablist" aria-label="Example media tabs"><span className="block-preview__tab block-preview__tab--active">Detail 1</span><span className="block-preview__tab">Detail 2</span><span className="block-preview__tab">Detail 3</span></div><div className="block-preview__media-placeholder block-preview__media-panel">Selected image</div></div>, true);
+      return sample(<div className="bb-block bb-media-tabs"><div className="bb-media-tabs__tabs" role="tablist" aria-label="Example media tabs"><span className="block-preview__tab block-preview__tab--active">Detail 1</span><span className="block-preview__tab">Detail 2</span><span className="block-preview__tab">Detail 3</span></div><div className="block-preview__media-placeholder block-preview__media-panel">Selected image or video</div><div className="bb-media-tabs__controls"><span>←</span><span>→</span></div></div>, true);
     case "how-to-steps":
       return sample(<div className="bb-block bb-steps"><h3>How to use it</h3><div className="bb-steps__grid">{[1, 2, 3].map((number) => <span className="bb-steps__item" key={number}><span className="bb-steps__number">{number}</span><strong>Step {number}</strong></span>)}</div></div>);
     case "guarantee-card":
