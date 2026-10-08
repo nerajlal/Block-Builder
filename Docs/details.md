@@ -33,7 +33,7 @@ The previous Laravel starter was replaced. A temporary archive was written to `/
 | Delivery estimate | Merchant-set delivery heading and message | Clearly labels the date as an estimate; no carrier/rate calculation. |
 | Product highlights | Three editable benefits | Does not read product metafields yet. |
 | Promotion banner / Black Friday | Editable offer headline, text, link, and optional real campaign end time | Black Friday uses a bold design and seconds countdown. The promotion hides after its end time; it does not create a Shopify discount. |
-| Stock note | Reads actual variant availability and updates when variant selection changes in supported product forms | No invented countdown or quantity claim; test each target theme's variant selector. |
+| Stock note | Reads actual variant availability and updates when variant selection changes in supported product forms; merchant chooses Note or Badge display and a low-stock threshold | No invented countdown or quantity claim; test each target theme's variant selector. |
 | Payment methods | Renders SVG logos for `shop.enabled_payment_types` | Reflects enabled methods for the current market; does not process payments. |
 | Product badge | Editable short label | Default is neutral; merchant should avoid untrue badges. |
 | Product FAQ | Three editable questions and answers in native `<details>` elements | Answers are merchant-owned content. |

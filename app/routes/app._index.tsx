@@ -13,7 +13,7 @@ const blocks = [
   { handle: "delivery-estimate", title: "Delivery estimate", category: "Shipping", description: "A configurable delivery window with a clear estimate disclaimer." },
   { handle: "product-highlights", title: "Product highlights", category: "Product details", description: "Three scannable product benefits with a clean premium layout." },
   { handle: "promo-banner", title: "Promotion banner", category: "Offers", description: "A restrained promotional message for your product page." },
-  { handle: "stock-note", title: "Stock note", category: "Availability", description: "An honest availability indicator using the selected variant's inventory." },
+  { handle: "stock-note", title: "Stock note", category: "Availability", description: "Show real selected-variant availability as a note or a compact badge, with your low-stock threshold." },
   { handle: "payment-methods", title: "Payment methods", category: "Trust", description: "Show only the payment types enabled for this store and market." },
   { handle: "product-badge", title: "Product badge", category: "Product details", description: "Call attention to a genuine product attribute with an editable badge." },
   { handle: "product-faq", title: "Product FAQ", category: "Product details", description: "Answer three common questions in a compact accordion." },
@@ -44,6 +44,7 @@ const blocks = [
 ] as const;
 
 const designs: Record<string, { value: string; label: string }[]> = {
+  "stock-note": [{ value: "note", label: "Note" }, { value: "badge", label: "Badge" }],
   "trust-strip": [{ value: "soft", label: "Soft" }, { value: "outline", label: "Outline" }, { value: "dark", label: "Dark" }],
   "promo-banner": [{ value: "dark", label: "Dark" }, { value: "cream", label: "Cream" }, { value: "outline", label: "Outline" }],
   "product-badge": [{ value: "soft", label: "Soft" }, { value: "outline", label: "Outline" }, { value: "dark", label: "Dark" }],

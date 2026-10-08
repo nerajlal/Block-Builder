@@ -27,7 +27,7 @@ export function BlockPreview({ handle, style }: PreviewProps) {
     case "black-friday":
       return sample(<div className="bb-block bb-promo bb-promo--black-friday"><strong>◷ Black Friday Special</strong><div>Add your real offer and campaign end time</div><span className="bb-promo__countdown">Countdown appears here</span></div>, true, true);
     case "stock-note":
-      return sample(<div className="bb-block bb-stock" role="status">● Available and ready to ship</div>);
+      return sample(<div className={`bb-block bb-stock${style === "badge" ? " bb-stock--badge" : ""}`} role="status">● Available and ready to ship</div>, false, true);
     case "payment-methods":
       return sample(<div className="bb-block bb-payments"><strong>Secure payment options</strong><div className="block-preview__muted">Your store&apos;s enabled payment icons appear here</div></div>, true);
     case "product-badge":

@@ -42,3 +42,4 @@
 .bb-gallery--portrait .bb-gallery__item{flex:0 0 clamp(160px,24%,250px);aspect-ratio:9/16;background:#111;scroll-snap-align:center}.bb-gallery--portrait video{display:block;width:100%;height:100%;object-fit:cover}@media(max-width:600px){.bb-gallery--portrait .bb-gallery__item{flex-basis:min(64vw,230px)}}
 .bb-scroll-top[data-bb-accent] span{color:var(--bb-custom-accent)}
 .bb-whatsapp{position:fixed;right:20px;bottom:76px;z-index:30;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#25d366;color:#fff!important;box-shadow:0 4px 16px #0003;text-decoration:none}.bb-whatsapp--solo{bottom:20px}.bb-whatsapp:hover{background:#128c4a}.bb-whatsapp:focus-visible{outline:3px solid #128c4a;outline-offset:3px}.bb-whatsapp[hidden]{display:none}
+.bb-stock--badge{display:inline-flex;align-items:center;width:auto;padding:6px 12px;border-radius:999px;font-size:.85em;font-weight:700;line-height:1.3}
