@@ -25,59 +25,53 @@ export default function Pricing() {
             <div className="card-grid">
               <article className="plan">
                 <div className="plan-label">Start here</div>
-                <h2>Starter</h2>
+                <h2>Free</h2>
                 <div className="amount">
-                  $4 <span>/ month</span>
+                  $0 <span>/ month</span>
                 </div>
-                <p>Core offers and product page information for a growing store.</p>
+                <p>Essential blocks to get started with basic product page improvements.</p>
                 <ul>
-                  <li>AI features for 11–50 products</li>
-                  <li>Up to 20 discount coupons</li>
-                  <li>Product-specific discounts</li>
-                  <li>Up to 5 product bundles</li>
-                  <li>Delivery date display</li>
-                  <li>Priority email support</li>
+                  <li>Add up to 3 blocks per page</li>
+                  <li>Basic trust strips</li>
+                  <li>Standard delivery estimates</li>
+                  <li>Community support</li>
                 </ul>
                 <a className="btn" href="https://apps.shopify.com/product-discount-3">
-                  Start 7-day trial ↗
+                  Install Free ↗
                 </a>
               </article>
               <article className="plan popular">
                 <div className="plan-label">Most popular</div>
-                <h2>Pro</h2>
+                <h2>Starter</h2>
                 <div className="amount">
-                  $10 <span>/ month</span>
+                  $5 <span>/ month</span>
                 </div>
-                <p>More room to run offers across your catalog.</p>
+                <p>More room to run offers and blocks across your catalog.</p>
                 <ul>
-                  <li>Unlimited AI generations</li>
-                  <li>Unlimited discount coupons</li>
-                  <li>Unlimited product bundles</li>
-                  <li>Everything in Starter</li>
-                  <li>Bulk feature management</li>
-                  <li>Priority support</li>
+                  <li>Add up to 10 blocks per page</li>
+                  <li>Promotion banners</li>
+                  <li>Product highlights</li>
+                  <li>Priority email support</li>
                 </ul>
                 <a className="btn" href="https://apps.shopify.com/product-discount-3">
-                  Choose Pro ↗
+                  Choose Starter ↗
                 </a>
               </article>
               <article className="plan">
                 <div className="plan-label">Advanced needs</div>
-                <h2>Enterprise</h2>
+                <h2>Pro</h2>
                 <div className="amount">
                   $15 <span>/ month</span>
                 </div>
-                <p>Additional service and customization options listed for larger operations.</p>
+                <p>Unlimited access to all blocks and advanced customizations.</p>
                 <ul>
-                  <li>Dedicated account manager</li>
-                  <li>Custom feature development</li>
-                  <li>White-label options</li>
-                  <li>Multi-store management</li>
-                  <li>SLA guarantees</li>
-                  <li>Custom API integrations</li>
+                  <li>Unlimited blocks per page</li>
+                  <li>Access to all 14+ block types</li>
+                  <li>Custom styling options</li>
+                  <li>24/7 Priority support</li>
                 </ul>
                 <a className="btn" href="https://apps.shopify.com/product-discount-3">
-                  Choose Enterprise ↗
+                  Choose Pro ↗
                 </a>
               </article>
             </div>

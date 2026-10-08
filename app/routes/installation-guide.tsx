@@ -25,13 +25,10 @@ export default function InstallationGuide() {
             <aside className="side" aria-label="Guide sections">
               <strong>On this page</strong>
               <a href="#step-1">1. Install the app</a>
-              <a href="#step-2">2. Set your delivery estimate</a>
-              <a href="#step-3">3. Create a product coupon</a>
-              <a href="#step-4">4. Create a bundle</a>
-              <a href="#step-5">5. Generate product features</a>
-              <a href="#step-6">6. Place and style your product blocks</a>
-              <a href="#step-7">7. Show bundles on the home page</a>
-              <a href="#step-8">8. Check the storefront</a>
+              <a href="#step-2">2. Explore the library</a>
+              <a href="#step-3">3. Open Theme Editor</a>
+              <a href="#step-4">4. Add and customize</a>
+              <a href="#step-5">5. Preview and publish</a>
             </aside>
             <div>
               <section className="guide-step" id="step-1">
@@ -50,117 +47,67 @@ export default function InstallationGuide() {
                   </li>
                 </ol>
                 <div className="callout">
-                  The app installs without editing theme code. You can add and position its app blocks in the Shopify Theme Editor.
+                  The app installs without editing theme code. You can add and position its app blocks directly in the Shopify Theme Editor.
                 </div>
               </section>
               <section className="guide-step" id="step-2">
                 <h2>
-                  <span className="round">2</span>Set your delivery estimate
+                  <span className="round">2</span>Explore the Block Library
                 </h2>
                 <ol>
                   <li>
-                    In Block Builder, open <strong>Delivery Settings</strong>.
+                    Inside the Block Builder app dashboard, browse the 14+ available blocks.
                   </li>
-                  <li>Set the delivery day range and destination shown to shoppers.</li>
-                  <li>
-                    Switch the display on and select <strong>Save Settings</strong>.
-                  </li>
+                  <li>Familiarize yourself with features like Trust strips, Delivery estimates, Product highlights, and Promotion banners.</li>
+                  <li>Decide which blocks best fit your store's needs.</li>
                 </ol>
               </section>
               <section className="guide-step" id="step-3">
                 <h2>
-                  <span className="round">3</span>Create a product coupon
+                  <span className="round">3</span>Open the Theme Editor
                 </h2>
                 <ol>
                   <li>
-                    Open <strong>Product Coupons</strong> and select <strong>Create Coupon</strong>.
+                    In your Shopify admin, go to <strong>Online Store → Themes → Customize</strong>.
                   </li>
-                  <li>Choose the product and enter a unique coupon code.</li>
-                  <li>Select a percentage or fixed amount discount and enter its value.</li>
-                  <li>Optionally set valid dates, activate the coupon, and save.</li>
+                  <li>At the top center of the editor, click the dropdown and navigate to the <strong>Products</strong> → <strong>Default product</strong> template.</li>
+                  <li>On the left sidebar, locate the <strong>Product information</strong> section.</li>
                 </ol>
-                <div className="callout">
-                  Check the offer on the product and cart pages before sharing it with customers.
-                </div>
               </section>
               <section className="guide-step" id="step-4">
                 <h2>
-                  <span className="round">4</span>Create a bundle
+                  <span className="round">4</span>Add and Customize Blocks
                 </h2>
                 <ol>
                   <li>
-                    Open <strong>Product Bundles</strong> and select <strong>Create Bundle</strong>.
+                    Click <strong>Add block</strong> at the bottom of the Product Information section.
                   </li>
-                  <li>Name the bundle, set its price, and add at least two products.</li>
-                  <li>Turn on its active status and save.</li>
+                  <li>Scroll down to the <strong>Apps</strong> category and select the Block Builder block you want to add (e.g., Trust strip).</li>
+                  <li>Drag the block up or down to position it perfectly on your page.</li>
+                  <li>Click on the block itself to open its settings on the right panel. Here you can customize text, icons, colors, and layout.</li>
                 </ol>
+                <div className="callout">
+                  You can add as many blocks as your plan allows. Each block operates independently and has its own custom settings!
+                </div>
               </section>
               <section className="guide-step" id="step-5">
                 <h2>
-                  <span className="round">5</span>Generate product features
+                  <span className="round">5</span>Preview and Publish
                 </h2>
                 <ol>
-                  <li>
-                    Open <strong>Product Features</strong> and find a product.
-                  </li>
-                  <li>
-                    Select <strong>Generate Features with AI</strong>.
-                  </li>
-                  <li>Review the suggested benefits, edit them for accuracy and brand voice, then save.</li>
+                  <li>Switch between Desktop and Mobile views using the icons at the top right of the editor to ensure your layout is responsive.</li>
+                  <li>Once you are happy with the layout, click <strong>Save</strong> in the top right corner.</li>
+                  <li>Visit your live storefront to see the blocks in action!</li>
                 </ol>
               </section>
-              <section className="guide-step" id="step-6">
-                <h2>
-                  <span className="round">6</span>Place and style your product blocks
-                </h2>
-                <ol>
-                  <li>
-                    In Shopify admin, go to <strong>Online Store → Themes → Customize</strong>.
-                  </li>
-                  <li>
-                    Open a product page template and locate <strong>Product information</strong>.
-                  </li>
-                  <li>
-                    Select <strong>Add block → Apps</strong>, then add each Block Builder block you want to show.
-                  </li>
-                  <li>Drag blocks into position and adjust their colors and titles. Save the theme.</li>
-                </ol>
-                <div className="callout">
-                  Add each feature as an app block when you want its theme color controls. Preview a product with actual coupon, bundle, and delivery data.
-                </div>
-              </section>
-              <section className="guide-step" id="step-7">
-                <h2>
-                  <span className="round">7</span>Show bundles on the home page
-                </h2>
-                <ol>
-                  <li>Open the home page in the Theme Editor.</li>
-                  <li>
-                    Select <strong>Add section</strong> or <strong>Add block</strong>, then choose <strong>Apps → Exclusive Bundles</strong>.
-                  </li>
-                  <li>Place it where you want and save.</li>
-                </ol>
-                <p>
-                  The current app guide also lists a bundles page at <code>your-store.myshopify.com/apps/bundles</code> that you can add to your navigation.
-                </p>
-              </section>
-              <section className="guide-step" id="step-8">
-                <h2>
-                  <span className="round">8</span>Check the storefront
-                </h2>
-                <ol>
-                  <li>Open a product page as a shopper and confirm the blocks display in the correct place.</li>
-                  <li>Test an active coupon and inspect the delivery estimate.</li>
-                  <li>Check the mobile layout and a bundle before promoting the page.</li>
-                </ol>
-              </section>
-              <div className="pricing" style={{ marginTop: 35 }}>
+              
+              <div className="pricing" style={{ marginTop: 35, backgroundColor: "#f4f6f8", padding: "2rem", borderRadius: "8px" }}>
                 <div>
-                  <h2>Need a hand?</h2>
-                  <p>Tell us where you’re stuck and include your store URL if useful.</p>
+                  <h2 style={{ marginTop: 0 }}>Need a hand?</h2>
+                  <p style={{ margin: 0 }}>Tell us where you’re stuck and include your store URL if useful.</p>
                 </div>
                 <div className="price-actions">
-                  <a className="btn" href="/support">
+                  <a className="btn" href="/support" style={{ backgroundColor: "#008060", color: "#ffffff", border: "none", padding: "0.75rem 1.5rem", borderRadius: "4px", fontWeight: "bold", textDecoration: "none" }}>
                     Visit support ↗
                   </a>
                 </div>

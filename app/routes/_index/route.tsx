@@ -32,13 +32,13 @@ export default function Home() {
           <div className="wrap hero-grid">
             <div>
               <div className="eyebrow">
-                <span></span> Shopify product page app
+                <span></span> For Shopify storefronts
               </div>
               <h1>
-                Give shoppers more reasons to <em>add to cart.</em>
+                Make every product page feel <em>thoughtfully built.</em>
               </h1>
               <p className="lead">
-                Bring product bundles, relevant discounts, delivery estimates, and clearer product benefits together on your Shopify product pages.
+                Add polished product-page details to Dawn and other Online Store 2.0 themes. Choose a block, customize it in Shopify's theme editor, and publish when it feels right.
               </p>
               <div className="hero-actions">
                 <a className="btn" href="https://apps.shopify.com/product-discount-3">
@@ -50,45 +50,8 @@ export default function Home() {
               </div>
               <div className="tiny">No coding required · Plans from $4/month</div>
             </div>
-            <div className="preview" aria-label="Illustrative product page showing Block Builder widgets">
-              <div className="preview-head">
-                <b>NORTH</b>
-                <span>Shop &nbsp; Collections &nbsp; Cart (0)</span>
-              </div>
-              <div className="preview-body">
-                <div className="product-art" role="img" aria-label="Illustrative product photo placeholder">
-                  <div className="bottle"></div>
-                </div>
-                <div className="demo-info">
-                  <div className="mini-kicker">EVERYDAY ESSENTIALS</div>
-                  <h3>North / 04 Eau de Parfum</h3>
-                  <div className="stars">★★★★★ &nbsp; 4.8</div>
-                  <div className="price">
-                    $48.00 <s>$60.00</s>
-                  </div>
-                  <div className="widget coupon">
-                    <div className="coupon-row">
-                      <div>
-                        <strong>A little extra off</strong>
-                        <small>Use this code at checkout</small>
-                      </div>
-                      <span className="code">SAVE10</span>
-                    </div>
-                  </div>
-                  <div className="widget">
-                    <strong>Arrives as soon as Oct 3–6</strong>
-                    <small>Estimated delivery for this item</small>
-                  </div>
-                  <div className="widget bundle">
-                    <span className="thumb"></span>
-                    <div>
-                      <strong>Complete the set</strong>
-                      <small>Add a companion item as a bundle</small>
-                    </div>
-                  </div>
-                  <span className="add">Add to cart</span>
-                </div>
-              </div>
+            <div style={{ position: "relative", width: "100%", borderRadius: "24px", overflow: "hidden", boxShadow: "0 30px 60px rgba(0,0,0,0.4)", transform: "rotate(1deg)", border: "6px solid #1a3a28" }}>
+              <img src="/hero-app-mockup.jpg" alt="Block Builder Features Illustration" style={{ width: "100%", height: "auto", display: "block" }} />
             </div>
           </div>
         </section>
@@ -96,35 +59,41 @@ export default function Home() {
         <section className="section alt" id="features">
           <div className="wrap">
             <div className="section-head">
-              <div className="tag">One product page. More useful answers.</div>
-              <h2>Help shoppers decide while they’re still considering.</h2>
-              <p>Give the right offer and the right information at the point where the buying decision happens.</p>
+              <div className="tag">FEATURES</div>
+              <h2>Everything built in</h2>
+              <p>Install once. Place and customize blocks directly in Shopify's theme editor.</p>
             </div>
-            <div className="features">
-              <article className="feature">
-                <img className="feature-visual" src="/assets/bundles.png" alt="Two complementary skincare items shown as a bundle" loading="lazy" width="1254" height="1254" />
-                <div className="num">01 / BUNDLES</div>
-                <h3>Make the next item an easy choice.</h3>
-                <p>Pair products in a bundle so shoppers can discover complementary items without searching your store.</p>
-              </article>
-              <article className="feature">
-                <img className="feature-visual" src="/assets/discounts.png" alt="A percent discount ticket alongside a product box" loading="lazy" width="1254" height="1254" />
-                <div className="num">02 / DISCOUNTS</div>
-                <h3>Show an offer that fits the product.</h3>
-                <p>Create product-specific coupon codes with percentage or fixed discounts, ready for customers to use at checkout.</p>
-              </article>
-              <article className="feature">
-                <img className="feature-visual" src="/assets/delivery.png" alt="Parcel, calendar, and location marker for estimated delivery" loading="lazy" width="1254" height="1254" />
-                <div className="num">03 / DELIVERY DATES</div>
-                <h3>Answer “when will it arrive?” early.</h3>
-                <p>Show estimated delivery dates on product pages so shoppers have more information before adding to cart.</p>
-              </article>
-              <article className="feature">
-                <img className="feature-visual" src="/assets/ai-copy.png" alt="Product bottle alongside a feature card and sparkle" loading="lazy" width="1254" height="1254" />
-                <div className="num">04 / AI-ASSISTED COPY</div>
-                <h3>Say what makes the product worth buying.</h3>
-                <p>Generate a starting point for product features and benefits, then review and tailor the copy to your brand.</p>
-              </article>
+            <div className="features-grid">
+              <div className="feature-card">
+                <div className="feature-icon"><i className="fa-solid fa-shield-halved"></i></div>
+                <h3>Trust strip</h3>
+                <p>Reassure shoppers with clear, editable service messages and policies directly on the product page.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon"><i className="fa-solid fa-truck"></i></div>
+                <h3>Delivery estimate</h3>
+                <p>Show an honest, merchant-controlled delivery message to set expectations before checkout.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon"><i className="fa-solid fa-wand-magic-sparkles"></i></div>
+                <h3>Product highlights</h3>
+                <p>Make the most useful product benefits easy to scan with beautiful iconography and layout.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon"><i className="fa-solid fa-ticket"></i></div>
+                <h3>Promotion banner</h3>
+                <p>Give a genuine promotion or discount code a polished place on the page to drive conversions.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon"><i className="fa-solid fa-box"></i></div>
+                <h3>Stock note</h3>
+                <p>Display variant availability without invented urgency to build trust and drive natural sales.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon"><i className="fa-solid fa-credit-card"></i></div>
+                <h3>Payment methods</h3>
+                <p>Show payment logos enabled for the store and market, letting shoppers know how they can pay.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -161,7 +130,7 @@ export default function Home() {
               <div>
                 <div className="tag">Pricing</div>
                 <h2>Start with the features you need.</h2>
-                <p>Plans start at $4/month. See current plan details and available features before installing.</p>
+                <p>Plans start at $0/month. See current plan details and available features before installing.</p>
               </div>
               <div className="price-actions">
                 <a className="btn" href="/pricing">
