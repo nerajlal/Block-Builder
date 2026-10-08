@@ -24,7 +24,7 @@ These snippets are **reference material**, not production extension code. The Bl
 | Copyable discount bar/code variants | Discount code; merchant supplies an existing Shopify discount code |
 | Scroll to top button | Scroll to top store-wide app embed |
 
-The catalog now has 30 cards: 29 product-page blocks and one store-wide app embed. Seven cards offer a design selector for fourteen alternate styles. This changes the preview in the app; the merchant selects the same style in Shopify’s theme editor to apply it. The Trust strip covers several simple reassurance layouts in the reference collection. The blocks are fresh implementations; no reference snippet HTML or CSS was copied into the theme extension.
+The catalog now has 32 cards backed by 30 Shopify block types: 29 product-page blocks and one store-wide app embed. Black Friday and Short video gallery each have a separate library card but share an existing block type. Seven cards offer a design selector for fourteen alternate styles. This changes the preview in the app; the merchant selects the same style in Shopify’s theme editor to apply it. The Trust strip covers several simple reassurance layouts in the reference collection. The blocks are fresh implementations; no reference snippet HTML or CSS was copied into the theme extension.
 
 ## Candidate additions after merchant testing
 

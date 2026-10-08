@@ -39,6 +39,8 @@ const blocks = [
   { handle: "brand-note", title: "Brand note", category: "Product details", description: "Share a short message written by your brand, with optional attribution." },
   { handle: "offer-callout", title: "Offer callout", category: "Offers", description: "Highlight a real offer and its terms with an optional link." },
   { handle: "product-checklist", title: "Product checklist", category: "Product details", description: "List three factual product points at a glance." },
+  { cardId: "black-friday", handle: "promo-banner", title: "Black Friday", category: "Offers", description: "A bold campaign banner with a real end-time countdown. The banner hides when the campaign ends.", setup: "In the theme editor, set Design to Black Friday, enter your offer, and add its real end date and time." },
+  { cardId: "short-video-gallery", handle: "image-gallery", title: "Short video gallery", category: "Product details", description: "A swipeable row of four portrait videos selected from your Shopify files.", setup: "In the theme editor, set Gallery type to Portrait videos and choose your video files." },
 ] as const;
 
 const designs: Record<string, { value: string; label: string }[]> = {
@@ -113,33 +115,39 @@ export default function BlockLibrary() {
       </s-section>
     </div>
     <s-section heading="Block library">
-      <s-paragraph>Each widget appears once. You can preview available designs here, then select the same Design or Style in Shopify’s theme editor and save. Installed status reflects blocks on your published theme.</s-paragraph>
+      <s-paragraph>Browse 32 widget choices. Black Friday and Short video gallery have their own cards and share existing Shopify block types. Select their named design in the theme editor after adding them. Installed status is shown only when a choice has its own block type.</s-paragraph>
       <s-stack direction="inline" gap="small">
         {categories.map((category) => <s-button key={category} variant={filter === category ? "primary" : "secondary"} onClick={() => setFilter(category)}>{category}</s-button>)}
         <s-button variant="tertiary" onClick={() => { void refreshStatus(); }}>Refresh status</s-button>
       </s-stack>
       {statusError && <s-paragraph>Installation status is temporarily unavailable. Check your published theme in Shopify&apos;s theme editor.</s-paragraph>}
       <div className="block-grid">
-        {visible.map((block) => <article className="block-card" key={block.handle}>
-          <BlockPreview handle={block.handle} style={selectedDesign[block.handle]} />
-          <div className="block-card__body"><span className="block-card__category">{block.category}</span><h3>{block.title}</h3>{installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}<p>{block.description}</p>
-            {designs[block.handle] && <div className="block-card__design">
-              <label htmlFor={`design-${block.handle}`}>Preview design</label>
-              <select id={`design-${block.handle}`} value={selectedDesign[block.handle] ?? designs[block.handle][0].value} onChange={(event) => setSelectedDesign((current) => ({ ...current, [block.handle]: event.target.value }))}>
-                {designs[block.handle].map((design) => <option key={design.value} value={design.value}>{design.label}</option>)}
+        {visible.map((block) => {
+          const cardId = "cardId" in block ? block.cardId : block.handle;
+          const isPreset = "cardId" in block;
+          return <article className="block-card" key={cardId}>
+          <BlockPreview handle={cardId} style={selectedDesign[cardId]} />
+          <div className="block-card__body"><span className="block-card__category">{block.category}</span><h3>{block.title}</h3>{!isPreset && installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}<p>{block.description}</p>
+            {"setup" in block && <p><strong>After adding:</strong> {block.setup}</p>}
+            {designs[cardId] && <div className="block-card__design">
+              <label htmlFor={`design-${cardId}`}>Preview design</label>
+              <select id={`design-${cardId}`} value={selectedDesign[cardId] ?? designs[cardId][0].value} onChange={(event) => setSelectedDesign((current) => ({ ...current, [cardId]: event.target.value }))}>
+                {designs[cardId].map((design) => <option key={design.value} value={design.value}>{design.label}</option>)}
               </select>
               <small>Choose this design in Shopify’s theme editor before saving.</small>
             </div>}
             <div className="block-card__actions">
-              {installed?.has(block.handle)
+              {isPreset
+                ? <s-button href={editorUrl(block.handle, false)} target="_blank" accessibilityLabel={`Add ${block.title} in theme`}>Add in theme</s-button>
+                : installed?.has(block.handle)
                 ? <s-button href={openThemeUrl("embed" in block)} target="_blank" accessibilityLabel={`Edit ${block.title} in theme`}>Edit in theme</s-button>
                 : installed === null && !statusError
                   ? <s-button disabled>Checking status…</s-button>
                   : <s-button href={editorUrl(block.handle, "embed" in block)} target="_blank" accessibilityLabel={`Install ${block.title} in theme`}>Install in theme</s-button>}
-              {!("embed" in block) && installed !== null && !installed.has(block.handle) && <s-link href={editorUrl(block.handle, false, "newAppsSection")} target="_blank">Add as separate section</s-link>}
+              {!("embed" in block) && (isPreset || (installed !== null && !installed.has(block.handle))) && <s-link href={editorUrl(block.handle, false, "newAppsSection")} target="_blank">Add as separate section</s-link>}
             </div>
           </div>
-        </article>)}
+        </article>})}
       </div>
     </s-section>
   </s-page>;

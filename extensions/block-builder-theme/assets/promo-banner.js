@@ -13,16 +13,24 @@
       }
       banner.hidden = false;
       if (!counter) return;
-      const totalMinutes = Math.ceil(remaining / 60000);
-      const days = Math.floor(totalMinutes / 1440);
-      const hours = Math.floor((totalMinutes % 1440) / 60);
-      const minutes = totalMinutes % 60;
-      counter.textContent = `Ends in ${days}d ${hours}h ${minutes}m`;
+      if (banner.classList.contains("bb-promo--black-friday")) {
+        const totalSeconds = Math.ceil(remaining / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        counter.textContent = `Ends in ${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+      } else {
+        const totalMinutes = Math.ceil(remaining / 60000);
+        const days = Math.floor(totalMinutes / 1440);
+        const hours = Math.floor((totalMinutes % 1440) / 60);
+        const minutes = totalMinutes % 60;
+        counter.textContent = `Ends in ${days}d ${hours}h ${minutes}m`;
+      }
       counter.hidden = false;
     });
   };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", update, { once: true });
   else update();
   document.addEventListener("shopify:section:load", update);
-  window.setInterval(update, 30000);
+  window.setInterval(update, 1000);
 })();
