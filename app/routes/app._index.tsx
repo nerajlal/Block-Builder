@@ -64,6 +64,7 @@ export default function BlockLibrary() {
   const { shop, apiKey } = useLoaderData<typeof loader>();
   const shopify = useAppBridge();
   const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState("");
   const [selectedDesign, setSelectedDesign] = useState<Record<string, string>>({});
   const [installed, setInstalled] = useState<Set<string> | null>(null);
   const [statusError, setStatusError] = useState(false);
@@ -95,7 +96,8 @@ export default function BlockLibrary() {
     };
   }, [refreshStatus]);
   const categories = ["All", ...new Set(blocks.map((block) => block.category))];
-  const visible = filter === "All" ? blocks : blocks.filter((block) => block.category === filter);
+  const normalizedSearch = search.trim().toLocaleLowerCase();
+  const visible = blocks.filter((block) => (filter === "All" || block.category === filter) && (!normalizedSearch || `${block.title} ${block.description} ${block.category}`.toLocaleLowerCase().includes(normalizedSearch)));
   const editorUrl = (handle: string, embed: boolean, target = "mainSection") => {
     const blockId = `${apiKey}/${handle}`;
     const query = embed
@@ -108,35 +110,40 @@ export default function BlockLibrary() {
   return <s-page heading="Block Builder" inlineSize="large">
     <div className="block-intro">
       <s-section heading="Upgrade your product page">
-        <s-paragraph>Choose a widget and click Install in theme. Shopify opens its theme editor so you can preview the widget, customize it, and save the theme.</s-paragraph>
-        <s-banner tone="info">Works with Online Store 2.0 themes, including Dawn. Your existing theme files are not edited.</s-banner>
+        <s-paragraph>Explore product-page blocks, preview a design, and open it in Shopify’s theme editor to customize and save.</s-paragraph>
+        <s-banner tone="info">Works with Online Store 2.0 themes, including Dawn.</s-banner>
       </s-section>
       <s-section heading="How it works">
-        <s-paragraph>Choose a block, open it in Shopify’s theme editor, then place it on your product template and save. For floating utilities, enable the app embed in the editor instead.</s-paragraph>
+        <s-paragraph>Choose a block → place it on your product template → save. Floating utilities are enabled in App embeds.</s-paragraph>
         <s-link href="/app/additional">View installation guide</s-link>
       </s-section>
     </div>
     <s-section heading="Block library">
-      <s-paragraph>Browse 32 widget choices. Add Guarantee card and Stock note as separate blocks. Set Stock note’s threshold in the theme editor to show the selected variant’s real low-stock count. Black Friday shares Promotion banner; WhatsApp shares the floating utility app embed.</s-paragraph>
-      <s-stack direction="inline" gap="small">
-        {categories.map((category) => <s-button key={category} variant={filter === category ? "primary" : "secondary"} onClick={() => setFilter(category)}>{category}</s-button>)}
+      <div className="block-library__summary"><span>32 choices</span><span>Product blocks and storefront utilities</span></div>
+      <div className="block-library__toolbar">
+        <label className="block-library__search"><span className="visually-hidden">Search widgets</span><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.6"/><path d="m13 13 4 4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg><input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search widgets" /></label>
         <s-button variant="tertiary" onClick={() => { void refreshStatus(); }}>Refresh status</s-button>
-      </s-stack>
+      </div>
+      <div className="block-library__filters" aria-label="Widget categories">
+        {categories.map((category) => <s-button key={category} variant={filter === category ? "primary" : "secondary"} onClick={() => setFilter(category)}>{category}</s-button>)}
+      </div>
       {statusError && <s-paragraph>Installation status is temporarily unavailable. Check your published theme in Shopify&apos;s theme editor.</s-paragraph>}
+      <p className="block-library__result-count">Showing {visible.length} {visible.length === 1 ? "widget" : "widgets"}</p>
+      {visible.length === 0 && <div className="block-library__empty"><strong>No matching widgets</strong><p>Try another search or category.</p><s-button onClick={() => { setSearch(""); setFilter("All"); }}>Clear filters</s-button></div>}
       <div className="block-grid">
         {visible.map((block) => {
           const cardId = "cardId" in block ? block.cardId : block.handle;
           const isPreset = "cardId" in block;
           return <article className="block-card" key={cardId}>
           <BlockPreview handle={cardId} style={selectedDesign[cardId]} />
-          <div className="block-card__body"><span className="block-card__category">{block.category}</span><h3>{block.title}</h3>{!isPreset && installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}<p>{block.description}</p>
-            {"setup" in block && <p><strong>After adding:</strong> {block.setup}</p>}
+          <div className="block-card__body"><div className="block-card__heading"><span className="block-card__category">{block.category}</span>{!isPreset && installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}</div><h3>{block.title}</h3><p className="block-card__description">{block.description}</p>
+            {"setup" in block && <p className="block-card__setup"><strong>In the theme editor:</strong> {block.setup}</p>}
             {designs[cardId] && <div className="block-card__design">
-              <label htmlFor={`design-${cardId}`}>Preview design</label>
+              <label htmlFor={`design-${cardId}`}>Design preview</label>
               <select id={`design-${cardId}`} value={selectedDesign[cardId] ?? designs[cardId][0].value} onChange={(event) => setSelectedDesign((current) => ({ ...current, [cardId]: event.target.value }))}>
                 {designs[cardId].map((design) => <option key={design.value} value={design.value}>{design.label}</option>)}
               </select>
-              <small>Choose this design in Shopify’s theme editor before saving.</small>
+              <small>Select the same option in Shopify’s theme editor.</small>
             </div>}
             <div className="block-card__actions">
               {isPreset
