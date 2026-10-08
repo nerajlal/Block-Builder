@@ -1,6 +1,6 @@
 # Block Builder — product and implementation details
 
-_Last updated: 8 October 2026. The local library has 33 cards backed by 30 Shopify theme block types. The merged gallery, Black Friday, guarantee with stock, and WhatsApp choices still need build and live theme testing._
+_Last updated: 8 October 2026. The local library has 32 cards backed by 30 Shopify theme block types. Guarantee card and Stock note are separate blocks; the floating WhatsApp icon shares the utility app embed. The merged gallery, Black Friday, and WhatsApp choices still need build and live theme testing._
 
 ## Goal and merchant journey
 

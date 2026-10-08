@@ -28,8 +28,6 @@ export function BlockPreview({ handle, style }: PreviewProps) {
       return sample(<div className="bb-block bb-promo bb-promo--black-friday"><strong>◷ Black Friday Special</strong><div>Add your real offer and campaign end time</div><span className="bb-promo__countdown">Countdown appears here</span></div>, true, true);
     case "stock-note":
       return sample(<div className="bb-block bb-stock" role="status">● Available and ready to ship</div>);
-    case "guarantee-stock":
-      return sample(<div className="bb-block bb-stock"><span>● Only 8 left</span><span className="bb-stock__guarantee">✓ Your store&apos;s guarantee appears here</span></div>, true);
     case "payment-methods":
       return sample(<div className="bb-block bb-payments"><strong>Secure payment options</strong><div className="block-preview__muted">Your store&apos;s enabled payment icons appear here</div></div>, true);
     case "product-badge":
@@ -49,7 +47,7 @@ export function BlockPreview({ handle, style }: PreviewProps) {
     case "scroll-to-top":
       return sample(<div className="block-preview__scroll"><span className="bb-scroll-top" aria-hidden="true">↑</span><span>Floating button on the storefront</span></div>);
     case "whatsapp":
-      return sample(<div className="block-preview__scroll"><span className="bb-whatsapp" style={{ position: "static" }}>Chat on WhatsApp</span></div>, true);
+      return sample(<div className="block-preview__scroll"><span className="bb-whatsapp" style={{ position: "static" }} aria-label="WhatsApp support"><svg viewBox="0 0 32 32" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M16 .8A15.1 15.1 0 0 0 3 23.6L.8 31.2l7.8-2.1A15.2 15.2 0 1 0 16 .8Zm0 27.5a12.4 12.4 0 0 1-6.3-1.7l-.5-.3-4.6 1.2 1.2-4.5-.3-.5a12.4 12.4 0 1 1 10.5 5.8Zm6.8-9.3c-.4-.2-2.2-1.1-2.6-1.2-.3-.1-.6-.2-.8.2s-1 1.2-1.2 1.5c-.2.2-.4.3-.8.1a10.1 10.1 0 0 1-5-4.4c-.4-.6.4-.6 1.1-1.9.1-.2 0-.5 0-.7l-1.2-2.8c-.3-.7-.6-.6-.8-.6h-.7c-.3 0-.7.1-1 .5s-1.3 1.2-1.3 3 1.3 3.5 1.5 2 3.6 4.4 5.4 5.1 3.4 1.2 4.1 1 2.2-.9 2.5-1.8.3-1.8.3-1.6.2-1.8-.3-.2-.3-.4-.7-.5-1Z"/></svg></span></div>, true);
     case "announcement-bar":
       return sample(<div className={`bb-block bb-announcement bb-announcement--${style || "dark"}`}><strong>Store update</strong><span>Something good is here</span></div>, false, true);
     case "collection-circles":

@@ -27,7 +27,7 @@
       const variant = block.variantAvailability.get(String(id));
       if (!variant) return;
       const low = block.dataset.bbLowEnabled === "true" && variant.available && Number.isInteger(variant.quantity) && variant.quantity > 0 && variant.quantity <= Number(block.dataset.bbLowThreshold);
-      block.querySelector("[data-bb-stock-available]").hidden = !variant.available || low || block.dataset.bbCombined === "true";
+      block.querySelector("[data-bb-stock-available]").hidden = !variant.available || low;
       block.querySelector("[data-bb-stock-low]").hidden = !low;
       if (low) block.querySelector("[data-bb-stock-quantity]").textContent = String(variant.quantity);
       block.querySelector("[data-bb-stock-unavailable]").hidden = variant.available;

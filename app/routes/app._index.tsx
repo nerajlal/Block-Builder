@@ -14,7 +14,6 @@ const blocks = [
   { handle: "product-highlights", title: "Product highlights", category: "Product details", description: "Three scannable product benefits with a clean premium layout." },
   { handle: "promo-banner", title: "Promotion banner", category: "Offers", description: "A restrained promotional message for your product page." },
   { handle: "stock-note", title: "Stock note", category: "Availability", description: "An honest availability indicator using the selected variant's inventory." },
-  { cardId: "guarantee-stock", handle: "stock-note", title: "Guarantee & limited stock", category: "Availability", description: "Show your real guarantee beside a low-stock alert based on Shopify-tracked variant inventory.", setup: "In the theme editor, turn on Show guarantee with stock and Show actual low stock, enter your guarantee, and choose the stock threshold." },
   { handle: "payment-methods", title: "Payment methods", category: "Trust", description: "Show only the payment types enabled for this store and market." },
   { handle: "product-badge", title: "Product badge", category: "Product details", description: "Call attention to a genuine product attribute with an editable badge." },
   { handle: "product-faq", title: "Product FAQ", category: "Product details", description: "Answer three common questions in a compact accordion." },
@@ -117,7 +116,7 @@ export default function BlockLibrary() {
       </s-section>
     </div>
     <s-section heading="Block library">
-      <s-paragraph>Browse 33 widget choices. Some choices share a block type with settings in the theme editor. The image and portrait-video galleries share one widget; Black Friday shares Promotion banner; Guarantee & limited stock shares Stock note; and WhatsApp shares the floating utility app embed.</s-paragraph>
+      <s-paragraph>Browse 32 widget choices. Add Guarantee card and Stock note as separate blocks. Set Stock note’s threshold in the theme editor to show the selected variant’s real low-stock count. Black Friday shares Promotion banner; WhatsApp shares the floating utility app embed.</s-paragraph>
       <s-stack direction="inline" gap="small">
         {categories.map((category) => <s-button key={category} variant={filter === category ? "primary" : "secondary"} onClick={() => setFilter(category)}>{category}</s-button>)}
         <s-button variant="tertiary" onClick={() => { void refreshStatus(); }}>Refresh status</s-button>
