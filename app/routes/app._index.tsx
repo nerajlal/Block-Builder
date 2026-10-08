@@ -25,7 +25,7 @@ const blocks = [
   { handle: "scroll-to-top", title: "Scroll to top", category: "Utilities", description: "Add a floating back-to-top button across your storefront.", embed: true },
   { handle: "announcement-bar", title: "Product announcement", category: "Offers", description: "Add a product-page message, scrolling information, or responsive copyable coupon code." },
   { handle: "collection-circles", title: "Collection circles", category: "Product details", description: "Show up to three Shopify collections with circular images and links." },
-  { handle: "image-gallery", title: "Product image gallery", category: "Product details", description: "Create a horizontal gallery from three images you choose in the theme editor." },
+  { handle: "image-gallery", title: "Product image & video gallery", category: "Product details", description: "Show three selected images or a swipeable row of four Shopify-hosted portrait videos." },
   { handle: "media-tabs", title: "Media tabs", category: "Product details", description: "Show up to three selected images or videos as tabs or a slider." },
   { handle: "how-to-steps", title: "How-to steps", category: "Product details", description: "Explain how to use your product in three clear steps." },
   { handle: "guarantee-card", title: "Guarantee card", category: "Trust", description: "Show a store policy you provide, with an optional link to its details." },
@@ -40,7 +40,6 @@ const blocks = [
   { handle: "offer-callout", title: "Offer callout", category: "Offers", description: "Highlight a real offer and its terms with an optional link." },
   { handle: "product-checklist", title: "Product checklist", category: "Product details", description: "List three factual product points at a glance." },
   { cardId: "black-friday", handle: "promo-banner", title: "Black Friday", category: "Offers", description: "A bold campaign banner with a real end-time countdown. The banner hides when the campaign ends.", setup: "In the theme editor, set Design to Black Friday, enter your offer, and add its real end date and time." },
-  { cardId: "short-video-gallery", handle: "image-gallery", title: "Short video gallery", category: "Product details", description: "A swipeable row of four portrait videos selected from your Shopify files.", setup: "In the theme editor, set Gallery type to Portrait videos and choose your video files." },
 ] as const;
 
 const designs: Record<string, { value: string; label: string }[]> = {
@@ -51,6 +50,7 @@ const designs: Record<string, { value: string; label: string }[]> = {
   "product-highlights": [{ value: "standard", label: "Standard" }, { value: "outline", label: "Outline" }, { value: "warm", label: "Warm" }],
   "guarantee-card": [{ value: "standard", label: "Standard" }, { value: "outline", label: "Outline" }, { value: "warm", label: "Warm" }],
   "shipping-details": [{ value: "standard", label: "Standard" }, { value: "outline", label: "Outline" }, { value: "warm", label: "Warm" }],
+  "image-gallery": [{ value: "images", label: "Product images" }, { value: "portrait_videos", label: "Portrait videos" }],
 };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -115,7 +115,7 @@ export default function BlockLibrary() {
       </s-section>
     </div>
     <s-section heading="Block library">
-      <s-paragraph>Browse 32 widget choices. Black Friday and Short video gallery have their own cards and share existing Shopify block types. Select their named design in the theme editor after adding them. Installed status is shown only when a choice has its own block type.</s-paragraph>
+      <s-paragraph>Browse 31 widget choices. The image and portrait-video galleries are one widget with a Gallery type setting. Black Friday has its own card and shares the Promotion banner block type. Choose the same design in Shopify’s theme editor after adding it.</s-paragraph>
       <s-stack direction="inline" gap="small">
         {categories.map((category) => <s-button key={category} variant={filter === category ? "primary" : "secondary"} onClick={() => setFilter(category)}>{category}</s-button>)}
         <s-button variant="tertiary" onClick={() => { void refreshStatus(); }}>Refresh status</s-button>

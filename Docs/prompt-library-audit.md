@@ -24,13 +24,13 @@ These snippets are **reference material**, not production extension code. The Bl
 | Copyable discount bar/code variants | Discount code; merchant supplies an existing Shopify discount code |
 | Scroll to top button | Scroll to top store-wide app embed |
 
-The catalog now has 32 cards backed by 30 Shopify block types: 29 product-page blocks and one store-wide app embed. Black Friday and Short video gallery each have a separate library card but share an existing block type. Seven cards offer a design selector for fourteen alternate styles. This changes the preview in the app; the merchant selects the same style in Shopify’s theme editor to apply it. The Trust strip covers several simple reassurance layouts in the reference collection. The blocks are fresh implementations; no reference snippet HTML or CSS was copied into the theme extension.
+The catalog now has 31 cards backed by 30 Shopify block types: 29 product-page blocks and one store-wide app embed. Black Friday has a separate library card but shares the Promotion banner block type. Image and portrait-video galleries are one card with a Gallery type selector. Eight cards offer a design selector for fifteen alternate styles. This changes the preview in the app; the merchant selects the same style in Shopify’s theme editor to apply it. The Trust strip covers several simple reassurance layouts in the reference collection. The blocks are fresh implementations; no reference snippet HTML or CSS was copied into the theme extension.
 
 ## Candidate additions after merchant testing
 
 - **Announcement bar:** Could be a separate app embed for site-wide display. It needs position controls, close behavior, and conflict checks with theme announcement bars. The current Promotion banner and Product announcement are product-page-only.
 - **Discount-code verification:** The current copyable code block tells merchants to create and test a matching Shopify discount. A later version could verify the code via a narrowly scoped Admin API integration.
-- **Design presets:** Fourteen alternate styles are already previewable within seven cards and selectable in the theme editor. Further source variants should extend those controls where appropriate, not create duplicate install cards. Shopify currently limits one theme app extension to 30 app blocks.
+- **Design presets:** Fifteen alternate styles are now previewable within eight cards and selectable in the theme editor. Further source variants should extend those controls where appropriate, not create duplicate install cards. Shopify currently limits one theme app extension to 30 app blocks.
 - **Richer collection circles / image sliders / video tabs:** Basic versions exist; richer media interactions need mobile, keyboard, and performance testing.
 - **Scroll-to-top button:** Implemented as an optional app embed; verify live-theme placement and behavior.
 - **How-to-use and product information variations:** Could be variants of Image story, Product FAQ, and Information tabs rather than many near-duplicate blocks.

@@ -7,12 +7,12 @@
 | Source examples in this inventory | 108 |
 | Source examples marked ✓ as represented | 72 |
 | Source examples marked ✗ as not yet represented | 36 |
-| Separate choices in the Block Builder library | 32 |
+| Separate choices in the Block Builder library | 31 |
 | Shopify theme block types in the extension | 30 (29 product blocks and 1 app embed) |
-| Additional design options within existing widget cards | 14 |
+| Additional design options previewable within existing widget cards | 15 |
 | New theme-editor layout options (media slider, scrolling message, coupon) | 3 |
 
-The **36 remaining** are source examples to evaluate, not 92 separate widgets to build. Some are visual variations that can share a widget; others require real Shopify data or should not be offered as shown because they imply invented reviews, sales, stock, or urgency. The ✓/✗ counts below track the **108 source folders**. The 32-card library includes two cards that share existing installable block types. The widget and design counts track the current code, independently of Shopify release status.
+The **36 remaining** are source examples to evaluate, not 92 separate widgets to build. Some are visual variations that can share a widget; others require real Shopify data or should not be offered as shown because they imply invented reviews, sales, stock, or urgency. The ✓/✗ counts below track the **108 source folders**. The 31-card library includes one Black Friday card that shares the Promotion banner block type. The image and short-video galleries are one card with a Gallery type choice. The widget and design counts track the current code, independently of Shopify release status.
 
 This indexes **all 108 named folders** in the supplied local pack. The inspection reads every text snippet and records source characteristics; it does not certify third-party code or media for redistribution. Each row maps the idea to a Shopify-native destination. Similar designs may eventually be grouped into editable presets instead of copied as separate full-page snippets.
 
@@ -117,7 +117,7 @@ The source pack is a local reference, excluded from Git. Its license is not docu
 | 93 | ✓ | Summer Sale | Promotion and announcements | Promotion banner; merchant enters a real summer campaign | markup/CSS | png |
 | 94 | ✓ | Super Deals | Promotion and announcements | Promotion banner with merchant-set campaign end time; expires without resetting for each shopper | full-page HTML, page-level styling, JavaScript, external URL, timed/random behavior | png |
 | 95 | ✓ | Tabs with images | Product information | Media tabs block with merchant-selected images and captions | full-page HTML, page-level styling, JavaScript, external URL | png |
-| 96 | ✓ | Tiktok videos | Comparison and imagery | Short video gallery card: four merchant-selected Shopify-hosted portrait videos; no TikTok account integration | full-page HTML, page-level styling, JavaScript, external URL | png |
+| 96 | ✓ | Tiktok videos | Comparison and imagery | Product image & video gallery: Portrait videos mode with four merchant-selected Shopify-hosted clips; no TikTok account integration | full-page HTML, page-level styling, JavaScript, external URL | png |
 | 97 | ✗ | TikTok Views | Reviews and social proof | Requires verified reviews or real activity data; no invented counts or testimonials | full-page HTML, page-level styling | png |
 | 98 | ✗ | TikTok Viral | Reviews and social proof | Requires verified reviews or real activity data; no invented counts or testimonials | full-page HTML, page-level styling, external URL | png |
 | 99 | ✓ | Top Selling | Product badges | Product badge; merchant verifies a top-selling claim | full-page HTML, page-level styling, external URL | png |
@@ -162,7 +162,7 @@ The latest batch adds six functional blocks and fourteen alternate designs insid
 
 ## Remaining work, sorted by what it needs
 
-The entries below remain ✗ until their specific behavior is implemented and verified. A visual match alone does not establish a real discount, review, live sale, financing offer, or inventory claim. A store-wide announcement still needs a separate app embed. Black Friday and Short video gallery are distinct library cards backed by existing Shopify block types, so merchants must select their named design or gallery type in the theme editor.
+The entries below remain ✗ until their specific behavior is implemented and verified. A visual match alone does not establish a real discount, review, live sale, financing offer, or inventory claim. A store-wide announcement still needs a separate app embed. Black Friday is a distinct library card backed by Promotion banner. Product image & video gallery is one card with a Gallery type choice. Merchants select the same design or gallery type in the theme editor.
 
 ### Real reviews or live social activity (24)
 

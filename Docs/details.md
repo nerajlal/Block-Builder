@@ -1,6 +1,6 @@
 # Block Builder — product and implementation details
 
-_Last updated: 8 October 2026. The local library has 32 cards backed by 30 Shopify theme block types. The two new cards still need build and live theme testing._
+_Last updated: 8 October 2026. The local library has 31 cards backed by 30 Shopify theme block types. The merged gallery card and Black Friday design still need build and live theme testing._
 
 ## Goal and merchant journey
 
@@ -13,7 +13,7 @@ The public root page is a product overview and store-login entry point. The embe
 - Official Shopify React Router template, React/TypeScript, App Bridge, Polaris web components, and Shopify-managed installation.
 - `app/shopify.server.ts`: Shopify authentication and API version (`2026-10`).
 - `app/routes/_index/route.tsx`: public landing page, with metadata for search engines.
-- `app/routes/app._index.tsx`: 32-card catalog with in-card previews and theme-editor links. Black Friday and Short video gallery share existing block types.
+- `app/routes/app._index.tsx`: 31-card catalog with in-card previews and theme-editor links. One gallery card previews images and portrait videos; Black Friday shares the Promotion banner block type.
 - `app/routes/app.additional.tsx`: merchant installation guide.
 - `extensions/block-builder-theme/blocks/*.liquid`: theme app blocks. Each is available on product templates.
 - `extensions/block-builder-theme/assets/`: shared CSS and stock-variant behavior.
@@ -45,7 +45,7 @@ The previous Laravel starter was replaced. A temporary archive was written to `/
 | Scroll to top | Floating button across the storefront | Store-wide app embed; merchant activates it in the theme editor. |
 | Product announcement | Editable message, scrolling text, or responsive copyable coupon code | Product template only; not a site-wide header bar. Coupon codes must already exist in Shopify Discounts. The ticker respects reduced-motion preferences. |
 | Collection circles | Links up to three merchant-selected collections | Uses Shopify collection picker and collection imagery. |
-| Product image gallery / Short video gallery | Horizontally scrollable merchant-selected images or up to four portrait videos | The gallery type is selected in the theme editor. Videos are selected from Shopify files and do not sync from TikTok. |
+| Product image & video gallery | Horizontally scrollable merchant-selected images or up to four portrait videos | The gallery type is selected in the theme editor. Videos are selected from Shopify files and do not sync from TikTok. |
 | Media tabs | Up to three image/video tabs or a previous/next slider | Merchant chooses the media. Tabs support keyboard navigation; the slider has labeled controls. |
 | How-to steps | Three editable usage steps | Merchants supply accurate instructions. |
 | Guarantee card | Displays a merchant-authored guarantee and links to the store refund policy by default; a custom link can override it | Hidden until the merchant supplies policy text. If the store has no refund policy, no automatic link appears. |
@@ -60,7 +60,7 @@ The previous Laravel starter was replaced. A temporary archive was written to `/
 | Offer callout | Merchant-authored offer terms and optional link | Hidden until text is entered; does not create a discount. |
 | Product checklist | Three concise points | Hidden until merchant supplies all three factual points. |
 
-Seven widget cards provide a design selector in the embedded app, covering fourteen alternate styles across trust strip, promotion banner, product badge, product announcement, highlights, guarantee, and shipping blocks. Media tabs now have a theme-editor choice between tabs and a slider; Product announcement has Standard, Scrolling message, and Responsive coupon layouts. Changing this selector previews the design in the app; it does not alter the storefront. Shopify deep links do not prefill block settings, so the merchant must choose the same Design or Style in the theme editor and save. Installed status applies to the 30 underlying block types. The two additional library cards always offer Add in theme because an active underlying block does not reveal which design the merchant chose. All thirty Shopify block types have optional background, text, border, and accent color settings in Shopify’s theme editor. Shipping details also retains a separate link color setting. Blank color settings preserve each widget’s built-in design; merchants should check text contrast after customizing. All widgets load through one theme app extension, with separate Liquid files and shared responsive CSS. Product app blocks are limited to product templates to avoid placement in unrelated pages. Interactive widgets load small JavaScript assets. Scroll to top is a store-wide app embed. The **Install in theme** link uses Shopify's `addAppBlockId={client_id}/{block_handle}` format for product blocks or `activateAppId` for the app embed and opens the current theme's product editor in a new tab. The merchant must save the editor. Shopify may fall back to a different app-block area if the selected theme section does not support app blocks.
+Eight widget cards provide a design selector in the embedded app, covering fifteen alternate styles across trust strip, promotion banner, product badge, product announcement, highlights, guarantee, shipping, and the image/video gallery. Media tabs now have a theme-editor choice between tabs and a slider; Product announcement has Standard, Scrolling message, and Responsive coupon layouts. Changing this selector previews the design in the app; it does not alter the storefront. Shopify deep links do not prefill block settings, so the merchant must choose the same Design or Style in the theme editor and save. Installed status applies to the 30 underlying block types. The Black Friday card always offers Add in theme because an active Promotion banner does not reveal which design the merchant chose. All thirty Shopify block types have optional background, text, border, and accent color settings in Shopify’s theme editor. Shipping details also retains a separate link color setting. Blank color settings preserve each widget’s built-in design; merchants should check text contrast after customizing. All widgets load through one theme app extension, with separate Liquid files and shared responsive CSS. Product app blocks are limited to product templates to avoid placement in unrelated pages. Interactive widgets load small JavaScript assets. Scroll to top is a store-wide app embed. The **Install in theme** link uses Shopify's `addAppBlockId={client_id}/{block_handle}` format for product blocks or `activateAppId` for the app embed and opens the current theme's product editor in a new tab. The merchant must save the editor. Shopify may fall back to a different app-block area if the selected theme section does not support app blocks.
 
 ## Credentials and local development
 
@@ -81,7 +81,7 @@ npm run dev
 
 `.env.example` lists `SHOPIFY_APP_URL`, `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`, and `DATABASE_URL`. The server loads `.env` if present; host-provided environment variables take precedence. `npm run setup` generates Prisma Client and applies session migrations. `npm run dev` uses Shopify CLI and may use a temporary development tunnel URL. The public landing page can be smoke-tested from a direct local server after a build.
 
-For the earlier six widgets and fourteen style options, TypeScript and Shopify extension build passed locally on 7 October 2026. The new Black Friday and Short video gallery cards still require TypeScript and Shopify extension build plus live theme testing. The current execution environment does not have `npm`.
+For the earlier six widgets and fourteen style options, TypeScript and Shopify extension build passed locally on 7 October 2026. The new Black Friday design and merged gallery card still require TypeScript and Shopify extension build plus live theme testing. The current execution environment does not have `npm`.
 
 ## Privacy and data
 
