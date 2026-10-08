@@ -1,6 +1,7 @@
-<button class="bb-scroll-top" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}"{% endif %} type="button" aria-label="{{ block.settings.label | escape }}" data-bb-scroll-top {{ block.shopify_attributes }}>
+{% if block.settings.show_scroll %}<button class="bb-scroll-top" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}"{% endif %} type="button" aria-label="{{ block.settings.label | escape }}" data-bb-scroll-top {{ block.shopify_attributes }}>
   <span aria-hidden="true">↑</span>
-</button>
+</button>{% endif %}
+{% if block.settings.show_whatsapp and block.settings.whatsapp_number != blank %}<a class="bb-whatsapp" data-bb-whatsapp data-number="{{ block.settings.whatsapp_number | escape }}" data-message="{{ block.settings.whatsapp_message | escape }}" href="#" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp" hidden {{ block.shopify_attributes }}>Chat on WhatsApp</a>{% endif %}
 
 {% schema %}
 {
@@ -9,6 +10,10 @@
   "stylesheet": "block-builder.css",
   "javascript": "scroll-to-top.js",
   "settings": [
+    { "type": "checkbox", "id": "show_scroll", "label": "Show scroll to top", "default": true },
+    { "type": "checkbox", "id": "show_whatsapp", "label": "Show WhatsApp button", "default": false },
+    { "type": "text", "id": "whatsapp_number", "label": "WhatsApp number", "info": "Country code and number, without a leading 0. Example: 15551234567." },
+    { "type": "text", "id": "whatsapp_message", "label": "Optional prefilled message" },
     {
       "type": "text",
       "id": "label",

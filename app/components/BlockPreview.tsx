@@ -28,6 +28,8 @@ export function BlockPreview({ handle, style }: PreviewProps) {
       return sample(<div className="bb-block bb-promo bb-promo--black-friday"><strong>◷ Black Friday Special</strong><div>Add your real offer and campaign end time</div><span className="bb-promo__countdown">Countdown appears here</span></div>, true, true);
     case "stock-note":
       return sample(<div className="bb-block bb-stock" role="status">● Available and ready to ship</div>);
+    case "guarantee-stock":
+      return sample(<div className="bb-block bb-stock"><span>● Only 8 left</span><span className="bb-stock__guarantee">✓ Your store&apos;s guarantee appears here</span></div>, true);
     case "payment-methods":
       return sample(<div className="bb-block bb-payments"><strong>Secure payment options</strong><div className="block-preview__muted">Your store&apos;s enabled payment icons appear here</div></div>, true);
     case "product-badge":
@@ -46,6 +48,8 @@ export function BlockPreview({ handle, style }: PreviewProps) {
       return sample(<div className="bb-block bb-discount"><div className="bb-discount__copy"><strong>An offer for you</strong><span>Enter this code at checkout</span></div><div className="bb-discount__action"><code>YOURCODE</code><span className="bb-discount__button">Copy code</span></div></div>, true);
     case "scroll-to-top":
       return sample(<div className="block-preview__scroll"><span className="bb-scroll-top" aria-hidden="true">↑</span><span>Floating button on the storefront</span></div>);
+    case "whatsapp":
+      return sample(<div className="block-preview__scroll"><span className="bb-whatsapp" style={{ position: "static" }}>Chat on WhatsApp</span></div>, true);
     case "announcement-bar":
       return sample(<div className={`bb-block bb-announcement bb-announcement--${style || "dark"}`}><strong>Store update</strong><span>Something good is here</span></div>, false, true);
     case "collection-circles":

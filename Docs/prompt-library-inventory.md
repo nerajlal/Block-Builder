@@ -5,14 +5,14 @@
 | Measure | Count |
 | --- | ---: |
 | Source examples in this inventory | 108 |
-| Source examples marked ✓ as represented | 72 |
-| Source examples marked ✗ as not yet represented | 36 |
-| Separate choices in the Block Builder library | 31 |
+| Source examples marked ✓ as represented | 73 |
+| Source examples marked ✗ as not yet represented | 35 |
+| Separate choices in the Block Builder library | 33 |
 | Shopify theme block types in the extension | 30 (29 product blocks and 1 app embed) |
 | Additional design options previewable within existing widget cards | 15 |
 | New theme-editor layout options (media slider, scrolling message, coupon) | 3 |
 
-The **36 remaining** are source examples to evaluate, not 92 separate widgets to build. Some are visual variations that can share a widget; others require real Shopify data or should not be offered as shown because they imply invented reviews, sales, stock, or urgency. The ✓/✗ counts below track the **108 source folders**. The 31-card library includes one Black Friday card that shares the Promotion banner block type. The image and short-video galleries are one card with a Gallery type choice. The widget and design counts track the current code, independently of Shopify release status.
+The **35 remaining** are source examples to evaluate. Some are visual variations that can share a widget; others require real Shopify data or should not be offered as shown because they imply invented reviews, sales, stock, or urgency. The ✓/✗ counts below track the **108 source folders**. The 33-card library includes Black Friday and Guarantee & limited stock presets plus a WhatsApp card that shares the floating utility app embed. The image and short-video galleries are one card with a Gallery type choice. The widget and design counts track the current code, independently of Shopify release status.
 
 This indexes **all 108 named folders** in the supplied local pack. The inspection reads every text snippet and records source characteristics; it does not certify third-party code or media for redistribution. Each row maps the idea to a Shopify-native destination. Similar designs may eventually be grouped into editable presets instead of copied as separate full-page snippets.
 
@@ -94,7 +94,7 @@ The source pack is a local reference, excluded from Git. Its license is not docu
 | 70 | ✓ | Low Stock 2 | Availability | Stock note: opt-in low stock from actual selected-variant tracked inventory; no fixed count | markup/CSS | png |
 | 71 | ✓ | Made in Usa | Trust and assurances | Trust strip; merchant verifies country-of-origin claim | full-page HTML, page-level styling, external URL | png |
 | 72 | ✓ | Money Back | Trust and assurances | Guarantee card; merchant must provide the actual policy wording | markup/CSS | png |
-| 73 | ✗ | Money Back & Limited Stock | Trust and assurances | Trust strip / Delivery estimate; merchant confirms policy and shipping terms | full-page HTML, page-level styling, external URL | png |
+| 73 | ✓ | Money Back & Limited Stock | Trust and assurances | Stock note combined mode; merchant enters actual guarantee; quantity appears only below merchant threshold for selected Shopify-tracked variant | full-page HTML, page-level styling, external URL | png |
 | 74 | ✓ | Money Back 2 | Trust and assurances | Guarantee card; merchant enters actual policy terms | markup/CSS | png |
 | 75 | ✓ | Money Back 3 | Trust and assurances | Guarantee card; merchant enters actual policy terms | markup/CSS | png |
 | 76 | ✓ | Money back 4 | Trust and assurances | Guarantee card; merchant enters actual policy terms | full-page HTML, page-level styling, external URL | png |
@@ -168,9 +168,9 @@ The entries below remain ✗ until their specific behavior is implemented and ve
 
 **2** 15 people have, **3** 2000+ people voted, **28** Customer  Review, **29** Customer Live Sale, **30** Customer Review 2, **38** Facebook Views, **39** Facebook Viral, **40** Fake FB Comment, **48** Google Reviews, **53** Hurry up, **54** Hurry up & items sold, **55** Hurry up & items sold 2, **61** Instagram Viral, **62** Items Sold, **79** One Million Happy Customers, **86** Reviews Slider v3, **90** Scrolling Reviews, **97** TikTok Views, **98** TikTok Viral, **100** Trustpilot, **101** Trustpilot Comment, **105** Verified Purchases, **106** Viral Facebook, **108** ÿnstagram Views.
 
-### Trust claims and assurances (2)
+### Trust claims and assurances (1)
 
-**73** Money Back & Limited Stock, **102** Unlocked Free Shipping.
+**102** Unlocked Free Shipping.
 
 ### Actual discounts and offers (5)
 

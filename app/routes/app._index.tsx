@@ -14,6 +14,7 @@ const blocks = [
   { handle: "product-highlights", title: "Product highlights", category: "Product details", description: "Three scannable product benefits with a clean premium layout." },
   { handle: "promo-banner", title: "Promotion banner", category: "Offers", description: "A restrained promotional message for your product page." },
   { handle: "stock-note", title: "Stock note", category: "Availability", description: "An honest availability indicator using the selected variant's inventory." },
+  { cardId: "guarantee-stock", handle: "stock-note", title: "Guarantee & limited stock", category: "Availability", description: "Show your real guarantee beside a low-stock alert based on Shopify-tracked variant inventory.", setup: "In the theme editor, turn on Show guarantee with stock and Show actual low stock, enter your guarantee, and choose the stock threshold." },
   { handle: "payment-methods", title: "Payment methods", category: "Trust", description: "Show only the payment types enabled for this store and market." },
   { handle: "product-badge", title: "Product badge", category: "Product details", description: "Call attention to a genuine product attribute with an editable badge." },
   { handle: "product-faq", title: "Product FAQ", category: "Product details", description: "Answer three common questions in a compact accordion." },
@@ -23,6 +24,7 @@ const blocks = [
   { handle: "info-tabs", title: "Information tabs", category: "Product details", description: "Organize product details into accessible, keyboard-friendly tabs." },
   { handle: "discount-code", title: "Discount code", category: "Offers", description: "Show a copyable code that you have already created and tested in Shopify Discounts." },
   { handle: "scroll-to-top", title: "Scroll to top", category: "Utilities", description: "Add a floating back-to-top button across your storefront.", embed: true },
+  { cardId: "whatsapp", handle: "scroll-to-top", title: "Floating WhatsApp button", category: "Utilities", description: "Let shoppers contact your store through your WhatsApp number.", embed: true, setup: "In App embeds, turn on Show WhatsApp button, enter your international number, and save. Both floating buttons share one app embed." },
   { handle: "announcement-bar", title: "Product announcement", category: "Offers", description: "Add a product-page message, scrolling information, or responsive copyable coupon code." },
   { handle: "collection-circles", title: "Collection circles", category: "Product details", description: "Show up to three Shopify collections with circular images and links." },
   { handle: "image-gallery", title: "Product image & video gallery", category: "Product details", description: "Show three selected images or a swipeable row of four Shopify-hosted portrait videos." },
@@ -110,12 +112,12 @@ export default function BlockLibrary() {
         <s-banner tone="info">Works with Online Store 2.0 themes, including Dawn. Your existing theme files are not edited.</s-banner>
       </s-section>
       <s-section heading="How it works">
-        <s-paragraph>Choose a block, open it in Shopify’s theme editor, then place it on your product template and save. For the Scroll to top utility, enable the app embed in the editor instead.</s-paragraph>
+        <s-paragraph>Choose a block, open it in Shopify’s theme editor, then place it on your product template and save. For floating utilities, enable the app embed in the editor instead.</s-paragraph>
         <s-link href="/app/additional">View installation guide</s-link>
       </s-section>
     </div>
     <s-section heading="Block library">
-      <s-paragraph>Browse 31 widget choices. The image and portrait-video galleries are one widget with a Gallery type setting. Black Friday has its own card and shares the Promotion banner block type. Choose the same design in Shopify’s theme editor after adding it.</s-paragraph>
+      <s-paragraph>Browse 33 widget choices. Some choices share a block type with settings in the theme editor. The image and portrait-video galleries share one widget; Black Friday shares Promotion banner; Guarantee & limited stock shares Stock note; and WhatsApp shares the floating utility app embed.</s-paragraph>
       <s-stack direction="inline" gap="small">
         {categories.map((category) => <s-button key={category} variant={filter === category ? "primary" : "secondary"} onClick={() => setFilter(category)}>{category}</s-button>)}
         <s-button variant="tertiary" onClick={() => { void refreshStatus(); }}>Refresh status</s-button>
@@ -138,7 +140,7 @@ export default function BlockLibrary() {
             </div>}
             <div className="block-card__actions">
               {isPreset
-                ? <s-button href={editorUrl(block.handle, false)} target="_blank" accessibilityLabel={`Add ${block.title} in theme`}>Add in theme</s-button>
+                ? <s-button href={editorUrl(block.handle, "embed" in block)} target="_blank" accessibilityLabel={`Add ${block.title} in theme`}>Add in theme</s-button>
                 : installed?.has(block.handle)
                 ? <s-button href={openThemeUrl("embed" in block)} target="_blank" accessibilityLabel={`Edit ${block.title} in theme`}>Edit in theme</s-button>
                 : installed === null && !statusError
