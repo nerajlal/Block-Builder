@@ -137,14 +137,16 @@ export default function BlockLibrary() {
           return <article className="block-card" key={cardId}>
           <BlockPreview handle={cardId} style={selectedDesign[cardId]} />
           <div className="block-card__body"><div className="block-card__heading"><span className="block-card__category">{block.category}</span>{!isPreset && installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}</div><h3>{block.title}</h3><p className="block-card__description">{block.description}</p>
-            {"setup" in block && <p className="block-card__setup"><strong>In the theme editor:</strong> {block.setup}</p>}
-            {designs[cardId] && <div className="block-card__design">
-              <label htmlFor={`design-${cardId}`}>Design preview</label>
-              <select id={`design-${cardId}`} value={selectedDesign[cardId] ?? designs[cardId][0].value} onChange={(event) => setSelectedDesign((current) => ({ ...current, [cardId]: event.target.value }))}>
-                {designs[cardId].map((design) => <option key={design.value} value={design.value}>{design.label}</option>)}
-              </select>
-              <small>Select the same option in Shopify’s theme editor.</small>
-            </div>}
+            <div className="block-card__configuration">
+              {designs[cardId] ? <div className="block-card__design">
+                <label htmlFor={`design-${cardId}`}>Preview design</label>
+                <select id={`design-${cardId}`} value={selectedDesign[cardId] ?? designs[cardId][0].value} onChange={(event) => setSelectedDesign((current) => ({ ...current, [cardId]: event.target.value }))}>
+                  {designs[cardId].map((design) => <option key={design.value} value={design.value}>{design.label}</option>)}
+                </select>
+                <small>Choose this design again in the theme editor.</small>
+              </div> : <div className="block-card__editor-note"><strong>Customize in Shopify</strong><span>{"embed" in block ? "Set up this utility in App embeds." : "Add the block, then edit its content and colors."}</span></div>}
+              {"setup" in block && <details className="block-card__setup"><summary>Setup instructions</summary><p>{block.setup}</p></details>}
+            </div>
             <div className="block-card__actions">
               {isPreset
                 ? <s-button href={editorUrl(block.handle, "embed" in block)} target="_blank" accessibilityLabel={`Add ${block.title} in theme`}>Add in theme</s-button>

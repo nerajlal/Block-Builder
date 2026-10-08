@@ -19,10 +19,12 @@
 .block-card__category{color:#637068;font-size:11px;font-weight:650;text-transform:uppercase;letter-spacing:.06em}
 .block-card h3{margin:9px 0 6px;color:#202223;font-size:17px;line-height:1.35}
 .block-card__description{min-height:42px;margin:0 0 12px;color:#616161;font-size:13px;line-height:1.5}
-.block-card__setup{margin:0 0 12px;padding:9px 10px;border-radius:7px;background:#f7f7f7;color:#525252;font-size:12px;line-height:1.45}
-.block-card__setup strong{color:#303030}
+.block-card__configuration{display:flex;flex-direction:column;justify-content:flex-end;gap:9px;min-height:91px;margin-top:auto;margin-bottom:14px}
+.block-card__editor-note{display:flex;flex-direction:column;justify-content:center;gap:5px;min-height:76px;padding:10px 12px;border:1px solid #e5e7e5;border-radius:8px;background:#f8f9f8;color:#666;font-size:12px;line-height:1.4}
+.block-card__editor-note strong{color:#303030;font-size:12px}
+.block-card__setup{font-size:12px;line-height:1.45;color:#525252}.block-card__setup summary{width:max-content;max-width:100%;color:#30533d;cursor:pointer;font-weight:600}.block-card__setup summary:focus-visible{outline:2px solid #303030;outline-offset:2px}.block-card__setup p{margin:7px 0 0;padding:9px 10px;border-radius:7px;background:#f7f7f7}
 .block-card__actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin:auto -18px 0;padding:12px 18px;border-top:1px solid #ebebeb}
-.block-card__design{display:grid;gap:5px;width:100%;margin:0 0 14px}
+.block-card__design{display:grid;gap:5px;width:100%}
 .block-card__design label{font-size:12px;font-weight:650;color:#303030}
 .block-card__design select{min-height:36px;padding:6px 10px;border:1px solid #c9cccf;border-radius:7px;background:#fff;color:#202223;font:inherit}
 .block-card__design select:focus-visible{outline:2px solid #303030;outline-offset:2px}
