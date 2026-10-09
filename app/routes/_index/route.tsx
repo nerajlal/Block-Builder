@@ -48,7 +48,7 @@ export default function Home() {
                   Explore the features
                 </a>
               </div>
-              <div className="tiny">No coding required · Plans from $4/month</div>
+              <div className="tiny">No coding required · Plans from $0/month</div>
             </div>
             <div style={{ position: "relative", width: "100%", borderRadius: "24px", overflow: "hidden", boxShadow: "0 30px 60px rgba(0,0,0,0.4)", transform: "rotate(1deg)", border: "6px solid #1a3a28" }}>
               <img src="/hero-app-mockup.jpg" alt="Block Builder Features Illustration" style={{ width: "100%", height: "auto", display: "block" }} />
