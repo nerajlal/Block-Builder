@@ -89,6 +89,14 @@ The app stores shop sessions and Shopify credentials in Prisma, but it does not 
 
 ## Deployment and release sequence
 
+### Shopify App Pricing rollout (in progress)
+
+The local pricing implementation uses Shopify App Pricing's Partner API `activeSubscription`, not a URL parameter or the Admin Billing API, to determine Free, Starter, or Pro. Configure public plan handles `free`, `starter`, and `pro` in Shopify, with the approved $0, $4.99/month, and $9.99/month prices and 7-day paid trials. Free merchants may choose any three underlying block types; repeated placements and design presets of one type count once. Starter and Pro can use the entire current library. The proposed smart delivery rules, conditional targeting, Markets/localization features, analytics, A/B testing, and custom CSS are future work and are not paid entitlements yet.
+
+Create a Partner API client with **Manage apps** permission. Set `SHOPIFY_PARTNER_ORG_ID`, `SHOPIFY_PARTNER_APP_ID`, `SHOPIFY_PARTNER_API_TOKEN`, and `SHOPIFY_APP_HANDLE` in the server environment; do not commit the token. Verify the actual Shopify plan handles against the defaults and set the optional handle variables in `.env.example` if needed. The app redirects shops without an active pricing subscription to Shopify's hosted plan page. The app must be public for the Active Subscription API.
+
+The theme extension now uses `available_if` app-data metafields for all 30 unique block handles. An unset flag hides its block in the theme editor **and on the storefront**. Therefore do not release this extension version to existing installations until their access metafields have been initialized from verified subscriptions. Reopening the embedded Block library initializes one store, but a production rollout needs a backfill for every currently installed shop, followed by validation of existing storefronts. Deploy the server code and Partner credentials, run that backfill, then release the theme extension. Test Free choice changes, all three plans, upgrades, downgrades, cancellation, reinstall, app embed visibility, and the exact Shopify-hosted pricing URL on a development store before a public release. A failed Partner API check must never be interpreted as a Free plan.
+
 1. Update the droplet from the intended reviewed code revision, build the Node app, and restart its service. This updates the embedded block library and previews.
 2. Release a new Shopify app version containing the updated theme extension. Updating the droplet alone does not make new Liquid blocks available in the theme editor.
 3. Install each new block in a development store, test it in Dawn on desktop and mobile, then test another compatible Online Store 2.0 theme before wider use.
@@ -96,7 +104,7 @@ The app stores shop sessions and Shopify credentials in Prisma, but it does not 
 
 ## Live validation still required
 
-- Confirm the chosen distribution, app listing, support/privacy pages, and any pricing plan. No in-app billing or entitlements are coded because no Block Builder pricing has been decided.
+- Confirm the app listing, support/privacy pages, Shopify App Pricing configuration, Partner API access, and rollout backfill before release.
 - Test first install, reopening, session expiry, uninstall/reinstall, and redirect behavior in Shopify Admin.
 - Test all twenty-nine product blocks and the app embed in Dawn and at least one other Online Store 2.0 theme, including editors where app blocks cannot be placed in the main product section.
 - Test stock note switching among available and unavailable variants, plus its initial state and section reloads in the editor.

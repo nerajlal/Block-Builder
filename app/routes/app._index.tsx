@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import type { HeadersFunction, LoaderFunctionArgs } from "react-router";
-import { useLoaderData } from "react-router";
+import type { ActionFunctionArgs, HeadersFunction, LoaderFunctionArgs } from "react-router";
+import { useFetcher, useLoaderData } from "react-router";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
+import { readPlanAccess, updateFreeSelection } from "../plan-access.server";
 import { boundary } from "@shopify/shopify-app-react-router/server";
 import { BlockPreview } from "../components/BlockPreview";
 import "../../extensions/block-builder-theme/assets/block-builder.css";
@@ -56,12 +57,30 @@ const designs: Record<string, { value: string; label: string }[]> = {
 };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const { session } = await authenticate.admin(request);
-  return { shop: session.shop, apiKey: process.env.SHOPIFY_API_KEY || "" };
+  const { session, admin, redirect } = await authenticate.admin(request);
+  const access = await readPlanAccess(admin, new URL(request.url).searchParams.has("plan_handle"));
+  if (!access.plan) {
+    const appHandle = process.env.SHOPIFY_APP_HANDLE || "block-builder";
+    const storeHandle = session.shop.replace(/\.myshopify\.com$/, "");
+    return redirect(`https://admin.shopify.com/store/${storeHandle}/charges/${appHandle}/pricing_plans`, { target: "_top" });
+  }
+  return { shop: session.shop, apiKey: process.env.SHOPIFY_API_KEY || "", appHandle: process.env.SHOPIFY_APP_HANDLE || "block-builder", plan: access.plan, selected: access.selected };
+};
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const { admin } = await authenticate.admin(request);
+  const form = await request.formData();
+  try {
+    await updateFreeSelection(admin, String(form.get("handle") || ""), String(form.get("intent") || ""));
+    return { error: null };
+  } catch (error) {
+    return { error: error instanceof Error ? error.message : "Could not update block selection." };
+  }
 };
 
 export default function BlockLibrary() {
-  const { shop, apiKey } = useLoaderData<typeof loader>();
+  const { shop, apiKey, appHandle, plan, selected } = useLoaderData<typeof loader>();
+  const selection = useFetcher<typeof action>();
   const shopify = useAppBridge();
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
@@ -107,6 +126,7 @@ export default function BlockLibrary() {
   };
   const openThemeUrl = (embed: boolean) =>
     `https://${shop}/admin/themes/current/editor?${embed ? "context=apps&template=index" : "template=product"}`;
+  const planUrl = `https://admin.shopify.com/store/${shop.replace(/\.myshopify\.com$/, "")}/charges/${appHandle}/pricing_plans`;
   return <s-page heading="SectionKit" inlineSize="large">
     <div className="block-intro">
       <s-section heading="Upgrade your product page">
@@ -120,6 +140,10 @@ export default function BlockLibrary() {
     </div>
     <s-section heading="Block library">
       <div className="block-library__summary"><span>32 choices</span><span>Product blocks and storefront utilities</span></div>
+      <s-paragraph>{plan === "free" ? `Free plan: choose any three block types (${selected.length}/3 selected). Variants and repeated placements of one type count once.` : `${plan === "starter" ? "Starter" : "Pro"} plan: the full current block library is available.`}</s-paragraph>
+      {plan === "free" && <s-paragraph>Removing a chosen type also hides its existing storefront placements.</s-paragraph>}
+      <s-link href={planUrl} target="_top">View or change plan in Shopify</s-link>
+      {selection.data?.error && <s-banner tone="critical">{selection.data.error}</s-banner>}
       <div className="block-library__toolbar">
         <label className="block-library__search"><span className="visually-hidden">Search widgets</span><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.6"/><path d="m13 13 4 4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg><input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search widgets" /></label>
         <div className="block-library__filters" aria-label="Widget categories">
@@ -134,6 +158,8 @@ export default function BlockLibrary() {
         {visible.map((block) => {
           const cardId = "cardId" in block ? block.cardId : block.handle;
           const isPreset = "cardId" in block;
+          const chosen = selected.includes(block.handle);
+          const locked = plan === "free" && !chosen;
           return <article className="block-card" key={cardId}>
           <BlockPreview handle={cardId} style={selectedDesign[cardId]} />
           <div className="block-card__body"><div className="block-card__heading"><span className="block-card__category">{block.category}</span>{!isPreset && installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}</div><h3>{block.title}</h3><p className="block-card__description">{block.description}</p>
@@ -148,14 +174,15 @@ export default function BlockLibrary() {
               {"setup" in block && <details className="block-card__setup"><summary>Setup instructions</summary><p>{block.setup}</p></details>}
             </div>
             <div className="block-card__actions">
-              {isPreset
+              {plan === "free" && <selection.Form method="post"><input type="hidden" name="handle" value={block.handle} /><input type="hidden" name="intent" value={chosen ? "remove" : "add"} /><s-button type="submit" disabled={selection.state !== "idle" || (!chosen && selected.length >= 3)}>{chosen ? "Remove from Free choices" : "Choose this block"}</s-button></selection.Form>}
+              {locked ? <span className="block-card__locked">Choose this block to install it</span> : isPreset
                 ? <s-button href={editorUrl(block.handle, "embed" in block)} target="_blank" accessibilityLabel={`Add ${block.title} in theme`}>Add in theme</s-button>
                 : installed?.has(block.handle)
                 ? <s-button href={openThemeUrl("embed" in block)} target="_blank" accessibilityLabel={`Edit ${block.title} in theme`}>Edit in theme</s-button>
                 : installed === null && !statusError
                   ? <s-button disabled>Checking status…</s-button>
                   : <s-button href={editorUrl(block.handle, "embed" in block)} target="_blank" accessibilityLabel={`Install ${block.title} in theme`}>Install in theme</s-button>}
-              {!("embed" in block) && (isPreset || (installed !== null && !installed.has(block.handle))) && <s-link href={editorUrl(block.handle, false, "newAppsSection")} target="_blank">Add as separate section</s-link>}
+              {!locked && !("embed" in block) && (isPreset || (installed !== null && !installed.has(block.handle))) && <s-link href={editorUrl(block.handle, false, "newAppsSection")} target="_blank">Add as separate section</s-link>}
             </div>
           </div>
         </article>})}

@@ -17,7 +17,7 @@ export default function Pricing() {
           <div className="wrap">
             <div className="tag">Plans & pricing</div>
             <h1>Choose the plan that fits your store.</h1>
-            <p>Explore SectionKit's Free, Starter, and Pro plans for your Shopify storefront.</p>
+            <p>Explore SectionKit&apos;s Free, Starter, and Pro plans for your Shopify storefront.</p>
           </div>
         </section>
         <section className="section alt">
@@ -29,11 +29,11 @@ export default function Pricing() {
                 <div className="amount">
                   $0 <span>/ month</span>
                 </div>
-                <p>Start exploring sections and blocks for your product pages.</p>
+                <p>Choose any three block types for your store.</p>
                 <ul>
-                  <li>Browse the block library</li>
-                  <li>Preview available designs</li>
-                  <li>Customize blocks in Shopify's theme editor</li>
+                  <li>Any three block types from the library</li>
+                  <li>Use each chosen type more than once</li>
+                  <li>Customize chosen blocks in the theme editor</li>
                 </ul>
                 <p>Select this plan through Shopify.</p>
               </article>
@@ -43,11 +43,11 @@ export default function Pricing() {
                 <div className="amount">
                   $4.99 <span>/ month</span>
                 </div>
-                <p>Explore SectionKit's paid Starter plan with a 7-day trial.</p>
+                <p>Use the full current block library with a 7-day trial.</p>
                 <ul>
-                  <li>Product detail and trust blocks</li>
-                  <li>Shipping and offer blocks</li>
-                  <li>Theme editor design settings</li>
+                  <li>All current product and utility blocks</li>
+                  <li>All current design and color settings</li>
+                  <li>Fixed-range delivery estimate</li>
                 </ul>
                 <p>Select this plan through Shopify.</p>
               </article>
@@ -57,11 +57,11 @@ export default function Pricing() {
                 <div className="amount">
                   $9.99 <span>/ month</span>
                 </div>
-                <p>Explore SectionKit's paid Pro plan with a 7-day trial.</p>
+                <p>Use the full current library with a 7-day trial.</p>
                 <ul>
-                  <li>Browse all widget categories</li>
-                  <li>Preview available designs</li>
-                  <li>Customize blocks in Shopify's theme editor</li>
+                  <li>Everything currently in Starter</li>
+                  <li>All current design and color settings</li>
+                  <li>Advanced Pro features are in development</li>
                 </ul>
                 <p>Select this plan through Shopify.</p>
               </article>
@@ -83,11 +83,11 @@ export default function Pricing() {
             </details>
             <details>
               <summary>How do I add a block?</summary>
-              <p>Browse the block library, open a block in Shopify's theme editor, choose its position, and save your theme.</p>
+              <p>Browse the block library, open a block in Shopify&apos;s theme editor, choose its position, and save your theme.</p>
             </details>
             <details>
               <summary>Do I need to edit theme code?</summary>
-              <p>No. Add and customize SectionKit blocks in Shopify's theme editor.</p>
+              <p>No. Add and customize SectionKit blocks in Shopify&apos;s theme editor.</p>
             </details>
             <details>
               <summary>Can I preview a block before saving it?</summary>
