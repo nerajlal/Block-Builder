@@ -1,7 +1,8 @@
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
-import { redirect } from "react-router";
+import { Link, redirect, useLoaderData } from "react-router";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
+import { getBlogs } from "../../blog.server";
 
 // We import the CSS to apply the global styles
 import "../../landing.css";
@@ -18,10 +19,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   if (url.searchParams.get("shop")) {
     throw redirect(`/app?${url.searchParams.toString()}`);
   }
-  return null;
+  const blogs = await getBlogs();
+  return { blogs };
 };
 
 export default function Home() {
+  const { blogs } = useLoaderData<typeof loader>();
   return (
     <>
       <Header />
@@ -136,6 +139,72 @@ export default function Home() {
                 </a>
                 <a href="/installation-guide">Read the installation guide</a>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section alt" id="blogs">
+          <div className="wrap">
+            <div className="home-blog-top">
+              <div className="section-head">
+                <div className="tag">Resources & Updates</div>
+                <h2>Our Blog</h2>
+                <p>Actionable guides and strategies to elevate your Shopify product pages and theme blocks.</p>
+              </div>
+              <Link to="/blogs" className="home-blog-view-btn">
+                View all articles <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+
+            {blogs && blogs.length > 0 ? (
+              <div className="home-blog-swiper-wrapper">
+                <div className="home-blog-grid">
+                  {blogs.slice(0, 3).map((blog) => (
+                    <Link to={`/blogs/${blog.slug}`} key={blog.id} className="home-blog-card">
+                      <div className="home-blog-card-media">
+                        <span className="home-blog-card-tag">{blog.category_name || "Shopify Apps"}</span>
+                        {blog.cover_image ? (
+                          <img
+                            src={blog.cover_image}
+                            alt={blog.title}
+                            className="home-blog-card-img"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div style={{ width: "100%", height: "100%", display: "grid", placeItems: "center", color: "var(--green)" }}>
+                            <i className="fa-solid fa-cube" style={{ fontSize: "32px" }}></i>
+                          </div>
+                        )}
+                      </div>
+                      <div className="home-blog-card-body">
+                        <div className="home-blog-card-meta">
+                          <span><i className="fa-regular fa-calendar"></i> {blog.formatted_date}</span>
+                          <span>•</span>
+                          <span><i className="fa-regular fa-clock"></i> {blog.read_time}</span>
+                        </div>
+                        <h3 className="home-blog-card-title">{blog.title}</h3>
+                        <p className="home-blog-card-desc">{blog.excerpt}</p>
+                        <div className="home-blog-card-foot">
+                          <div className="home-blog-card-author">
+                            <i className="fa-solid fa-circle-user"></i> {blog.author_name}
+                          </div>
+                          <span className="home-blog-card-action">
+                            Read <span aria-hidden="true">→</span>
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <p style={{ color: "var(--muted)" }}>No blog articles available yet.</p>
+            )}
+
+            <div className="home-blog-bottom-btn">
+              <Link to="/blogs" className="btn-outline-mobile">
+                View all articles <span aria-hidden="true">↗</span>
+              </Link>
             </div>
           </div>
         </section>

@@ -8,6 +8,7 @@ export function Footer() {
           © {new Date().getFullYear()} SectionKit · Built by <a href="https://task19.com/">Task19 Technologies</a>
         </div>
         <div className="foot-links">
+          <Link to="/blogs">Blogs</Link>
           <Link to="/support">Support</Link>
           <Link to="/privacy">Privacy</Link>
           <Link to="/terms">Terms</Link>
