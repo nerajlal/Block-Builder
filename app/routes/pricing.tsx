@@ -1,4 +1,7 @@
+import { useState } from "react";
+import type { FormEvent } from "react";
 import type { MetaFunction } from "react-router";
+import { useLoaderData } from "react-router";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import "../landing.css";
@@ -8,7 +11,26 @@ export const meta: MetaFunction = () => [
   { name: "description", content: "Explore SectionKit's Free, Starter, and Pro plans for customizable Shopify theme sections and product page blocks." },
 ];
 
+export const loader = async () => ({
+  appHandle: process.env.SHOPIFY_APP_HANDLE || "block-builder",
+});
+
 export default function Pricing() {
+  const { appHandle } = useLoaderData<typeof loader>();
+  const [selectedPlan, setSelectedPlan] = useState<"Free" | "Starter" | "Pro">("Free");
+  const [shop, setShop] = useState("");
+  const [shopError, setShopError] = useState("");
+
+  const continueToShopify = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const handle = shop.trim().toLowerCase().replace(/\.myshopify\.com$/, "");
+    if (!/^[a-z0-9][a-z0-9-]*$/.test(handle)) {
+      setShopError("Enter your store handle or its .myshopify.com domain.");
+      return;
+    }
+    window.location.assign(`https://admin.shopify.com/store/${handle}/charges/${encodeURIComponent(appHandle)}/pricing_plans`);
+  };
+
   return (
     <>
       <Header />
@@ -35,7 +57,7 @@ export default function Pricing() {
                   <li>Use each chosen type more than once</li>
                   <li>Use built-in designs on chosen blocks</li>
                 </ul>
-                <p>Select this plan through Shopify.</p>
+                <a className="btn" href="#plan-selector" onClick={() => setSelectedPlan("Free")}>Choose Free</a>
               </article>
               <article className="plan popular">
                 <div className="plan-label">For growing stores</div>
@@ -49,7 +71,7 @@ export default function Pricing() {
                   <li>All current design and color settings</li>
                   <li>Fixed-message delivery estimate</li>
                 </ul>
-                <p>Select this plan through Shopify.</p>
+                <a className="btn" href="#plan-selector" onClick={() => setSelectedPlan("Starter")}>Choose Starter</a>
               </article>
               <article className="plan">
                 <div className="plan-label">Advanced needs</div>
@@ -63,8 +85,22 @@ export default function Pricing() {
                   <li>Smart delivery dates with cutoff, holidays, and country rules</li>
                   <li>Target product blocks by product, collection, tag, country, or language</li>
                 </ul>
-                <p>Select this plan through Shopify.</p>
+                <a className="btn" href="#plan-selector" onClick={() => setSelectedPlan("Pro")}>Choose Pro</a>
               </article>
+            </div>
+            <div className="plan-selector" id="plan-selector">
+              <div>
+                <h2>Continue with {selectedPlan}</h2>
+                <p>Enter your Shopify store to open SectionKit’s plan page. Choose {selectedPlan} there; Shopify handles plan approval and billing.</p>
+              </div>
+              <form onSubmit={continueToShopify}>
+                <label htmlFor="pricing-shop">Your Shopify store</label>
+                <div className="plan-selector__fields">
+                  <input id="pricing-shop" name="shop" type="text" value={shop} onChange={(event) => { setShop(event.target.value); setShopError(""); }} placeholder="your-store.myshopify.com" autoComplete="url" aria-invalid={Boolean(shopError)} aria-describedby={shopError ? "pricing-shop-error" : undefined} required />
+                  <button className="btn" type="submit">Continue to Shopify ↗</button>
+                </div>
+                {shopError && <p className="plan-selector__error" id="pricing-shop-error" role="alert">{shopError}</p>}
+              </form>
             </div>
             <p className="plan-note">
               Paid plans include a 7-day trial. Confirm the plan and billing terms in Shopify before subscribing.
