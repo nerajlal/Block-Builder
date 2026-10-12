@@ -19,7 +19,7 @@ npm run shopify -- app config validate --json
 npm run dev
 ```
 
-`npm run dev` uses Shopify CLI to start a tunnel and preview the extension on a development store. `npm run start` serves a built app directly, provided its environment variables and session database are configured. The production origin is `https://blockbuilder.task19.com`.
+`npm run dev` uses Shopify CLI to start a tunnel and preview the extension on a development store. `npm run start` serves a built app directly, provided its environment variables and session database are configured. The production origin is `https://sectionkit.task19.com`.
 
 ## Before deployment
 

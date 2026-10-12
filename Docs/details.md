@@ -64,7 +64,7 @@ Eight widget cards provide a design selector in the embedded app, covering fifte
 
 ## Credentials and local development
 
-The local `shopify.app.toml` is linked to the Block Builder app. It uses `https://blockbuilder.task19.com` as the intended production App URL, remains embedded, and allows `https://blockbuilder.task19.com/auth/callback`. The legacy install flow is off. The application does not require Admin API scopes for these thirty block types. The client secret belongs only in an ignored `.env` or host secret manager, never in committed files.
+The local `shopify.app.toml` is linked to the SectionKit app. It uses `https://sectionkit.task19.com` as the intended production App URL, remains embedded, and allows `https://sectionkit.task19.com/auth/callback`. The legacy install flow is off. The application does not require Admin API scopes for these thirty block types. The client secret belongs only in an ignored `.env` or host secret manager, never in committed files.
 
 Install Node.js 22.12+ and run:
 

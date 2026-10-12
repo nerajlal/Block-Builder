@@ -1,12 +1,12 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "f04e7a3bd20444e3366efaed26071ce0"
-application_url = "https://blockbuilder.task19.com"
+application_url = "https://sectionkit.task19.com"
 embedded = true
 name = "SectionKit"
 
 [auth]
-redirect_urls = [ "https://blockbuilder.task19.com/auth/callback" ]
+redirect_urls = [ "https://sectionkit.task19.com/auth/callback" ]
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
