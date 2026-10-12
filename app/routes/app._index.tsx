@@ -61,15 +61,21 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { session, admin, redirect } = await authenticate.admin(request);
   const base = { shop: session.shop, apiKey: process.env.SHOPIFY_API_KEY || "", appHandle: process.env.SHOPIFY_APP_HANDLE || "block-builder" };
   if (process.env.SECTIONKIT_PRICING_ENABLED !== "true") {
-    return { ...base, pricingReady: false, plan: null, selected: [] as BlockHandle[] };
+    return { ...base, pricingReady: false, pricingError: false, plan: null, selected: [] as BlockHandle[] };
   }
-  const access = await readPlanAccess(admin, new URL(request.url).searchParams.has("plan_handle"));
+  let access;
+  try {
+    access = await readPlanAccess(admin, new URL(request.url).searchParams.has("plan_handle"));
+  } catch (error) {
+    console.error("SectionKit plan verification failed:", error instanceof Error ? error.message : "Unknown error");
+    return { ...base, pricingReady: false, pricingError: true, plan: null, selected: [] as BlockHandle[] };
+  }
   if (!access.plan) {
     const appHandle = process.env.SHOPIFY_APP_HANDLE || "block-builder";
     const storeHandle = session.shop.replace(/\.myshopify\.com$/, "");
     return redirect(`https://admin.shopify.com/store/${storeHandle}/charges/${appHandle}/pricing_plans`, { target: "_top" });
   }
-  return { ...base, pricingReady: true, plan: access.plan, selected: access.selected };
+  return { ...base, pricingReady: true, pricingError: false, plan: access.plan, selected: access.selected };
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -85,7 +91,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function BlockLibrary() {
-  const { shop, apiKey, appHandle, pricingReady, plan, selected } = useLoaderData<typeof loader>();
+  const { shop, apiKey, appHandle, pricingReady, pricingError, plan, selected } = useLoaderData<typeof loader>();
   const selection = useFetcher<typeof action>();
   const shopify = useAppBridge();
   const [filter, setFilter] = useState("All");
@@ -146,7 +152,8 @@ export default function BlockLibrary() {
     </div>
     <s-section heading="Block library">
       <div className="block-library__summary"><span>32 choices</span><span>Product blocks and storefront utilities</span></div>
-      <s-paragraph>{!pricingReady ? "Plan selection is being prepared. The current block library remains available." : plan === "free" ? `Free plan: choose any three block types (${selected.length}/3 selected). Variants and repeated placements of one type count once.` : `${plan === "starter" ? "Starter" : "Pro"} plan: the full current block library is available.`}</s-paragraph>
+      {pricingError && <s-banner tone="critical">We can’t verify your plan right now. The block library and installation guide remain available; please try again shortly or contact support.</s-banner>}
+      <s-paragraph>{pricingError ? "Preview blocks below. Installation controls will return when plan verification succeeds." : !pricingReady ? "Plan selection is being prepared. The current block library remains available." : plan === "free" ? `Free plan: choose any three block types (${selected.length}/3 selected). Variants and repeated placements of one type count once.` : `${plan === "starter" ? "Starter" : "Pro"} plan: the full current block library is available.`}</s-paragraph>
       {plan === "free" && <s-paragraph>Removing a chosen type also hides its existing storefront placements.</s-paragraph>}
       {pricingReady && <s-link href={planUrl} target="_top">View or change plan in Shopify</s-link>}
       {selection.data?.error && <s-banner tone="critical">{selection.data.error}</s-banner>}
@@ -165,7 +172,7 @@ export default function BlockLibrary() {
           const cardId = "cardId" in block ? block.cardId : block.handle;
           const isPreset = "cardId" in block;
           const chosen = selected.includes(block.handle);
-          const locked = pricingReady && plan === "free" && !chosen;
+          const locked = pricingError || (pricingReady && plan === "free" && !chosen);
           return <article className="block-card" key={cardId}>
           <BlockPreview handle={cardId} style={selectedDesign[cardId]} />
           <div className="block-card__body"><div className="block-card__heading"><span className="block-card__category">{block.category}</span>{!isPreset && installed?.has(block.handle) && <s-badge tone="success">Installed</s-badge>}</div><h3>{block.title}</h3><p className="block-card__description">{block.description}</p>
@@ -181,7 +188,7 @@ export default function BlockLibrary() {
             </div>
             <div className="block-card__actions">
               {pricingReady && plan === "free" && <selection.Form method="post"><input type="hidden" name="handle" value={block.handle} /><input type="hidden" name="intent" value={chosen ? "remove" : "add"} /><s-button type="submit" disabled={selection.state !== "idle" || (!chosen && selected.length >= 3)}>{chosen ? "Remove from Free choices" : "Choose this block"}</s-button></selection.Form>}
-              {locked ? <span className="block-card__locked">Choose this block to install it</span> : isPreset
+              {locked ? <span className="block-card__locked">{pricingError ? "Plan check unavailable" : "Choose this block to install it"}</span> : isPreset
                 ? <s-button href={editorUrl(block.handle, "embed" in block)} target="_blank" accessibilityLabel={`Add ${block.title} in theme`}>Add in theme</s-button>
                 : installed?.has(block.handle)
                 ? <s-button href={openThemeUrl("embed" in block)} target="_blank" accessibilityLabel={`Edit ${block.title} in theme`}>Edit in theme</s-button>
