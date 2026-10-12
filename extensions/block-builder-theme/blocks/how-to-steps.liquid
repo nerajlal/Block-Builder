@@ -1,5 +1,7 @@
+{%- capture sk_visibility -%}{%- render "sectionkit-visibility", block: block, product: product, localization: localization -%}{%- endcapture -%}
+{%- if sk_visibility == "show" -%}
 {% if block.settings.body_1 != blank or block.settings.body_2 != blank or block.settings.body_3 != blank %}
-<div class="bb-block bb-steps" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}"{% endif %} {{ block.shopify_attributes }}>
+<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-steps" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}"{% endif %} {{ block.shopify_attributes }}>
   <h3>{{ block.settings.heading | escape }}</h3>
   <div class="bb-steps__grid">
     {% for number in (1..3) %}
@@ -10,6 +12,7 @@
   </div>
 </div>
 {% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Describe at least one step to show this block.</div>{% endif %}
+{%- endif -%}
 {% schema %}
 {
   "name": "How-to steps",
@@ -65,26 +68,32 @@
       "type": "color",
       "id": "background_color",
       "label": "Background color",
-      "info": "Leave empty to use the widget design."
-    },
+      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
+},
     {
       "type": "color",
       "id": "text_color",
       "label": "Text color",
-      "info": "Leave empty to use the widget design."
-    },
+      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
+},
     {
       "type": "color",
       "id": "border_color",
       "label": "Border color",
-      "info": "Leave empty to use the widget design."
-    },
+      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
+},
     {
       "type": "color",
       "id": "accent_color",
       "label": "Accent color",
-      "info": "Leave empty to use the widget design."
-    }
+      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
+},
+    {"type": "header", "content": "Pro: display targeting"},
+    {"type": "textarea", "id": "pro_product_handles", "label": "Product handles (Pro only)", "info": "Comma-separated handles. Leave empty for all products."},
+    {"type": "textarea", "id": "pro_collection_handles", "label": "Collection handles (Pro only)", "info": "Comma-separated handles. Match any collection."},
+    {"type": "textarea", "id": "pro_tags", "label": "Product tags (Pro only)", "info": "Comma-separated tags. Match any tag."},
+    {"type": "text", "id": "pro_countries", "label": "Country codes (Pro only)", "info": "Comma-separated two-letter market country codes."},
+    {"type": "text", "id": "pro_languages", "label": "Language codes (Pro only)", "info": "Comma-separated language codes, for example en,fr."}
   ]
 }
 {% endschema %}

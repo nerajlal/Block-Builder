@@ -4,8 +4,8 @@ import { Footer } from "../components/Footer";
 import "../landing.css";
 
 export const meta: MetaFunction = () => [
-  { title: "Terms of Service — Block Builder" },
-  { name: "description", content: "Terms of service for the Block Builder app." },
+  { title: "Terms of Service — SectionKit" },
+  { name: "description", content: "Terms of service for the SectionKit app." },
 ];
 
 export default function Terms() {
@@ -25,7 +25,7 @@ export default function Terms() {
           <div className="wrap" style={{ maxWidth: "1000px" }}>
             <div className="terms-intro">
               <h2>Agreement to Terms</h2>
-              <p>By installing or using Block Builder, you agree to these Terms of Service. Please read them carefully before using our app.</p>
+              <p>By installing or using SectionKit, you agree to these Terms of Service. Please read them carefully before using our app.</p>
             </div>
 
             <div className="terms-grid-3">

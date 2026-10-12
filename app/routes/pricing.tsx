@@ -33,7 +33,7 @@ export default function Pricing() {
                 <ul>
                   <li>Any three block types from the library</li>
                   <li>Use each chosen type more than once</li>
-                  <li>Customize chosen blocks in the theme editor</li>
+                  <li>Use built-in designs on chosen blocks</li>
                 </ul>
                 <p>Select this plan through Shopify.</p>
               </article>
@@ -47,7 +47,7 @@ export default function Pricing() {
                 <ul>
                   <li>All current product and utility blocks</li>
                   <li>All current design and color settings</li>
-                  <li>Fixed-range delivery estimate</li>
+                  <li>Fixed-message delivery estimate</li>
                 </ul>
                 <p>Select this plan through Shopify.</p>
               </article>
@@ -57,11 +57,11 @@ export default function Pricing() {
                 <div className="amount">
                   $9.99 <span>/ month</span>
                 </div>
-                <p>Use the full current library with a 7-day trial.</p>
+                <p>Use advanced display and delivery controls with a 7-day trial.</p>
                 <ul>
                   <li>Everything currently in Starter</li>
-                  <li>All current design and color settings</li>
-                  <li>Advanced Pro features are in development</li>
+                  <li>Smart delivery dates with cutoff, holidays, and country rules</li>
+                  <li>Target product blocks by product, collection, tag, country, or language</li>
                 </ul>
                 <p>Select this plan through Shopify.</p>
               </article>

@@ -4,8 +4,8 @@ import { Footer } from "../components/Footer";
 import "../landing.css";
 
 export const meta: MetaFunction = () => [
-  { title: "Support — Block Builder" },
-  { name: "description", content: "Get help with Block Builder setup, product coupons, bundles, delivery dates, and Shopify app blocks." },
+  { title: "Support — SectionKit" },
+  { name: "description", content: "Get help with SectionKit setup, theme blocks, delivery estimates, and Shopify setup." },
 ];
 
 export default function Support() {
@@ -17,7 +17,7 @@ export default function Support() {
           <div className="wrap">
             <div className="tag">Support</div>
             <h1>Get unstuck and keep selling.</h1>
-            <p>Find setup answers, open the installation guide, or email the Block Builder team.</p>
+            <p>Find setup answers, open the installation guide, or email the SectionKit team.</p>
           </div>
         </section>
         <section className="section alt">
@@ -32,7 +32,7 @@ export default function Support() {
               <article className="help-card">
                 <div className="symbol">▤</div>
                 <h3>Installation guide</h3>
-                <p>Follow the setup steps for delivery dates, coupons, bundles, AI features, and theme blocks.</p>
+                <p>Follow the setup steps for product blocks, delivery estimates, storefront utilities, and theme setup.</p>
                 <a href="/installation-guide">Read the guide ↗</a>
               </article>
               <article className="help-card">
@@ -56,7 +56,7 @@ export default function Support() {
                 <details>
                   <summary>How do I install the widget?</summary>
                   <p>
-                    Open the <a href="https://apps.shopify.com/product-discount-3">Shopify App Store listing</a>, select Add app, then approve installation. Use the Shopify Theme Editor to add your blocks.
+                    After installing SectionKit, open its block library and select a widget. The Install in theme button opens Shopify’s theme editor; place the block and save.
                   </p>
                 </details>
                 <details>
@@ -69,7 +69,7 @@ export default function Support() {
                 </details>
                 <details>
                   <summary>Can I use it on vintage themes?</summary>
-                  <p>Block Builder is optimized for Shopify Online Store 2.0 themes. Vintage themes may require manual code placement.</p>
+                  <p>SectionKit is optimized for Shopify Online Store 2.0 themes. Theme app blocks require an Online Store 2.0 compatible theme.</p>
                 </details>
                 <details>
                   <summary>How do I uninstall?</summary>
@@ -81,24 +81,24 @@ export default function Support() {
                 <h3>Blocks & Features</h3>
                 <details>
                   <summary>Does the app slow down my store?</summary>
-                  <p>No. Our app blocks are highly optimized and only load when necessary, ensuring zero impact on your store's page speed.</p>
+                  <p>Blocks use theme extension assets. Test page performance after adding media or several interactive blocks.</p>
                 </details>
                 <details>
-                  <summary>Can I edit AI-generated features?</summary>
-                  <p>Yes. Generate content using the app dashboard and then edit the generated text before displaying it.</p>
+                  <summary>Can I edit block content?</summary>
+                  <p>Yes. Edit the block text in Shopify’s theme editor and save the theme.</p>
                 </details>
                 <details>
                   <summary>How do I change the delivery estimate?</summary>
-                  <p>Open Delivery Settings in the app, update the day range or destination, and save.</p>
+                  <p>Open the Delivery estimate block in Shopify’s theme editor. Starter supports a fixed message; Pro also supports calculated dates, cutoff times, holidays, and country rules.</p>
                 </details>
                 <details>
                   <summary>Can I change block colors and fonts?</summary>
-                  <p>Yes! Blocks automatically inherit your theme's default fonts, and you can adjust colors directly in Shopify's Theme Editor.</p>
+                  <p>Blocks inherit your theme fonts. Starter and Pro can set custom colors in Shopify’s theme editor; Free can use the built-in designs.</p>
                 </details>
                 <details>
                   <summary>Where do I set up coupons?</summary>
                   <p>
-                    Use the Product Coupons tab in the app dashboard. The <a href="/installation-guide">installation guide</a> walks through the process.
+                    Create a real discount in Shopify Discounts, then enter its code in the Discount code block. See the <a href="/installation-guide">installation guide</a>.
                   </p>
                 </details>
               </div>
@@ -106,8 +106,8 @@ export default function Support() {
               <div className="faq-card">
                 <h3>Privacy & GDPR</h3>
                 <details>
-                  <summary>Is Block Builder GDPR compliant?</summary>
-                  <p>Yes, we are fully GDPR and CCPA compliant. We do not track personal customer data without explicit consent.</p>
+                  <summary>Is SectionKit GDPR compliant?</summary>
+                  <p>Review our <a href="/privacy">Privacy Policy</a> for details about app data and privacy requests.</p>
                 </details>
                 <details>
                   <summary>What data do you store about customers?</summary>
@@ -117,7 +117,7 @@ export default function Support() {
                 </details>
                 <details>
                   <summary>Are payment details stored by the app?</summary>
-                  <p>No. Block Builder never accesses or stores any payment information. All transactions are securely handled by Shopify.</p>
+                  <p>No. SectionKit never accesses or stores any payment information. All transactions are securely handled by Shopify.</p>
                 </details>
                 <details>
                   <summary>How do I request data deletion?</summary>

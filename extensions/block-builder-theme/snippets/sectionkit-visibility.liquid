@@ -1,0 +1,37 @@
+{%- assign sk_allowed = true -%}
+{%- if app.metafields.sectionkit.pro_enabled.value != true -%}
+  {%- if block.settings.pro_product_handles != blank or block.settings.pro_collection_handles != blank or block.settings.pro_tags != blank or block.settings.pro_countries != blank or block.settings.pro_languages != blank -%}{%- assign sk_allowed = false -%}{%- endif -%}
+{%- endif -%}
+{%- if app.metafields.sectionkit.pro_enabled.value == true -%}
+  {%- if block.settings.pro_product_handles != blank -%}
+    {%- assign sk_match = false -%}
+    {%- assign sk_entries = block.settings.pro_product_handles | downcase | split: ',' -%}
+    {%- for sk_entry in sk_entries -%}{%- assign sk_value = sk_entry | strip -%}{%- if sk_value == product.handle -%}{%- assign sk_match = true -%}{%- endif -%}{%- endfor -%}
+    {%- unless sk_match -%}{%- assign sk_allowed = false -%}{%- endunless -%}
+  {%- endif -%}
+  {%- if block.settings.pro_collection_handles != blank -%}
+    {%- assign sk_match = false -%}
+    {%- assign sk_entries = block.settings.pro_collection_handles | downcase | split: ',' -%}
+    {%- for sk_collection in product.collections -%}{%- for sk_entry in sk_entries -%}{%- assign sk_value = sk_entry | strip -%}{%- if sk_value == sk_collection.handle -%}{%- assign sk_match = true -%}{%- endif -%}{%- endfor -%}{%- endfor -%}
+    {%- unless sk_match -%}{%- assign sk_allowed = false -%}{%- endunless -%}
+  {%- endif -%}
+  {%- if block.settings.pro_tags != blank -%}
+    {%- assign sk_match = false -%}
+    {%- assign sk_entries = block.settings.pro_tags | downcase | split: ',' -%}
+    {%- for sk_tag in product.tags -%}{%- assign sk_tag_lower = sk_tag | downcase -%}{%- for sk_entry in sk_entries -%}{%- assign sk_value = sk_entry | strip -%}{%- if sk_value == sk_tag_lower -%}{%- assign sk_match = true -%}{%- endif -%}{%- endfor -%}{%- endfor -%}
+    {%- unless sk_match -%}{%- assign sk_allowed = false -%}{%- endunless -%}
+  {%- endif -%}
+  {%- if block.settings.pro_countries != blank -%}
+    {%- assign sk_match = false -%}
+    {%- assign sk_entries = block.settings.pro_countries | upcase | split: ',' -%}
+    {%- for sk_entry in sk_entries -%}{%- assign sk_value = sk_entry | strip -%}{%- if sk_value == localization.country.iso_code -%}{%- assign sk_match = true -%}{%- endif -%}{%- endfor -%}
+    {%- unless sk_match -%}{%- assign sk_allowed = false -%}{%- endunless -%}
+  {%- endif -%}
+  {%- if block.settings.pro_languages != blank -%}
+    {%- assign sk_match = false -%}
+    {%- assign sk_entries = block.settings.pro_languages | downcase | split: ',' -%}
+    {%- for sk_entry in sk_entries -%}{%- assign sk_value = sk_entry | strip -%}{%- if sk_value == localization.language.iso_code -%}{%- assign sk_match = true -%}{%- endif -%}{%- endfor -%}
+    {%- unless sk_match -%}{%- assign sk_allowed = false -%}{%- endunless -%}
+  {%- endif -%}
+{%- endif -%}
+{%- if sk_allowed -%}show{%- endif -%}

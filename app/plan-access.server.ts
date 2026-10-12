@@ -112,15 +112,17 @@ export async function activePlan(shopId: string, force = false): Promise<Section
   return plan;
 }
 
-async function applyAccess(admin: Admin, installation: Installation, plan: SectionKitPlan, selected: BlockHandle[]) {
-  const desired = JSON.stringify({ plan, selected: [...selected].sort() });
+async function applyAccess(admin: Admin, installation: Installation, plan: SectionKitPlan | null, selected: BlockHandle[]) {
+  const desired = JSON.stringify({ version: 2, plan, selected: [...selected].sort() });
   if (installation.applied?.value === desired) return;
 
-  const enabled = plan === "free" ? new Set(selected) : new Set<string>(BLOCK_HANDLES);
+  const enabled = plan === "free" ? new Set(selected) : plan ? new Set<string>(BLOCK_HANDLES) : new Set<string>();
   const metafields = BLOCK_HANDLES.map((handle) => ({
     ownerId: installation.id, namespace, key: accessKey(handle), type: "boolean",
     value: enabled.has(handle) ? "true" : "false",
   }));
+  metafields.push({ ownerId: installation.id, namespace, key: "pro_enabled", type: "boolean", value: plan === "pro" ? "true" : "false" });
+  metafields.push({ ownerId: installation.id, namespace, key: "paid_enabled", type: "boolean", value: plan === "starter" || plan === "pro" ? "true" : "false" });
   // metafieldsSet accepts at most 25 items. Record applied_access only in the
   // final batch so an interrupted sync is retried on the next authenticated load.
   metafields.push({ ownerId: installation.id, namespace, key: "applied_access", type: "json", value: desired });
@@ -140,11 +142,16 @@ async function applyAccess(admin: Admin, installation: Installation, plan: Secti
   }
 }
 
-export async function readPlanAccess(admin: Admin, forcePlanCheck = false) {
+export async function inspectPlanAccess(admin: Admin, forcePlanCheck = false) {
   const { shopId, installation } = await installationContext(admin);
   const plan = await activePlan(shopId, forcePlanCheck);
   const selected = parseSelected(installation.selected?.value);
-  if (plan) await applyAccess(admin, installation, plan, selected);
+  return { plan, selected, installation };
+}
+
+export async function readPlanAccess(admin: Admin, forcePlanCheck = false) {
+  const { plan, selected, installation } = await inspectPlanAccess(admin, forcePlanCheck);
+  await applyAccess(admin, installation, plan, selected);
   return { plan, selected, installation };
 }
 

@@ -56,8 +56,8 @@ export function Header() {
             <Link to="/support" onClick={closeMenu}>Support</Link>
           </nav>
           
-          <a className="btn btn-small nav-cta" href="https://apps.shopify.com/product-discount-3">
-            Add to Shopify <span aria-hidden="true">↗</span>
+          <a className="btn btn-small nav-cta" href="/installation-guide">
+            Installation guide <span aria-hidden="true">↗</span>
           </a>
         </div>
       </div>

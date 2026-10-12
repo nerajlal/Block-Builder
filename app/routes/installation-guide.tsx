@@ -4,8 +4,8 @@ import { Footer } from "../components/Footer";
 import "../landing.css";
 
 export const meta: MetaFunction = () => [
-  { title: "Installation Guide — Block Builder" },
-  { name: "description", content: "Install Block Builder and configure product coupons, bundles, delivery estimates, and AI features in Shopify." },
+  { title: "Installation Guide — SectionKit" },
+  { name: "description", content: "Install SectionKit and configure product-page blocks, delivery estimates, and storefront utilities in Shopify." },
 ];
 
 export default function InstallationGuide() {
@@ -16,7 +16,7 @@ export default function InstallationGuide() {
         <section className="page-hero">
           <div className="wrap">
             <div className="tag">Installation guide</div>
-            <h1>Set up Block Builder, step by step.</h1>
+            <h1>Set up SectionKit, step by step.</h1>
             <p>Install the app, configure your offers and delivery settings, then place the blocks in your Shopify theme.</p>
           </div>
         </section>
@@ -37,13 +37,13 @@ export default function InstallationGuide() {
                 </h2>
                 <ol>
                   <li>
-                    Open <a href="https://apps.shopify.com/product-discount-3">Block Builder on the Shopify App Store</a>.
+                    Install SectionKit from its Shopify App Store listing when it becomes available.
                   </li>
                   <li>
-                    Click <strong>Add app</strong>, review the permissions, and select <strong>Install app</strong>.
+                    Review the permissions and select <strong>Install app</strong>, then choose your plan in Shopify.
                   </li>
                   <li>
-                    Open Block Builder from <strong>Apps</strong> in your Shopify admin.
+                    Open SectionKit from <strong>Apps</strong> in your Shopify admin.
                   </li>
                 </ol>
                 <div className="callout">
@@ -56,10 +56,10 @@ export default function InstallationGuide() {
                 </h2>
                 <ol>
                   <li>
-                    Inside the Block Builder app dashboard, browse the 14+ available blocks.
+                    Inside the SectionKit app dashboard, browse the 32 widget choices.
                   </li>
                   <li>Familiarize yourself with features like Trust strips, Delivery estimates, Product highlights, and Promotion banners.</li>
-                  <li>Decide which blocks best fit your store's needs.</li>
+                  <li>Decide which blocks best fit your store&apos;s needs.</li>
                 </ol>
               </section>
               <section className="guide-step" id="step-3">
@@ -82,12 +82,12 @@ export default function InstallationGuide() {
                   <li>
                     Click <strong>Add block</strong> at the bottom of the Product Information section.
                   </li>
-                  <li>Scroll down to the <strong>Apps</strong> category and select the Block Builder block you want to add (e.g., Trust strip).</li>
+                  <li>Scroll down to the <strong>Apps</strong> category and select the SectionKit block you want to add (e.g., Trust strip).</li>
                   <li>Drag the block up or down to position it perfectly on your page.</li>
                   <li>Click on the block itself to open its settings on the right panel. Here you can customize text, icons, colors, and layout.</li>
                 </ol>
                 <div className="callout">
-                  You can add as many blocks as your plan allows. Each block operates independently and has its own custom settings!
+                  Free lets you choose any three block types; repeated placements and design presets of one type count once. Starter and Pro unlock all current types.
                 </div>
               </section>
               <section className="guide-step" id="step-5">

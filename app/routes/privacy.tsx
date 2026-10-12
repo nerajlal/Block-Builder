@@ -4,8 +4,8 @@ import { Footer } from "../components/Footer";
 import "../landing.css";
 
 export const meta: MetaFunction = () => [
-  { title: "Privacy Policy — Block Builder" },
-  { name: "description", content: "Privacy policy for the Block Builder app." },
+  { title: "Privacy Policy — SectionKit" },
+  { name: "description", content: "Privacy policy for the SectionKit app." },
 ];
 
 export default function Privacy() {
@@ -25,7 +25,7 @@ export default function Privacy() {
           <div className="wrap" style={{ maxWidth: "800px" }}>
             <h2 style={{ marginTop: "0", fontSize: "24px" }}>Our Commitment</h2>
             <p style={{ color: "var(--muted)", fontSize: "16px", lineHeight: "1.6" }}>
-              Block Builder ("the App", "we", "us") provides theme customization tools for Shopify merchants. We are committed to protecting the privacy of our merchants and their customers. This policy describes how we collect, use, and share personal information when you install or use the App.
+              SectionKit ("the App", "we", "us") provides theme customization tools for Shopify merchants. We are committed to protecting the privacy of our merchants and their customers. This policy describes how we collect, use, and share personal information when you install or use the App.
             </p>
 
             <h2 style={{ marginTop: "40px", fontSize: "24px" }}>Information We Collect</h2>

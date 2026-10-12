@@ -1,6 +1,5 @@
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
-import { redirect, useLoaderData } from "react-router";
-import { login } from "../../shopify.server";
+import { redirect } from "react-router";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 
@@ -8,10 +7,10 @@ import { Footer } from "../../components/Footer";
 import "../../landing.css";
 
 export const meta: MetaFunction = () => [
-  { title: "Block Builder — Product deals, discounts & delivery dates for Shopify" },
-  { name: "description", content: "Turn your Shopify product pages into a clearer reason to buy with bundles, product-specific discounts, delivery estimates, and AI-assisted product copy." },
-  { property: "og:title", content: "Block Builder for Shopify" },
-  { property: "og:description", content: "Turn your Shopify product pages into a clearer reason to buy with bundles, product-specific discounts, delivery estimates, and AI-assisted product copy." },
+  { title: "SectionKit — Theme Sections & Blocks for Shopify" },
+  { name: "description", content: "Add customizable product-page blocks, delivery estimates, trust details, and storefront utilities to Online Store 2.0 themes." },
+  { property: "og:title", content: "SectionKit for Shopify" },
+  { property: "og:description", content: "Add customizable product-page blocks, delivery estimates, trust details, and storefront utilities to Online Store 2.0 themes." },
 ];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -19,11 +18,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   if (url.searchParams.get("shop")) {
     throw redirect(`/app?${url.searchParams.toString()}`);
   }
-  return { showForm: Boolean(login) };
+  return null;
 };
 
 export default function Home() {
-  const { showForm } = useLoaderData<typeof loader>();
   return (
     <>
       <Header />
@@ -38,11 +36,11 @@ export default function Home() {
                 Make every product page feel <em>thoughtfully built.</em>
               </h1>
               <p className="lead">
-                Add polished product-page details to Dawn and other Online Store 2.0 themes. Choose a block, customize it in Shopify's theme editor, and publish when it feels right.
+                Add polished product-page details to Dawn and other Online Store 2.0 themes. Choose a block, customize it in Shopify&apos;s theme editor, and publish when it feels right.
               </p>
               <div className="hero-actions">
-                <a className="btn" href="https://apps.shopify.com/product-discount-3">
-                  Add Block Builder to Shopify <span aria-hidden="true">↗</span>
+                <a className="btn" href="/installation-guide">
+                  View installation guide <span aria-hidden="true">↗</span>
                 </a>
                 <a className="btn btn-outline" href="#features">
                   Explore the features
@@ -51,7 +49,7 @@ export default function Home() {
               <div className="tiny">No coding required · Plans from $0/month</div>
             </div>
             <div style={{ position: "relative", width: "100%", borderRadius: "24px", overflow: "hidden", boxShadow: "0 30px 60px rgba(0,0,0,0.4)", transform: "rotate(1deg)", border: "6px solid #1a3a28" }}>
-              <img src="/hero-app-mockup.jpg" alt="Block Builder Features Illustration" style={{ width: "100%", height: "auto", display: "block" }} />
+              <img src="/hero-app-mockup.jpg" alt="SectionKit Features Illustration" style={{ width: "100%", height: "auto", display: "block" }} />
             </div>
           </div>
         </section>
@@ -61,7 +59,7 @@ export default function Home() {
             <div className="section-head">
               <div className="tag">FEATURES</div>
               <h2>Everything built in</h2>
-              <p>Install once. Place and customize blocks directly in Shopify's theme editor.</p>
+              <p>Install once. Place and customize blocks directly in Shopify&apos;s theme editor.</p>
             </div>
             <div className="features-grid">
               <div className="feature-card">
@@ -108,12 +106,12 @@ export default function Home() {
               <div className="step">
                 <b>01</b>
                 <h3>Install the app</h3>
-                <p>Add Block Builder to your Shopify store and open its dashboard.</p>
+                <p>Add SectionKit to your Shopify store and open its dashboard.</p>
               </div>
               <div className="step">
                 <b>02</b>
                 <h3>Choose what to show</h3>
-                <p>Set up your bundles, product discounts, delivery estimates, and product copy.</p>
+                <p>Choose product blocks, set their content and designs, and place them in your theme editor.</p>
               </div>
               <div className="step">
                 <b>03</b>
@@ -136,7 +134,7 @@ export default function Home() {
                 <a className="btn" href="/pricing">
                   View all plans <span aria-hidden="true">↗</span>
                 </a>
-                <a href="https://apps.shopify.com/product-discount-3">View on Shopify App Store</a>
+                <a href="/installation-guide">Read the installation guide</a>
               </div>
             </div>
           </div>
@@ -150,15 +148,15 @@ export default function Home() {
             <h2>Good to know before you install.</h2>
             <details>
               <summary>Do I need to edit my theme code?</summary>
-              <p>No. Block Builder is designed for setup without coding. Follow the app’s installation guide to enable the blocks in your theme.</p>
+              <p>No. SectionKit is designed for setup without coding. Follow the app’s installation guide to enable the blocks in your theme.</p>
             </details>
             <details>
-              <summary>Can I use a fixed amount discount?</summary>
-              <p>Yes. Product-specific coupons can use a percentage or a fixed amount discount.</p>
+              <summary>Does the discount-code block create a discount?</summary>
+              <p>No. Create the discount in Shopify first, then display its code in the block.</p>
             </details>
             <details>
-              <summary>Can I edit the AI-generated content?</summary>
-              <p>Yes. Treat generated features and benefits as a draft, then review and customize them for your product.</p>
+              <summary>Can I edit the block content?</summary>
+              <p>Yes. Edit text and design settings in Shopify’s theme editor, then preview and save.</p>
             </details>
             <details>
               <summary>Where can I get help setting it up?</summary>
@@ -173,8 +171,8 @@ export default function Home() {
           <div className="wrap">
             <h2>Make every product page work a little harder.</h2>
             <p>Put offers, delivery information, and product benefits where shoppers can act on them.</p>
-            <a className="btn" href="https://apps.shopify.com/product-discount-3">
-              Add Block Builder to Shopify <span aria-hidden="true">↗</span>
+            <a className="btn" href="/installation-guide">
+              View installation guide <span aria-hidden="true">↗</span>
             </a>
           </div>
         </section>
