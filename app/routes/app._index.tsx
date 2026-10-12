@@ -107,7 +107,7 @@ export default function BlockLibrary() {
   };
   const openThemeUrl = (embed: boolean) =>
     `https://${shop}/admin/themes/current/editor?${embed ? "context=apps&template=index" : "template=product"}`;
-  return <s-page heading="Block Builder" inlineSize="large">
+  return <s-page heading="SectionKit" inlineSize="large">
     <div className="block-intro">
       <s-section heading="Upgrade your product page">
         <s-paragraph>Explore product-page blocks, preview a design, and open it in Shopify’s theme editor to customize and save.</s-paragraph>

@@ -3,7 +3,7 @@
 client_id = "f04e7a3bd20444e3366efaed26071ce0"
 application_url = "https://blockbuilder.task19.com"
 embedded = true
-name = "Block Builder"
+name = "SectionKit"
 
 [auth]
 redirect_urls = [ "https://blockbuilder.task19.com/auth/callback" ]
