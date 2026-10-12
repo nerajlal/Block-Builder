@@ -20,8 +20,8 @@ export function Header() {
   return (
     <header className="top">
       <div className="wrap nav">
-        <Link className="logo" to="/" aria-label="Block Builder home" onClick={closeMenu}>
-          <span className="logo-icon">✦</span>Block Builder
+        <Link className="logo" to="/" aria-label="SectionKit home" onClick={closeMenu}>
+          <span className="logo-icon">✦</span>SectionKit
         </Link>
         
         {/* Hamburger Icon (visible on mobile only) */}
@@ -38,7 +38,7 @@ export function Header() {
           <div className="mobile-menu-header">
             <div className="logo" style={{ color: "white", margin: 0 }}>
               <span className="logo-icon" style={{ background: "var(--lime)", color: "var(--dark)" }}>✦</span>
-              Block Builder
+              SectionKit
             </div>
             <button 
               className="close-mobile-menu" 
