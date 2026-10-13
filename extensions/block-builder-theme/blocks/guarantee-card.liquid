@@ -1,7 +1,8 @@
+{%- assign skc = block.settings -%}
 {% assign policy_link = block.settings.link %}
 {% if policy_link == blank and block.settings.auto_policy_link and shop.refund_policy.url != blank %}{% assign policy_link = shop.refund_policy.url %}{% endif %}
 {% if block.settings.body != blank %}
-<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-guarantee bb-guarantee--{{ block.settings.style | escape }}"{% render "sectionkit-colors", block: block %} {{ block.shopify_attributes }}>
+<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-guarantee bb-guarantee--{{ block.settings.style | escape }}"{% if skc.background_color != blank %} data-bb-bg{% endif %}{% if skc.text_color != blank %} data-bb-text{% endif %}{% if skc.border_color != blank %} data-bb-border{% endif %}{% if skc.accent_color != blank %} data-bb-accent{% endif %} style="{% if skc.background_color != blank %}--bb-custom-bg:{{ skc.background_color | escape }};{% endif %}{% if skc.text_color != blank %}--bb-custom-text:{{ skc.text_color | escape }};{% endif %}{% if skc.border_color != blank %}--bb-custom-border:{{ skc.border_color | escape }};{% endif %}{% if skc.accent_color != blank %}--bb-custom-accent:{{ skc.accent_color | escape }};{% endif %}" {{ block.shopify_attributes }}>
   <span class="bb-guarantee__icon" aria-hidden="true">✓</span>
   <div><strong>{{ block.settings.heading | escape }}</strong><p>{{ block.settings.body | escape | newline_to_br }}</p>{% if policy_link != blank %}<a href="{{ policy_link | escape }}">{{ block.settings.link_label | escape }}</a>{% endif %}</div>
 </div>

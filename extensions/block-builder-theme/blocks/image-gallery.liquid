@@ -1,9 +1,10 @@
+{%- assign skc = block.settings -%}
 {% assign has_media = false %}
 {% if block.settings.layout == 'portrait_videos' %}
   {% if block.settings.video_1 != blank or block.settings.video_2 != blank or block.settings.video_3 != blank or block.settings.video_4 != blank %}{% assign has_media = true %}{% endif %}
 {% elsif block.settings.image_1 != blank or block.settings.image_2 != blank or block.settings.image_3 != blank %}{% assign has_media = true %}{% endif %}
 {% if has_media %}
-<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-gallery{% if block.settings.layout == 'portrait_videos' %} bb-gallery--portrait{% endif %}"{% render "sectionkit-colors", block: block %} {{ block.shopify_attributes }}>
+<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-gallery{% if block.settings.layout == 'portrait_videos' %} bb-gallery--portrait{% endif %}"{% if skc.background_color != blank %} data-bb-bg{% endif %}{% if skc.text_color != blank %} data-bb-text{% endif %}{% if skc.border_color != blank %} data-bb-border{% endif %}{% if skc.accent_color != blank %} data-bb-accent{% endif %} style="{% if skc.background_color != blank %}--bb-custom-bg:{{ skc.background_color | escape }};{% endif %}{% if skc.text_color != blank %}--bb-custom-text:{{ skc.text_color | escape }};{% endif %}{% if skc.border_color != blank %}--bb-custom-border:{{ skc.border_color | escape }};{% endif %}{% if skc.accent_color != blank %}--bb-custom-accent:{{ skc.accent_color | escape }};{% endif %}" {{ block.shopify_attributes }}>
   {% if block.settings.heading != blank %}<h3>{{ block.settings.heading | escape }}</h3>{% endif %}
   <div class="bb-gallery__track" role="region" aria-label="{% if block.settings.layout == 'portrait_videos' %}Short video gallery{% else %}Product image gallery{% endif %}" tabindex="0">
     {% if block.settings.layout == 'portrait_videos' %}

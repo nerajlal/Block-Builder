@@ -1,5 +1,6 @@
+{%- assign skc = block.settings -%}
 {% if block.settings.collections != blank %}
-<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-collection-circles"{% render "sectionkit-colors", block: block %} {{ block.shopify_attributes }}>
+<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-collection-circles"{% if skc.background_color != blank %} data-bb-bg{% endif %}{% if skc.text_color != blank %} data-bb-text{% endif %}{% if skc.border_color != blank %} data-bb-border{% endif %}{% if skc.accent_color != blank %} data-bb-accent{% endif %} style="{% if skc.background_color != blank %}--bb-custom-bg:{{ skc.background_color | escape }};{% endif %}{% if skc.text_color != blank %}--bb-custom-text:{{ skc.text_color | escape }};{% endif %}{% if skc.border_color != blank %}--bb-custom-border:{{ skc.border_color | escape }};{% endif %}{% if skc.accent_color != blank %}--bb-custom-accent:{{ skc.accent_color | escape }};{% endif %}" {{ block.shopify_attributes }}>
   {% if block.settings.heading != blank %}<h3>{{ block.settings.heading | escape }}</h3>{% endif %}
   <div class="bb-collection-circles__grid">
     {% for chosen in block.settings.collections limit: 3 %}
