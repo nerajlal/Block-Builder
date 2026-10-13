@@ -3,78 +3,9 @@
 {% assign rating = product.metafields.reviews.rating.value %}
 {% assign rating_count = product.metafields.reviews.rating_count.value %}
 {% if block.settings.content == 'label' or rating != blank and rating_count > 0 %}
-<div class="bb-badge-wrap" {{ block.shopify_attributes }}><span class="bb-badge bb-badge--{{ block.settings.style | escape }}" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}"{% endif %}>{% if block.settings.content == 'rating' %}★ {{ rating.rating | escape }}/{{ rating.scale_max | escape }} ({{ rating_count }}){% else %}{{ block.settings.label | escape }}{% endif %}</span></div>
+<div class="bb-badge-wrap" {{ block.shopify_attributes }}><span class="bb-badge bb-badge--{{ block.settings.style | escape }}"{% render "sectionkit-colors", block: block %}>{% if block.settings.content == 'rating' %}★ {{ rating.rating | escape }}/{{ rating.scale_max | escape }} ({{ rating_count }}){% else %}{{ block.settings.label | escape }}{% endif %}</span></div>
 {% elsif request.design_mode %}<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-editor-note" {{ block.shopify_attributes }}>This product has no standard review rating and count metafields yet.</div>{% endif %}
 {%- endif -%}
 {% schema %}
-{
-  "name": "Product Badge",
-  "target": "section",
-  "available_if": "{{ app.metafields.sectionkit.allow_product_badge }}",
-  "enabled_on": {
-    "templates": [
-      "product"
-    ]
-  },
-  "stylesheet": "block-builder.css",
-  "settings": [
-    { "type": "select", "id": "content", "label": "Content", "options": [{ "value": "label", "label": "Custom label" }, { "value": "rating", "label": "Real product rating" }], "default": "label", "info": "Rating uses the product's standard review metafields when available." },
-    {
-      "type": "select",
-      "id": "style",
-      "label": "Design",
-      "options": [
-        {
-          "value": "soft",
-          "label": "Soft"
-        },
-        {
-          "value": "outline",
-          "label": "Outline"
-        },
-        {
-          "value": "dark",
-          "label": "Dark"
-        }
-      ],
-      "default": "soft"
-    },
-    {
-      "type": "text",
-      "id": "label",
-      "label": "Badge label",
-      "default": "Featured product"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color",
-      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
-},
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
-},
-    {
-      "type": "color",
-      "id": "border_color",
-      "label": "Border color",
-      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
-},
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent color",
-      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
-},
-    {"type": "header", "content": "Pro: display targeting"},
-    {"type": "textarea", "id": "pro_product_handles", "label": "Product handles (Pro only)", "info": "Comma-separated handles. Leave empty for all products."},
-    {"type": "textarea", "id": "pro_collection_handles", "label": "Collection handles (Pro only)", "info": "Comma-separated handles. Match any collection."},
-    {"type": "textarea", "id": "pro_tags", "label": "Product tags (Pro only)", "info": "Comma-separated tags. Match any tag."},
-    {"type": "text", "id": "pro_countries", "label": "Country codes (Pro only)", "info": "Comma-separated two-letter market country codes."},
-    {"type": "text", "id": "pro_languages", "label": "Language codes (Pro only)", "info": "Comma-separated language codes, for example en,fr."}
-  ]
-}
+{"name":"Product Badge","target":"section","available_if":"{{ app.metafields.sectionkit.allow_product_badge }}","enabled_on":{"templates":["product"]},"stylesheet":"block-builder.css","settings":[{"type":"select","id":"content","label":"Content","options":[{"value":"label","label":"Custom label"},{"value":"rating","label":"Real product rating"}],"default":"label","info":"Rating uses the product's standard review metafields when available."},{"type":"select","id":"style","label":"Design","options":[{"value":"soft","label":"Soft"},{"value":"outline","label":"Outline"},{"value":"dark","label":"Dark"}],"default":"soft"},{"type":"text","id":"label","label":"Badge label","default":"Featured product"},{"type":"color","id":"background_color","label":"Background color"},{"type":"color","id":"text_color","label":"Text color"},{"type":"color","id":"border_color","label":"Border color"},{"type":"color","id":"accent_color","label":"Accent color"},{"type":"header","content":"Pro: display targeting"},{"type":"textarea","id":"pro_product_handles","label":"Product handles (Pro only)","info":"Comma-separated; empty means all."},{"type":"textarea","id":"pro_collection_handles","label":"Collection handles (Pro only)","info":"Comma-separated collection handles."},{"type":"textarea","id":"pro_tags","label":"Product tags (Pro only)","info":"Comma-separated product tags."},{"type":"text","id":"pro_countries","label":"Country codes (Pro only)","info":"Two-letter country codes, comma-separated."},{"type":"text","id":"pro_languages","label":"Language codes (Pro only)","info":"Language codes, comma-separated."}]}
 {% endschema %}

@@ -1,7 +1,7 @@
 {%- capture sk_visibility -%}{%- render "sectionkit-visibility", block: block, product: product, localization: localization -%}{%- endcapture -%}
 {%- if sk_visibility == "show" -%}
 {% if block.settings.message != blank %}
-<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-announcement bb-announcement--{{ block.settings.style | escape }} bb-announcement--{{ block.settings.layout | escape }}" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}"{% endif %} {{ block.shopify_attributes }}>
+<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-announcement bb-announcement--{{ block.settings.style | escape }} bb-announcement--{{ block.settings.layout | escape }}"{% render "sectionkit-colors", block: block %} {{ block.shopify_attributes }}>
   {% if block.settings.layout == 'ticker' %}
     <div class="bb-announcement__ticker"><span>{{ block.settings.heading | escape }} · {{ block.settings.message | escape }}</span><span aria-hidden="true">{{ block.settings.heading | escape }} · {{ block.settings.message | escape }}</span></div>
   {% else %}
@@ -14,92 +14,5 @@
 {% elsif request.design_mode %}<div class="bb-block bb-editor-note" {{ block.shopify_attributes }}>Enter your announcement message to show this block.</div>{% endif %}
 {%- endif -%}
 {% schema %}
-{
-  "name": "Product announcement",
-  "target": "section",
-  "available_if": "{{ app.metafields.sectionkit.allow_announcement_bar }}",
-  "enabled_on": {
-    "templates": [
-      "product"
-    ]
-  },
-  "stylesheet": "block-builder.css",
-  "javascript": "announcement-bar.js",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Store update"
-    },
-    {
-      "type": "text",
-      "id": "message",
-      "label": "Message"
-    },
-    {
-      "type": "url",
-      "id": "link",
-      "label": "Optional link"
-    },
-    {
-      "type": "text",
-      "id": "link_label",
-      "label": "Link label",
-      "default": "Explore"
-    },
-    { "type": "select", "id": "layout", "label": "Layout", "options": [{ "value": "standard", "label": "Standard" }, { "value": "ticker", "label": "Scrolling message" }, { "value": "coupon", "label": "Responsive coupon" }], "default": "standard" },
-    { "type": "text", "id": "code", "label": "Existing Shopify discount code", "info": "Only shown in Responsive coupon. Create and test the code in Shopify Discounts first." },
-    {
-      "type": "select",
-      "id": "style",
-      "label": "Style",
-      "default": "dark",
-      "options": [
-        {
-          "value": "dark",
-          "label": "Dark"
-        },
-        {
-          "value": "cream",
-          "label": "Cream"
-        },
-        {
-          "value": "outline",
-          "label": "Outline"
-        }
-      ]
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color",
-      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
-},
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
-},
-    {
-      "type": "color",
-      "id": "border_color",
-      "label": "Border color",
-      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
-},
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent color",
-      "info": "Leave empty to use the widget design. Custom colors require Starter or Pro."
-},
-    {"type": "header", "content": "Pro: display targeting"},
-    {"type": "textarea", "id": "pro_product_handles", "label": "Product handles (Pro only)", "info": "Comma-separated handles. Leave empty for all products."},
-    {"type": "textarea", "id": "pro_collection_handles", "label": "Collection handles (Pro only)", "info": "Comma-separated handles. Match any collection."},
-    {"type": "textarea", "id": "pro_tags", "label": "Product tags (Pro only)", "info": "Comma-separated tags. Match any tag."},
-    {"type": "text", "id": "pro_countries", "label": "Country codes (Pro only)", "info": "Comma-separated two-letter market country codes."},
-    {"type": "text", "id": "pro_languages", "label": "Language codes (Pro only)", "info": "Comma-separated language codes, for example en,fr."}
-  ]
-}
+{"name":"Product announcement","target":"section","available_if":"{{ app.metafields.sectionkit.allow_announcement_bar }}","enabled_on":{"templates":["product"]},"stylesheet":"block-builder.css","javascript":"announcement-bar.js","settings":[{"type":"text","id":"heading","label":"Heading","default":"Store update"},{"type":"text","id":"message","label":"Message"},{"type":"url","id":"link","label":"Optional link"},{"type":"text","id":"link_label","label":"Link label","default":"Explore"},{"type":"select","id":"layout","label":"Layout","options":[{"value":"standard","label":"Standard"},{"value":"ticker","label":"Scrolling message"},{"value":"coupon","label":"Responsive coupon"}],"default":"standard"},{"type":"text","id":"code","label":"Existing Shopify discount code","info":"Only shown in Responsive coupon. Create and test the code in Shopify Discounts first."},{"type":"select","id":"style","label":"Style","default":"dark","options":[{"value":"dark","label":"Dark"},{"value":"cream","label":"Cream"},{"value":"outline","label":"Outline"}]},{"type":"color","id":"background_color","label":"Background color"},{"type":"color","id":"text_color","label":"Text color"},{"type":"color","id":"border_color","label":"Border color"},{"type":"color","id":"accent_color","label":"Accent color"},{"type":"header","content":"Pro: display targeting"},{"type":"textarea","id":"pro_product_handles","label":"Product handles (Pro only)","info":"Comma-separated; empty means all."},{"type":"textarea","id":"pro_collection_handles","label":"Collection handles (Pro only)","info":"Comma-separated collection handles."},{"type":"textarea","id":"pro_tags","label":"Product tags (Pro only)","info":"Comma-separated product tags."},{"type":"text","id":"pro_countries","label":"Country codes (Pro only)","info":"Two-letter country codes, comma-separated."},{"type":"text","id":"pro_languages","label":"Language codes (Pro only)","info":"Language codes, comma-separated."}]}
 {% endschema %}

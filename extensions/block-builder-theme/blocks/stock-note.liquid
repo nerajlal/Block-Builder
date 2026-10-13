@@ -3,7 +3,7 @@
 {% assign selected_variant = product.selected_or_first_available_variant %}
 {% assign show_quantity = false %}
 {% if block.settings.show_low_stock and selected_variant.available and selected_variant.inventory_management == 'shopify' and selected_variant.inventory_policy == 'deny' and selected_variant.inventory_quantity > 0 and selected_variant.inventory_quantity <= block.settings.low_stock_threshold %}{% assign show_quantity = true %}{% endif %}
-<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-stock{% unless selected_variant.available %} bb-stock--out{% endunless %}{% if block.settings.display == 'badge' %} bb-stock--badge{% endif %}" data-bb-low-enabled="{{ block.settings.show_low_stock }}" data-bb-low-threshold="{{ block.settings.low_stock_threshold }}" {% if block.settings.background_color != blank %} data-bb-bg{% endif %}{% if block.settings.text_color != blank %} data-bb-text{% endif %}{% if block.settings.border_color != blank %} data-bb-border{% endif %}{% if block.settings.accent_color != blank %} data-bb-accent{% endif %}{% if block.settings.background_color != blank or block.settings.text_color != blank or block.settings.border_color != blank or block.settings.accent_color != blank %} style="{% if block.settings.background_color != blank %}--bb-custom-bg:{{ block.settings.background_color | escape }};{% endif %}{% if block.settings.text_color != blank %}--bb-custom-text:{{ block.settings.text_color | escape }};{% endif %}{% if block.settings.border_color != blank %}--bb-custom-border:{{ block.settings.border_color | escape }};{% endif %}{% if block.settings.accent_color != blank %}--bb-custom-accent:{{ block.settings.accent_color | escape }};{% endif %}"{% endif %} data-bb-stock role="status" aria-live="polite">
+<div data-bb-paid="{{ app.metafields.sectionkit.paid_enabled.value }}" class="bb-block bb-stock{% unless selected_variant.available %} bb-stock--out{% endunless %}{% if block.settings.display == 'badge' %} bb-stock--badge{% endif %}" data-bb-low-enabled="{{ block.settings.show_low_stock }}" data-bb-low-threshold="{{ block.settings.low_stock_threshold }}"{% render "sectionkit-colors", block: block %} data-bb-stock role="status" aria-live="polite">
   <span data-bb-stock-available{% if show_quantity or selected_variant.available == false %} hidden{% endif %}>● {{ block.settings.available_text | escape }}</span>
   <span data-bb-stock-low{% unless show_quantity %} hidden{% endunless %}>{{ block.settings.low_stock_prefix | escape }} <span data-bb-stock-quantity>{{ selected_variant.inventory_quantity }}</span> {{ block.settings.low_stock_suffix | escape }}</span>
   <span data-bb-stock-unavailable{% if selected_variant.available %} hidden{% endif %}>{{ block.settings.sold_out_text | escape }}</span>
@@ -11,45 +11,5 @@
 </div>
 {%- endif -%}
 {% schema %}
-{
-  "name": "Stock Note",
-  "target": "section",
-  "available_if": "{{ app.metafields.sectionkit.allow_stock_note }}",
-  "stylesheet": "block-builder.css",
-  "javascript": "stock-note.js",
-  "settings": [
-    { "type": "select", "id": "display", "label": "Display", "options": [{ "value": "note", "label": "Note" }, { "value": "badge", "label": "Badge" }], "default": "note" },
-    {
-      "type": "text",
-      "id": "available_text",
-      "label": "Available Text",
-      "default": "Available and ready to ship"
-    },
-    {
-      "type": "text",
-      "id": "sold_out_text",
-      "label": "Sold Out Text",
-      "default": "Currently unavailable"
-    },
-    { "type": "checkbox", "id": "show_low_stock", "label": "Show actual low stock", "default": false, "info": "Only for Shopify-tracked variants that cannot oversell." },
-    { "type": "range", "id": "low_stock_threshold", "label": "Low stock threshold", "min": 1, "max": 50, "step": 1, "default": 8 },
-    { "type": "text", "id": "low_stock_prefix", "label": "Low stock prefix", "default": "Only" },
-    { "type": "text", "id": "low_stock_suffix", "label": "Low stock suffix", "default": "left" },
-    { "type": "color", "id": "background_color", "label": "Background color", "info": "Custom colors require Starter or Pro." },
-    { "type": "color", "id": "text_color", "label": "Text color", "info": "Custom colors require Starter or Pro." },
-    { "type": "color", "id": "border_color", "label": "Border color", "info": "Custom colors require Starter or Pro." },
-    { "type": "color", "id": "accent_color", "label": "Accent color", "info": "Custom colors require Starter or Pro." },
-    {"type": "header", "content": "Pro: display targeting"},
-    {"type": "textarea", "id": "pro_product_handles", "label": "Product handles (Pro only)", "info": "Comma-separated handles. Leave empty for all products."},
-    {"type": "textarea", "id": "pro_collection_handles", "label": "Collection handles (Pro only)", "info": "Comma-separated handles. Match any collection."},
-    {"type": "textarea", "id": "pro_tags", "label": "Product tags (Pro only)", "info": "Comma-separated tags. Match any tag."},
-    {"type": "text", "id": "pro_countries", "label": "Country codes (Pro only)", "info": "Comma-separated two-letter market country codes."},
-    {"type": "text", "id": "pro_languages", "label": "Language codes (Pro only)", "info": "Comma-separated language codes, for example en,fr."}
-  ],
-  "enabled_on": {
-    "templates": [
-      "product"
-    ]
-  }
-}
+{"name":"Stock Note","target":"section","available_if":"{{ app.metafields.sectionkit.allow_stock_note }}","stylesheet":"block-builder.css","javascript":"stock-note.js","settings":[{"type":"select","id":"display","label":"Display","options":[{"value":"note","label":"Note"},{"value":"badge","label":"Badge"}],"default":"note"},{"type":"text","id":"available_text","label":"Available Text","default":"Available and ready to ship"},{"type":"text","id":"sold_out_text","label":"Sold Out Text","default":"Currently unavailable"},{"type":"checkbox","id":"show_low_stock","label":"Show actual low stock","default":false,"info":"Only for Shopify-tracked variants that cannot oversell."},{"type":"range","id":"low_stock_threshold","label":"Low stock threshold","min":1,"max":50,"step":1,"default":8},{"type":"text","id":"low_stock_prefix","label":"Low stock prefix","default":"Only"},{"type":"text","id":"low_stock_suffix","label":"Low stock suffix","default":"left"},{"type":"color","id":"background_color","label":"Background color"},{"type":"color","id":"text_color","label":"Text color"},{"type":"color","id":"border_color","label":"Border color"},{"type":"color","id":"accent_color","label":"Accent color"},{"type":"header","content":"Pro: display targeting"},{"type":"textarea","id":"pro_product_handles","label":"Product handles (Pro only)","info":"Comma-separated; empty means all."},{"type":"textarea","id":"pro_collection_handles","label":"Collection handles (Pro only)","info":"Comma-separated collection handles."},{"type":"textarea","id":"pro_tags","label":"Product tags (Pro only)","info":"Comma-separated product tags."},{"type":"text","id":"pro_countries","label":"Country codes (Pro only)","info":"Two-letter country codes, comma-separated."},{"type":"text","id":"pro_languages","label":"Language codes (Pro only)","info":"Language codes, comma-separated."}],"enabled_on":{"templates":["product"]}}
 {% endschema %}
