@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /app
+Disallow: /auth
+Disallow: /webhooks
+
+Sitemap: https://sectionkit.task19.com/sitemap.xml
