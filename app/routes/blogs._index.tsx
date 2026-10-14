@@ -18,13 +18,17 @@ export const meta: MetaFunction = () => [
   },
 ];
 
-export const loader = async () => {
+export const loader = async ({ request }: { request: Request }) => {
   const blogs = await getBlogs();
-  return { blogs };
+  const perPage = 6;
+  const lastPage = Math.max(1, Math.ceil(blogs.length / perPage));
+  const requestedPage = Number(new URL(request.url).searchParams.get("page") || "1");
+  const page = Number.isSafeInteger(requestedPage) ? Math.min(Math.max(requestedPage, 1), lastPage) : 1;
+  return { blogs: blogs.slice((page - 1) * perPage, page * perPage), page, lastPage, total: blogs.length, perPage };
 };
 
 export default function BlogsIndex() {
-  const { blogs } = useLoaderData<typeof loader>();
+  const { blogs, page, lastPage, total, perPage } = useLoaderData<typeof loader>();
 
   return (
     <>
@@ -86,6 +90,22 @@ export default function BlogsIndex() {
                 <h3>No articles found</h3>
                 <p>Check back soon for new guides and updates.</p>
               </div>
+            )}
+            {lastPage > 1 && (
+              <nav className="blog-pagination" aria-label="Blog pages">
+                <span className="blog-pagination__summary">
+                  Showing {(page - 1) * perPage + 1}–{Math.min(page * perPage, total)} of {total} articles
+                </span>
+                <div className="blog-pagination__controls">
+                  {page > 1 ? <Link className="blog-pagination__link" to={`/blogs?page=${page - 1}`} rel="prev">Previous</Link> : <span className="blog-pagination__disabled" aria-disabled="true">Previous</span>}
+                  {Array.from({ length: lastPage }, (_, index) => index + 1)
+                    .filter((number) => Math.abs(number - page) <= 2)
+                    .map((number) => number === page
+                      ? <span className="blog-pagination__current" aria-current="page" key={number}>{number}</span>
+                      : <Link className="blog-pagination__link" to={`/blogs?page=${number}`} aria-label={`Page ${number}`} key={number}>{number}</Link>)}
+                  {page < lastPage ? <Link className="blog-pagination__link" to={`/blogs?page=${page + 1}`} rel="next">Next</Link> : <span className="blog-pagination__disabled" aria-disabled="true">Next</span>}
+                </div>
+              </nav>
             )}
           </div>
         </section>
